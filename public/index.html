@@ -49,34 +49,23 @@
             object-fit: cover;
         }
 
-        /* MARCA NA PARTE SUPERIOR ESQUERDA */
-        .brand {
+        /* MARCA PNG - ALTO CENTRALIZADA */
+        .brand-logo {
             position: absolute;
-            top: 20px;
-            left: 20px;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
             z-index: 20;
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            font-weight: 700;
-            font-size: 18px;
-            letter-spacing: 2px;
-            background: linear-gradient(135deg, #FFFFFF 0%, #4fc3f7 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 0 20px rgba(79, 195, 247, 0.3);
+            width: 45%;
+            max-width: 200px;
             pointer-events: none;
         }
 
-        .brand small {
-            font-size: 10px;
-            font-weight: 400;
-            letter-spacing: 1px;
-            background: linear-gradient(135deg, #ff99aa 0%, #ff6699 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+        .brand-logo img {
+            width: 100%;
+            height: auto;
             display: block;
-            margin-top: 2px;
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
         }
 
         /* Tap hint inicial (desaparece após toque) */
@@ -110,10 +99,9 @@
     <div id="stage">
         <canvas id="canvas"></canvas>
         
-        <!-- MARCA SUPERIOR ESQUERDA -->
-        <div class="brand">
-            LOHRA
-            <small>estúdio</small>
+        <!-- MARCA PNG - ALTO CENTRALIZADA -->
+        <div class="brand-logo">
+            <img src="marca.png" alt="Lohra">
         </div>
         
         <div id="tapHint" class="tap-hint">🎬 Toque para começar</div>
