@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Lohra · Loop</title>
+    <title>Lohra · Loop Completo</title>
     <style>
         * {
             margin: 0;
@@ -149,11 +149,28 @@
     let playing = true;
     let animationId = null;
     let lastTimestamp = null;
-    let videoDuration = 15; // fallback, será atualizado pela narração
+    let videoDuration = null; // Será definido pela duração REAL da narração
+    let narrationReady = false;
     
     // ================= FUNÇÃO EASING =================
     function easeInOutCubic(t) {
         return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+    
+    // ================= AJUSTAR DURAÇÃO DO LOOP =================
+    // As fases do loop agora são proporcionais à duração total
+    function getLoopPhase(progress) {
+        // As 3 fases dividem os 100% do tempo igualmente
+        // Mas a última fase (volta ao azul) só acontece se NÃO for o fim do vídeo
+        if (progress < 0.4) return 0;      // Azul → Rosa
+        if (progress < 0.7) return 1;      // Rosa → Verde
+        return 2;                           // Verde → Azul
+    }
+    
+    function getTransitionProgress(progress, phase) {
+        if (phase === 0) return easeInOutCubic(progress / 0.4);
+        if (phase === 1) return easeInOutCubic((progress - 0.4) / 0.3);
+        return easeInOutCubic((progress - 0.7) / 0.3);
     }
     
     // ================= DESENHO COM TRANSIÇÕES =================
@@ -166,27 +183,34 @@
             return;
         }
         
-        // Fases do loop
-        if (progress < 0.4) {
-            const t = easeInOutCubic(progress / 0.4);
-            ctx.globalAlpha = 1;
+        // Se a narração ainda não carregou, mostra imagem azul
+        if (!narrationReady || videoDuration === null) {
             ctx.drawImage(images.azul, 0, 0, canvas.width, canvas.height);
-            ctx.globalAlpha = t;
-            ctx.drawImage(images.rosa, 0, 0, canvas.width, canvas.height);
-        } 
-        else if (progress < 0.7) {
-            const t = easeInOutCubic((progress - 0.4) / 0.3);
-            ctx.globalAlpha = 1;
-            ctx.drawImage(images.rosa, 0, 0, canvas.width, canvas.height);
-            ctx.globalAlpha = t;
-            ctx.drawImage(images.verde, 0, 0, canvas.width, canvas.height);
-        } 
-        else {
-            const t = easeInOutCubic((progress - 0.7) / 0.3);
-            ctx.globalAlpha = 1;
-            ctx.drawImage(images.verde, 0, 0, canvas.width, canvas.height);
-            ctx.globalAlpha = t;
-            ctx.drawImage(images.azul, 0, 0, canvas.width, canvas.height);
+            return;
+        }
+        
+        const phase = getLoopPhase(progress);
+        const t = getTransitionProgress(progress, phase);
+        
+        switch(phase) {
+            case 0: // Azul → Rosa
+                ctx.globalAlpha = 1;
+                ctx.drawImage(images.azul, 0, 0, canvas.width, canvas.height);
+                ctx.globalAlpha = t;
+                ctx.drawImage(images.rosa, 0, 0, canvas.width, canvas.height);
+                break;
+            case 1: // Rosa → Verde
+                ctx.globalAlpha = 1;
+                ctx.drawImage(images.rosa, 0, 0, canvas.width, canvas.height);
+                ctx.globalAlpha = t;
+                ctx.drawImage(images.verde, 0, 0, canvas.width, canvas.height);
+                break;
+            case 2: // Verde → Azul (apenas se tiver tempo)
+                ctx.globalAlpha = 1;
+                ctx.drawImage(images.verde, 0, 0, canvas.width, canvas.height);
+                ctx.globalAlpha = t;
+                ctx.drawImage(images.azul, 0, 0, canvas.width, canvas.height);
+                break;
         }
         
         ctx.globalAlpha = 1;
@@ -200,6 +224,9 @@
         bgMusic.muted = false;
         narration.muted = false;
         
+        // Inicia a narração do início
+        narration.currentTime = 0;
+        
         bgMusic.play().catch(e => console.log("Erro música:", e));
         narration.play().catch(e => console.log("Erro narração:", e));
         
@@ -207,44 +234,33 @@
         if (hint) hint.style.display = "none";
     }
     
-    function syncAudioPosition() {
-        if (!audioUnlocked) return;
-        
-        const currentTime = globalT * videoDuration;
-        
-        if (!isNaN(narration.duration) && isFinite(narration.duration)) {
-            const targetTime = currentTime % narration.duration;
-            if (Math.abs(narration.currentTime - targetTime) > 0.3) {
-                narration.currentTime = targetTime;
-            }
-        }
-        
-        if (!isNaN(bgMusic.duration) && isFinite(bgMusic.duration)) {
-            const targetBg = currentTime % bgMusic.duration;
-            if (Math.abs(bgMusic.currentTime - targetBg) > 0.5) {
-                bgMusic.currentTime = targetBg;
-            }
-        }
-    }
-    
     // ================= LOOP PRINCIPAL =================
+    let lastLogTime = 0;
+    
     function animationLoop(now) {
         if (!lastTimestamp) lastTimestamp = now;
         
-        if (playing) {
+        if (playing && narrationReady && videoDuration !== null) {
             const delta = Math.min(100, now - lastTimestamp);
             globalT += delta / (videoDuration * 1000);
             
-            if (globalT >= 1) {
+            // Quando chega ao fim da narração, reinicia suavemente
+            if (globalT >= 1.0) {
                 globalT = 0;
+                // Reinicia a narração
                 if (audioUnlocked && narration) {
                     narration.currentTime = 0;
                     if (narration.paused) narration.play().catch(e => {});
                 }
+                console.log("🔄 Loop reiniciado - narração completa");
             }
             
-            if (audioUnlocked) {
-                syncAudioPosition();
+            // Sincronizar áudio de fundo (opcional)
+            if (audioUnlocked && bgMusic && !isNaN(bgMusic.duration)) {
+                const targetBg = globalT * videoDuration % bgMusic.duration;
+                if (Math.abs(bgMusic.currentTime - targetBg) > 0.5) {
+                    bgMusic.currentTime = targetBg;
+                }
             }
         }
         
@@ -254,14 +270,25 @@
         animationId = requestAnimationFrame(animationLoop);
     }
     
-    // ================= DETECTAR DURAÇÃO DA NARRAÇÃO =================
+    // ================= DETECTAR DURAÇÃO REAL DA NARRAÇÃO =================
     function detectNarrationDuration() {
         narration.addEventListener('loadedmetadata', () => {
             if (narration.duration && !isNaN(narration.duration) && isFinite(narration.duration)) {
                 videoDuration = narration.duration;
-                console.log(`Duração: ${videoDuration}s`);
+                narrationReady = true;
+                console.log(`✅ Duração da narração detectada: ${videoDuration.toFixed(2)} segundos`);
+                console.log(`📊 O loop visual vai durar exatamente esse tempo`);
             }
         });
+        
+        // Fallback caso o áudio não carregue
+        setTimeout(() => {
+            if (videoDuration === null) {
+                videoDuration = 18; // fallback seguro
+                narrationReady = true;
+                console.log(`⚠️ Usando duração fallback: ${videoDuration} segundos`);
+            }
+        }, 3000);
     }
     
     // ================= CARREGAR IMAGENS =================
@@ -277,7 +304,7 @@
     
     function checkReady() {
         if (imagesLoaded === totalImages) {
-            console.log("Imagens carregadas");
+            console.log("✅ Todas as imagens carregadas");
         }
     }
     
@@ -292,6 +319,8 @@
     
     // ================= INICIALIZAÇÃO =================
     function init() {
+        console.log("🎬 Iniciando Lohra Loop - aguardando carregamento...");
+        
         loadImages();
         detectNarrationDuration();
         setupEvents();
