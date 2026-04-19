@@ -1,37 +1,26 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lohra · Reels Narrado</title>
-
-<style>
-body {
-  margin:0;
-  background:#000;
-  display:flex;
-  justify-content:center;
-}
-
-#stage {
-  width:360px;
-  height:640px;
-  position:relative;
-  overflow:hidden;
-}
-
-canvas {
-  position:absolute;
-  width:100%;
-  height:100%;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lohra · Reels Loop</title>
+    <style>
+        body { margin:0; background:#000; display:flex; justify-content:center; align-items:center; height:100vh; overflow: hidden; }
+        #stage { width:360px; height:640px; position:relative; overflow:hidden; background:#000; }
+        canvas { position:absolute; width:100%; height:100%; }
+        /* Aviso discreto caso o som esteja bloqueado */
+        #unmute-hint {
+            position: absolute; bottom: 20px; width: 100%; text-align: center;
+            color: white; font-family: sans-serif; font-size: 12px; z-index: 20;
+            text-shadow: 1px 1px 2px black; pointer-events: none; opacity: 0.7;
+        }
+    </style>
 </head>
-
 <body>
 
-<div id="stage">
-  <canvas id="canvas"></canvas>
+<div id="stage" onclick="unmute()">
+    <div id="unmute-hint">Clique para ativar o som</div>
+    <canvas id="canvas"></canvas>
 </div>
 
 <script>
@@ -41,143 +30,91 @@ const ctx = canvas.getContext("2d");
 canvas.width = 1080;
 canvas.height = 1920;
 
-const DURATION = 12;
+const DURATION = 12; 
 let globalT = 0;
 let last = null;
 
-// 🎧 ÁUDIOS
+// --- ÁUDIOS ---
 const bg = new Audio("https://projeto-lohra-api.vercel.app/api/media?type=audio&file=heart.mp3");
 const voice = new Audio("https://projeto-lohra-api.vercel.app/api/media?type=audio&file=audio_narracao.ogg");
 
-bg.loop = true;
-bg.volume = 0;
-voice.volume = 0;
+bg.loop = true; 
+bg.muted = true; // Necessário para Autoplay
+voice.muted = true; // Necessário para Autoplay
 
-// 🖼️ IMAGENS
-const blue = new Image();
-const pink = new Image();
-const green = new Image();
+// --- IMAGENS ---
+const images = [new Image(), new Image(), new Image()];
+const srcList = [
+    "https://projeto-lohra-api.vercel.app/api/media?type=image&file=kit_azul.jpeg",
+    "https://projeto-lohra-api.vercel.app/api/media?type=image&file=kit_rosa.jpeg",
+    "https://projeto-lohra-api.vercel.app/api/media?type=image&file=kit_verde.jpeg"
+];
 
-blue.src = "https://projeto-lohra-api.vercel.app/api/media?type=image&file=kit_azul.jpeg";
-pink.src = "https://projeto-lohra-api.vercel.app/api/media?type=image&file=kit_rosa.jpeg";
-green.src = "https://projeto-lohra-api.vercel.app/api/media?type=image&file=kit_verde.jpeg";
+let loadedCount = 0;
+images.forEach((img, i) => {
+    img.onload = () => {
+        loadedCount++;
+        if(loadedCount === 3) start();
+    };
+    img.src = srcList[i];
+});
 
-// easing
-function ease(t){ return t*t*(3-2*t); }
-
-// 🔊 fade de áudio
-function fade(audio, target, dur){
-  const steps = 30;
-  let i = 0;
-  const step = dur/steps;
-
-  const interval = setInterval(()=>{
-    i++;
-    audio.volume = target*(i/steps);
-    if(i>=steps) clearInterval(interval);
-  }, step);
+function draw(t) {
+    ctx.clearRect(0, 0, 1080, 1920);
+    
+    // Transições suaves em 3 fases
+    if (t < 0.4) {
+        let m = Math.min(1, Math.max(0, (t - 0.1) / 0.25)); 
+        ctx.globalAlpha = 1;
+        ctx.drawImage(images[0], 0, 0, 1080, 1920);
+        ctx.globalAlpha = m;
+        ctx.drawImage(images[1], 0, 0, 1080, 1920);
+    } else if (t < 0.8) {
+        let m = Math.min(1, Math.max(0, (t - 0.5) / 0.25));
+        ctx.globalAlpha = 1;
+        ctx.drawImage(images[1], 0, 0, 1080, 1920);
+        ctx.globalAlpha = m;
+        ctx.drawImage(images[2], 0, 0, 1080, 1920);
+    } else {
+        // Transição de volta para a primeira imagem (Loop suave)
+        let m = Math.min(1, Math.max(0, (t - 0.85) / 0.15));
+        ctx.globalAlpha = 1;
+        ctx.drawImage(images[2], 0, 0, 1080, 1920);
+        ctx.globalAlpha = m;
+        ctx.drawImage(images[0], 0, 0, 1080, 1920);
+    }
+    ctx.globalAlpha = 1;
 }
 
-// 🎬 GANCHO
-function hook(t){
-  if(t < 0.12){
-    ctx.fillStyle=`rgba(0,0,0,${1 - t*8})`;
-    ctx.fillRect(0,0,1080,1920);
-
-    ctx.fillStyle="#fff";
-    ctx.font="bold 80px sans-serif";
-    ctx.textAlign="center";
-    ctx.fillText("Isso mudou tudo",540,900);
-  }
+function unmute() {
+    bg.muted = false;
+    voice.muted = false;
+    document.getElementById("unmute-hint").style.display = "none";
 }
 
-// 🧠 LEGENDA
-function caption(t){
-  let txt="";
-  if(t<0.25) txt="Antes: conexão física";
-  else if(t<0.5) txt="Algo começou a mudar";
-  else if(t<0.75) txt="Tudo migra pro digital";
-  else txt="Agora: tudo online";
-
-  ctx.fillStyle="rgba(0,0,0,0.6)";
-  ctx.fillRect(0,1600,1080,200);
-
-  ctx.fillStyle="#fff";
-  ctx.font="bold 60px sans-serif";
-  ctx.textAlign="center";
-  ctx.fillText(txt,540,1720);
+function start() {
+    bg.play().catch(e => console.log("Autoplay com som bloqueado, iniciando mudo"));
+    voice.play().catch(e => {});
+    requestAnimationFrame(loop);
 }
 
-// 🎨 IMAGENS + TRANSIÇÃO
-function draw(t){
-  ctx.clearRect(0,0,1080,1920);
+function loop(ts) {
+    if (!last) last = ts;
+    const delta = ts - last;
+    last = ts;
 
-  ctx.globalAlpha=1;
-  ctx.drawImage(blue,0,0,1080,1920);
+    globalT += delta / (DURATION * 1000);
 
-  let mix=0;
-  if(t<0.2) mix=0;
-  else if(t>0.8) mix=1;
-  else mix=ease((t-0.2)/0.6);
+    // REINICIAR LOOP
+    if (globalT >= 1) {
+        globalT = 0;
+        voice.currentTime = 0; // Reinicia a narração
+        voice.play();
+    }
 
-  ctx.globalAlpha=1-mix;
-  ctx.drawImage(pink,0,0,1080,1920);
-
-  ctx.globalAlpha=mix;
-  ctx.drawImage(green,0,0,1080,1920);
-
-  ctx.globalAlpha=1;
-
-  if(mix>0.1 && mix<0.9){
-    ctx.fillStyle=`rgba(79,195,247,${0.1 + mix*0.2})`;
-    ctx.fillRect(0,0,1080,1920);
-  }
+    draw(globalT);
+    requestAnimationFrame(loop);
 }
-
-// 🎧 CONTROLE DE ÁUDIO SINCRONIZADO
-let audioStarted = false;
-
-function syncAudio(t){
-  const time = t * DURATION;
-
-  if(!audioStarted && t > 0.03){
-    bg.play().catch(()=>{});
-    voice.play().catch(()=>{});
-
-    fade(bg,0.25,2000);
-    fade(voice,0.8,1200);
-
-    audioStarted = true;
-  }
-
-  // fade final
-  if(t > 0.9){
-    bg.volume *= 0.96;
-    voice.volume *= 0.94;
-  }
-}
-
-// 🔄 LOOP
-function loop(ts){
-  if(!last) last = ts;
-
-  const delta = ts - last;
-  globalT += delta/(DURATION*1000);
-
-  if(globalT>1) globalT=1;
-
-  last = ts;
-
-  draw(globalT);
-  caption(globalT);
-  hook(globalT);
-  syncAudio(globalT);
-
-  requestAnimationFrame(loop);
-}
-
-requestAnimationFrame(loop);
 </script>
-
 </body>
 </html>
