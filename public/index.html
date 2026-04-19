@@ -1,104 +1,625 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lohra · Reels Limpo</title>
-<style>
-  body { margin:0; background:#000; display:flex; justify-content:center; align-items:center; height:100vh; font-family: sans-serif; }
-  #stage { width:360px; height:640px; position:relative; overflow:hidden; background:#111; cursor: pointer; }
-  canvas { position:absolute; width:100%; height:100%; }
-  .play-msg { color: white; position: absolute; z-index: 10; text-align: center; width: 100%; top: 50%; pointer-events: none; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Projeto Lohra · Jornada de Transformação</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #03030a 0%, #0b0b18 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
+      padding: 24px;
+    }
+
+    /* CARD PRINCIPAL */
+    .video-container {
+      max-width: 1100px;
+      width: 100%;
+      background: rgba(8, 8, 18, 0.85);
+      backdrop-filter: blur(2px);
+      border-radius: 2rem;
+      border: 1px solid rgba(79, 195, 247, 0.2);
+      box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.6);
+      overflow: hidden;
+      transition: all 0.2s;
+    }
+
+    /* HEADER LOHRA */
+    .header-lohra {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 2rem;
+      background: rgba(0, 0, 0, 0.5);
+      border-bottom: 1px solid #ff3366;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .title-section h1 {
+      font-size: 1.6rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, #FFFFFF, #98cef2);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.3px;
+    }
+    .title-section .tag {
+      font-size: 0.75rem;
+      color: #ff99aa;
+      background: rgba(255, 51, 102, 0.15);
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 30px;
+      margin-top: 8px;
+      border-left: 2px solid #ff6680;
+    }
+    .info-badge {
+      font-size: 0.75rem;
+      color: #aaa;
+      background: #11111f;
+      padding: 6px 14px;
+      border-radius: 40px;
+      font-family: monospace;
+    }
+
+    /* ÁREA DE MÍDIA (imagens + canvas de efeitos) */
+    .media-stage {
+      display: flex;
+      gap: 2px;
+      background: #010105;
+      position: relative;
+    }
+    .panel {
+      flex: 1;
+      position: relative;
+      min-height: 460px;
+      background: #05050c;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .panel canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .panel img {
+      width: 100%;
+      height: auto;
+      max-height: 460px;
+      object-fit: contain;
+      display: block;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .panel-label {
+      position: absolute;
+      bottom: 16px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(4px);
+      color: white;
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 6px;
+      z-index: 5;
+      pointer-events: none;
+      font-family: monospace;
+      letter-spacing: 0.5px;
+    }
+    .divider-vertical {
+      width: 2px;
+      background: linear-gradient(to bottom, #ff3366, #4fc3f7);
+    }
+
+    /* CONTROLES E TIMELINE */
+    .controls-area {
+      padding: 1.2rem 2rem 1rem;
+      background: #0a0a14;
+      border-top: 1px solid #1e1e30;
+    }
+    .button-group {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .ctrl-btn {
+      background: transparent;
+      border: 1px solid #2c2c44;
+      color: #ccc;
+      padding: 6px 18px;
+      border-radius: 40px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.2s;
+      font-size: 0.8rem;
+    }
+    .ctrl-btn.primary {
+      background: #1e88e5;
+      border-color: #4fc3f7;
+      color: white;
+      box-shadow: 0 0 6px rgba(79,195,247,0.3);
+    }
+    .ctrl-btn:hover {
+      background: #252540;
+      transform: scale(0.96);
+    }
+    .timeline-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .progress-bar-bg {
+      flex: 1;
+      height: 5px;
+      background: #1e1e2e;
+      border-radius: 10px;
+      cursor: pointer;
+      position: relative;
+    }
+    .progress-fill {
+      width: 0%;
+      height: 5px;
+      background: linear-gradient(90deg, #4fc3f7, #ff6699);
+      border-radius: 10px;
+      transition: width 0.05s linear;
+    }
+    .timecode {
+      font-family: monospace;
+      font-size: 0.75rem;
+      color: #88ccff;
+      min-width: 100px;
+    }
+    .phase-badge {
+      background: #00000055;
+      padding: 4px 12px;
+      border-radius: 24px;
+      font-size: 0.7rem;
+      color: #bbddff;
+    }
+
+    /* STATS E LEGENDA */
+    .stats-panel {
+      display: flex;
+      gap: 24px;
+      padding: 0.8rem 2rem;
+      background: #05050e;
+      border-top: 1px solid #1a1a2a;
+      font-size: 0.8rem;
+    }
+    .stat {
+      color: #aaa;
+    }
+    .stat strong {
+      color: #4fc3f7;
+      font-size: 1.2rem;
+      margin-right: 6px;
+    }
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 0.8rem 2rem;
+      background: #020208;
+      font-size: 0.7rem;
+      border-top: 1px solid #111;
+    }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 10px;
+      display: inline-block;
+      margin-right: 6px;
+    }
+    .footer {
+      padding: 0.8rem 2rem;
+      font-size: 0.65rem;
+      color: #2f2f44;
+      text-align: center;
+      border-top: 1px solid #111122;
+    }
+    @media (max-width: 700px) {
+      .header-lohra { flex-direction: column; align-items: start; }
+      .stats-panel { flex-direction: column; gap: 8px; }
+      .panel-label { font-size: 0.7rem; }
+    }
+  </style>
 </head>
 <body>
 
-<div id="stage" id="player">
-  <div class="play-msg" id="msg">Clique para iniciar</div>
-  <canvas id="canvas"></canvas>
+<div class="video-container" id="appRoot">
+  <div class="header-lohra">
+    <div class="title-section">
+      <h1>✨ Projeto Lohra · Transição Digital</h1>
+      <div class="tag">〰️ Jornada Imersiva · Áudio + Imagens</div>
+    </div>
+    <div class="info-badge">
+      🎧 fone recomendado | 🎚️ transição dinâmica
+    </div>
+  </div>
+
+  <div class="media-stage">
+    <div class="panel" id="panelLeft">
+      <img id="imgLeft" alt="kit azul" crossorigin="anonymous">
+      <canvas id="canvasLeft" width="500" height="460"></canvas>
+      <div class="panel-label">🌿 KIT AZUL · antes da virada</div>
+    </div>
+    <div class="divider-vertical"></div>
+    <div class="panel" id="panelRight">
+      <img id="imgRight" alt="transição rosa → verde" crossorigin="anonymous">
+      <canvas id="canvasRight" width="500" height="460"></canvas>
+      <div class="panel-label">🌀 KIT ROSA → VERDE · transformação</div>
+    </div>
+  </div>
+
+  <div class="controls-area">
+    <div class="button-group">
+      <button class="ctrl-btn primary" id="playPauseBtn">⏸ Pausar</button>
+      <button class="ctrl-btn" id="restartBtn">↺ Reiniciar</button>
+      <button class="ctrl-btn" id="audioToggleBtn">🔊 Trilha: ON</button>
+    </div>
+    <div class="timeline-row">
+      <div class="progress-bar-bg" id="progressBarBg">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="timecode" id="timeDisplay">0:00 / 0:00</div>
+      <div class="phase-badge" id="phaseLabel">Carregando mídia...</div>
+    </div>
+  </div>
+
+  <div class="stats-panel">
+    <div class="stat">📈 <strong id="statProgress">0%</strong> evolução temporal</div>
+    <div class="stat">🎯 <strong id="statHighlight">—</strong> momento chave</div>
+  </div>
+  <div class="legend" id="legendContainer"></div>
+  <div class="footer">
+    🎙️ Narração original + trilha heart.mp3 · Imagens: kit azul / rosa / verde · API Vercel
+  </div>
 </div>
 
 <script>
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
-const msg = document.getElementById("msg");
+  (function(){
+    // ========= 1. CONFIGURAÇÃO DAS MÍDIAS (USANDO API) =========
+    const API_BASE = 'https://projeto-lohra-api.vercel.app/api';
+    
+    // Fallback para URLs diretas (caso a API ainda esteja em setup)
+    // ⚠️ ATENÇÃO: como as URLs diretas estão retornando 404, vamos usar a API e mostrar aviso.
+    // Quando os arquivos estiverem no lugar, a API passará a funcionar.
+    const MEDIA = {
+      leftImg: `${API_BASE}/media?type=image&file=kit_azul.jpeg`,
+      rightStartImg: `${API_BASE}/media?type=image&file=kit_rosa.jpeg`,
+      rightEndImg: `${API_BASE}/media?type=image&file=kit_verde.jpeg`,
+      bgAudio: `${API_BASE}/media?type=audio&file=heart.mp3`,
+      narrationAudio: `${API_BASE}/media?type=audio&file=audio_narracao.ogg`
+    };
+    
+    // Caso queira testar com URLs diretas depois que subir os arquivos, descomente a linha abaixo:
+    // const MEDIA = { leftImg: 'https://projeto-lohra-api.vercel.app/images/kit_azul.jpeg', ... }
 
-canvas.width = 1080;
-canvas.height = 1920;
-
-const DURATION = 12; 
-let globalT = 0;
-let last = null;
-let started = false;
-
-// --- ÁUDIOS ---
-const bg = new Audio("https://projeto-lohra-api.vercel.app/api/media?type=audio&file=heart.mp3");
-const voice = new Audio("https://projeto-lohra-api.vercel.app/api/media?type=audio&file=audio_narracao.ogg");
-
-// --- IMAGENS (Adicionado anti-cache) ---
-const tS = new Date().getTime(); // Força atualização
-const img1 = new Image();
-const img2 = new Image();
-const img3 = new Image();
-
-img1.src = `https://projeto-lohra-api.vercel.app/api/media?type=image&file=kit_azul.jpeg&v=${tS}`;
-img2.src = `https://projeto-lohra-api.vercel.app/api/media?type=image&file=kit_rosa.jpeg&v=${tS}`;
-img3.src = `https://projeto-lohra-api.vercel.app/api/media?type=image&file=kit_verde.jpeg&v=${tS}`;
-
-function ease(t) { return t * t * (3 - 2 * t); }
-
-function draw(t) {
-  ctx.clearRect(0, 0, 1080, 1920);
-  
-  if (t < 0.5) {
-    let m = ease(t / 0.5);
-    ctx.globalAlpha = 1;
-    ctx.drawImage(img1, 0, 0, 1080, 1920);
-    ctx.globalAlpha = m;
-    ctx.drawImage(img2, 0, 0, 1080, 1920);
-  } else {
-    let m = ease((t - 0.5) / 0.5);
-    ctx.globalAlpha = 1;
-    ctx.drawImage(img2, 0, 0, 1080, 1920);
-    ctx.globalAlpha = m;
-    ctx.drawImage(img3, 0, 0, 1080, 1920);
-  }
-}
-
-function loop(ts) {
-  if (!last) last = ts;
-  const delta = ts - last;
-  globalT += delta / (DURATION * 1000);
-
-  if (globalT > 1) globalT = 1;
-
-  draw(globalT);
-
-  // Fade out do áudio no fim
-  if (globalT > 0.9) {
-    bg.volume = Math.max(0, bg.volume - 0.05);
-    voice.volume = Math.max(0, voice.volume - 0.05);
-  }
-
-  if (globalT < 1) {
-    last = ts;
-    requestAnimationFrame(loop);
-  }
-}
-
-// Iniciar ao clique
-document.getElementById("stage").onclick = () => {
-  if (started) return;
-  started = true;
-  msg.style.display = "none";
-  
-  bg.volume = 0.3;
-  voice.volume = 1.0;
-  bg.play();
-  voice.play();
-  
-  requestAnimationFrame(loop);
-};
+    // ========= 2. ELEMENTOS DOM =========
+    const imgLeftEl = document.getElementById('imgLeft');
+    const imgRightEl = document.getElementById('imgRight');
+    const canvasLeft = document.getElementById('canvasLeft');
+    const canvasRight = document.getElementById('canvasRight');
+    const ctxLeft = canvasLeft.getContext('2d');
+    const ctxRight = canvasRight.getContext('2d');
+    
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const restartBtn = document.getElementById('restartBtn');
+    const audioToggleBtn = document.getElementById('audioToggleBtn');
+    const progressBarBg = document.getElementById('progressBarBg');
+    const progressFill = document.getElementById('progressFill');
+    const timeDisplay = document.getElementById('timeDisplay');
+    const phaseLabelSpan = document.getElementById('phaseLabel');
+    const statProgressSpan = document.getElementById('statProgress');
+    const statHighlightSpan = document.getElementById('statHighlight');
+    
+    // ========= 3. VARIÁVEIS GLOBAIS =========
+    let playing = true;
+    let globalT = 0;            // 0..1 progresso
+    let animationId = null;
+    let lastTimestamp = null;
+    const DURATION_SEC = 28;     // 28 segundos de experiência
+    
+    // Áudios
+    let bgAudio = null;
+    let narration = null;
+    let audioEnabled = true;
+    
+    // Imagens carregadas
+    let leftImageLoaded = false;
+    let rightStartLoaded = false;
+    let rightEndLoaded = false;
+    let leftImgObj = new Image();
+    let rightStartObj = new Image();
+    let rightEndObj = new Image();
+    
+    // Fases (timeline personalizável)
+    const PHASES = [
+      { start: 0, end: 0.2, label: "🎬 Introdução · kit azul" },
+      { start: 0.2, end: 0.48, label: "🌊 Transição suave · conexões" },
+      { start: 0.48, end: 0.72, label: "✨ Rosa → Verde · metamorfose" },
+      { start: 0.72, end: 1.0, label: "🌟 Novo ciclo · kit verde" }
+    ];
+    
+    // Destaques (aparecem nos stats)
+    const HIGHLIGHTS = [
+      { time: 0.0, label: "Início da jornada" },
+      { time: 0.25, label: "Primeiras mudanças" },
+      { time: 0.5, label: "Metamorfose visual" },
+      { time: 0.8, label: "Estabilização digital" },
+      { time: 0.95, label: "Completo 🌈" }
+    ];
+    
+    // ========= 4. CARREGAMENTO DAS IMAGENS =========
+    function preloadMedia() {
+      // Imagem esquerda (fixa)
+      leftImgObj.crossOrigin = "Anonymous";
+      leftImgObj.onload = () => { leftImageLoaded = true; drawBothCanvases(); };
+      leftImgObj.src = MEDIA.leftImg;
+      
+      // Imagem início direita (rosa)
+      rightStartObj.crossOrigin = "Anonymous";
+      rightStartObj.onload = () => { rightStartLoaded = true; drawBothCanvases(); };
+      rightStartObj.src = MEDIA.rightStartImg;
+      
+      // Imagem final direita (verde)
+      rightEndObj.crossOrigin = "Anonymous";
+      rightEndObj.onload = () => { rightEndLoaded = true; drawBothCanvases(); };
+      rightEndObj.src = MEDIA.rightEndImg;
+      
+      // também exibe nos elementos img para fallback visual (opcional)
+      imgLeftEl.src = MEDIA.leftImg;
+      imgRightEl.src = MEDIA.rightStartImg;
+    }
+    
+    // ========= 5. FUNÇÃO QUE DESENHA OS CANVAS COM TRANSIÇÃO =========
+    function drawBothCanvases() {
+      if (!leftImageLoaded) return;
+      // Lado esquerdo: sempre a imagem azul
+      if (leftImageLoaded && ctxLeft) {
+        ctxLeft.clearRect(0, 0, canvasLeft.width, canvasLeft.height);
+        // redimensionamento proporcional
+        const w = canvasLeft.width, h = canvasLeft.height;
+        ctxLeft.drawImage(leftImgObj, 0, 0, w, h);
+        // overlay de efeito suave (pode adicionar brilho)
+        if (globalT < 0.4) {
+          ctxLeft.fillStyle = `rgba(79, 195, 247, ${0.08 * (1 - globalT/0.4)})`;
+          ctxLeft.fillRect(0, 0, w, h);
+        }
+      }
+      
+      // Lado direito: transição entre rosa (start) e verde (end) de acordo com globalT
+      if (rightStartLoaded && rightEndLoaded && ctxRight) {
+        ctxRight.clearRect(0, 0, canvasRight.width, canvasRight.height);
+        const w = canvasRight.width, h = canvasRight.height;
+        
+        // Fator de transição: começa em 0.35 e vai até 0.9
+        let mixFactor = 0;
+        if (globalT <= 0.35) mixFactor = 0;
+        else if (globalT >= 0.9) mixFactor = 1;
+        else mixFactor = (globalT - 0.35) / (0.9 - 0.35);
+        
+        // Easing para suavidade
+        const easeMix = Math.sin(mixFactor * Math.PI / 2);
+        
+        // desenha a imagem de origem (rosa)
+        ctxRight.drawImage(rightStartObj, 0, 0, w, h);
+        if (easeMix > 0.01) {
+          ctxRight.globalAlpha = easeMix;
+          ctxRight.drawImage(rightEndObj, 0, 0, w, h);
+          ctxRight.globalAlpha = 1;
+        }
+        
+        // pequeno brilho pulsante durante transição
+        if (globalT > 0.4 && globalT < 0.85) {
+          const pulse = 0.1 + Math.sin(Date.now() / 180) * 0.05;
+          ctxRight.fillStyle = `rgba(255, 215, 150, ${pulse * 0.2})`;
+          ctxRight.fillRect(0, 0, w, h);
+        }
+      }
+    }
+    
+    // ========= 6. ÁUDIO E SINCRONIA =========
+    function initAudio() {
+      if (!bgAudio) {
+        bgAudio = new Audio(MEDIA.bgAudio);
+        bgAudio.loop = true;
+        bgAudio.volume = 0.28;
+      }
+      if (!narration) {
+        narration = new Audio(MEDIA.narrationAudio);
+        narration.volume = 0.65;
+      }
+    }
+    
+    function updateAudioPosition() {
+      if (!narration || !bgAudio) return;
+      const currentTimeSec = globalT * DURATION_SEC;
+      if (narration && !isNaN(narration.duration) && isFinite(narration.duration)) {
+        const targetNarrationTime = currentTimeSec % narration.duration;
+        if (Math.abs(narration.currentTime - targetNarrationTime) > 0.5) {
+          narration.currentTime = targetNarrationTime;
+        }
+      }
+      if (bgAudio && !isNaN(bgAudio.duration) && bgAudio.duration) {
+        const targetBgTime = currentTimeSec % bgAudio.duration;
+        if (Math.abs(bgAudio.currentTime - targetBgTime) > 0.7) bgAudio.currentTime = targetBgTime;
+      }
+    }
+    
+    function playAudiosIfNeeded() {
+      if (!audioEnabled) return;
+      if (bgAudio && bgAudio.paused && playing && globalT > 0.02) bgAudio.play().catch(e=>console.log("áudio bg aguarda interação"));
+      if (narration && narration.paused && playing && globalT > 0.05) narration.play().catch(e=>console.log("narração aguarda clique"));
+    }
+    
+    function pauseAudios() {
+      if (bgAudio) bgAudio.pause();
+      if (narration) narration.pause();
+    }
+    
+    // ========= 7. ATUALIZAÇÃO DE UI E PROGRESSO =========
+    function updateUI() {
+      // barra de progresso
+      progressFill.style.width = (globalT * 100) + '%';
+      const curSec = Math.floor(globalT * DURATION_SEC);
+      const minutes = Math.floor(curSec / 60);
+      const seconds = curSec % 60;
+      const totalMin = Math.floor(DURATION_SEC / 60);
+      const totalSec = DURATION_SEC % 60;
+      timeDisplay.innerText = `${minutes}:${seconds.toString().padStart(2,'0')} / ${totalMin}:${totalSec.toString().padStart(2,'0')}`;
+      
+      // fase atual
+      let currentPhase = PHASES.find(p => globalT >= p.start && globalT <= p.end) || PHASES[PHASES.length-1];
+      phaseLabelSpan.innerText = currentPhase.label;
+      
+      // stats progresso e highlight
+      statProgressSpan.innerText = Math.floor(globalT * 100) + '%';
+      let activeHighlight = HIGHLIGHTS.reduce((prev, curr) => globalT >= curr.time ? curr : prev, HIGHLIGHTS[0]);
+      statHighlightSpan.innerText = activeHighlight.label;
+      
+      // controle dos botões
+      playPauseBtn.innerText = playing ? "⏸ Pausar" : "▶ Continuar";
+      playPauseBtn.classList.toggle("primary", playing);
+    }
+    
+    // ========= 8. LOOP PRINCIPAL (RENDER) =========
+    let lastFrameTime = 0;
+    function animationLoop(now) {
+      if (!lastTimestamp) lastTimestamp = now;
+      if (playing) {
+        const delta = Math.min(100, now - lastTimestamp);
+        globalT += delta / (DURATION_SEC * 1000);
+        if (globalT >= 1) {
+          globalT = 1;
+          playing = false;
+          pauseAudios();
+        }
+        // sincroniza áudio no modo playing
+        if (audioEnabled && playing) {
+          playAudiosIfNeeded();
+          updateAudioPosition();
+        }
+      }
+      lastTimestamp = now;
+      
+      // redesenha os canvases com a transição visual
+      drawBothCanvases();
+      updateUI();
+      
+      animationId = requestAnimationFrame(animationLoop);
+    }
+    
+    // ========= 9. EVENTOS DE CONTROLE =========
+    function togglePlayPause() {
+      playing = !playing;
+      if (playing) {
+        lastTimestamp = null;
+        playAudiosIfNeeded();
+      } else {
+        pauseAudios();
+      }
+      updateUI();
+    }
+    
+    function restartVideo() {
+      globalT = 0;
+      playing = true;
+      lastTimestamp = null;
+      if (bgAudio) bgAudio.currentTime = 0;
+      if (narration) narration.currentTime = 0;
+      if (playing && audioEnabled) playAudiosIfNeeded();
+      drawBothCanvases();
+      updateUI();
+    }
+    
+    function toggleAudioMaster() {
+      audioEnabled = !audioEnabled;
+      if (audioEnabled) {
+        playAudiosIfNeeded();
+        audioToggleBtn.innerText = "🔊 Trilha: ON";
+      } else {
+        pauseAudios();
+        audioToggleBtn.innerText = "🔇 Trilha: OFF";
+      }
+    }
+    
+    function seekToProgress(e) {
+      const rect = progressBarBg.getBoundingClientRect();
+      let clickX = e.clientX - rect.left;
+      let percent = Math.min(1, Math.max(0, clickX / rect.width));
+      globalT = percent;
+      if (!playing) {
+        playing = true;
+        updateUI();
+      }
+      if (audioEnabled) {
+        updateAudioPosition();
+        playAudiosIfNeeded();
+      }
+      drawBothCanvases();
+      lastTimestamp = null;
+    }
+    
+    // ========= 10. INICIALIZAÇÃO =========
+    function init() {
+      preloadMedia();
+      initAudio();
+      
+      // eventos de UI
+      playPauseBtn.addEventListener('click', togglePlayPause);
+      restartBtn.addEventListener('click', restartVideo);
+      audioToggleBtn.addEventListener('click', toggleAudioMaster);
+      progressBarBg.addEventListener('click', seekToProgress);
+      
+      // tamanhos dos canvas
+      function resizeCanvases() {
+        const wLeft = document.getElementById('panelLeft').clientWidth;
+        canvasLeft.width = wLeft;
+        canvasLeft.height = 460;
+        canvasRight.width = wLeft;
+        canvasRight.height = 460;
+        drawBothCanvases();
+      }
+      window.addEventListener('resize', () => { setTimeout(resizeCanvases, 60); });
+      setTimeout(resizeCanvases, 100);
+      
+      // iniciar animação
+      animationId = requestAnimationFrame(animationLoop);
+      
+      // legendas dinâmicas com cores
+      const legendDiv = document.getElementById('legendContainer');
+      legendDiv.innerHTML = `
+        <span><span class="legend-dot" style="background:#5dade2;"></span> Kit Azul (origem)</span>
+        <span><span class="legend-dot" style="background:#f06292;"></span> Kit Rosa (transição)</span>
+        <span><span class="legend-dot" style="background:#81c784;"></span> Kit Verde (destino)</span>
+        <span><span class="legend-dot" style="background:#ffb74d;"></span> Áudio imersivo + narração</span>
+      `;
+    }
+    
+    init();
+  })();
 </script>
 </body>
 </html>
