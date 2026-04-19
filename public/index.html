@@ -2,119 +2,617 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lohra · Reels Loop</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Lohra · Loop Sincronizado com Narração</title>
     <style>
-        body { margin:0; background:#000; display:flex; justify-content:center; align-items:center; height:100vh; overflow: hidden; }
-        #stage { width:360px; height:640px; position:relative; overflow:hidden; background:#000; }
-        canvas { position:absolute; width:100%; height:100%; }
-        /* Aviso discreto caso o som esteja bloqueado */
-        #unmute-hint {
-            position: absolute; bottom: 20px; width: 100%; text-align: center;
-            color: white; font-family: sans-serif; font-size: 12px; z-index: 20;
-            text-shadow: 1px 1px 2px black; pointer-events: none; opacity: 0.7;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: linear-gradient(145deg, #0a0a0f 0%, #000000 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            padding: 20px;
+        }
+
+        /* Container principal estilo Reels */
+        .reels-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
+        }
+
+        #stage {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 9 / 16;
+            background: #000;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        canvas {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            object-fit: cover;
+        }
+
+        /* Overlay de controles */
+        .controls-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+            padding: 20px 16px 16px;
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .reels-container:hover .controls-overlay,
+        .reels-container:active .controls-overlay {
+            opacity: 1;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+            pointer-events: auto;
+            margin-bottom: 12px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4fc3f7, #ff6699);
+            width: 0%;
+            transition: width 0.05s linear;
+            border-radius: 4px;
+        }
+
+        .button-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            pointer-events: auto;
+        }
+
+        .ctrl-btn {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: monospace;
+        }
+
+        .ctrl-btn:hover {
+            background: rgba(255, 255, 255, 0.35);
+            transform: scale(1.02);
+        }
+
+        .time-info {
+            color: white;
+            font-size: 11px;
+            font-family: monospace;
+            background: rgba(0,0,0,0.5);
+            padding: 4px 10px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Legenda da narração */
+        .caption {
+            position: absolute;
+            bottom: 80px;
+            left: 16px;
+            right: 16px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(12px);
+            padding: 10px 16px;
+            border-radius: 20px;
+            color: white;
+            font-size: 13px;
+            text-align: center;
+            font-weight: 500;
+            z-index: 10;
+            transition: all 0.3s;
+            border-left: 3px solid #4fc3f7;
+            font-family: system-ui;
+            pointer-events: none;
+        }
+
+        /* Indicador de áudio */
+        .audio-hint {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            padding: 6px 12px;
+            border-radius: 30px;
+            color: #4fc3f7;
+            font-size: 11px;
+            font-weight: bold;
+            z-index: 10;
+            cursor: pointer;
+            pointer-events: auto;
+            transition: 0.2s;
+            font-family: monospace;
+        }
+
+        .audio-hint:hover {
+            background: rgba(79, 195, 247, 0.3);
+            transform: scale(1.05);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        .tap-hint {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            background: rgba(0,0,0,0.7);
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            white-space: nowrap;
+            z-index: 20;
+            animation: pulse 1.5s ease infinite;
+            pointer-events: none;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
-<div id="stage" onclick="unmute()">
-    <div id="unmute-hint">Clique para ativar o som</div>
-    <canvas id="canvas"></canvas>
+<div class="reels-container">
+    <div id="stage">
+        <canvas id="canvas"></canvas>
+        
+        <!-- Overlay de controles -->
+        <div class="controls-overlay">
+            <div class="progress-bar" id="progressBar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="button-row">
+                <button class="ctrl-btn" id="playPauseBtn">⏸ Pausar</button>
+                <button class="ctrl-btn" id="restartBtn">↺ Replay</button>
+                <div class="time-info" id="timeDisplay">0:00 / 0:00</div>
+            </div>
+        </div>
+        
+        <!-- Legenda da narração -->
+        <div class="caption" id="caption">🎧 Clique para ativar o som</div>
+        
+        <!-- Indicador de áudio -->
+        <div class="audio-hint" id="audioHint">🔇 Som desativado</div>
+        
+        <div id="tapHint" class="tap-hint">🎬 Toque para começar</div>
+    </div>
 </div>
 
 <script>
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
-
-canvas.width = 1080;
-canvas.height = 1920;
-
-const DURATION = 12; 
-let globalT = 0;
-let last = null;
-
-// --- ÁUDIOS ---
-const bg = new Audio("https://projeto-lohra-api.vercel.app/api/media?type=audio&file=heart.mp3");
-const voice = new Audio("https://projeto-lohra-api.vercel.app/api/media?type=audio&file=audio_narracao.ogg");
-
-bg.loop = true; 
-bg.muted = true; // Necessário para Autoplay
-voice.muted = true; // Necessário para Autoplay
-
-// --- IMAGENS ---
-const images = [new Image(), new Image(), new Image()];
-const srcList = [
-    "https://projeto-lohra-api.vercel.app/api/media?type=image&file=kit_azul.jpeg",
-    "https://projeto-lohra-api.vercel.app/api/media?type=image&file=kit_rosa.jpeg",
-    "https://projeto-lohra-api.vercel.app/api/media?type=image&file=kit_verde.jpeg"
-];
-
-let loadedCount = 0;
-images.forEach((img, i) => {
-    img.onload = () => {
-        loadedCount++;
-        if(loadedCount === 3) start();
-    };
-    img.src = srcList[i];
-});
-
-function draw(t) {
-    ctx.clearRect(0, 0, 1080, 1920);
+(function() {
+    // ================= CONFIGURAÇÕES =================
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
     
-    // Transições suaves em 3 fases
-    if (t < 0.4) {
-        let m = Math.min(1, Math.max(0, (t - 0.1) / 0.25)); 
-        ctx.globalAlpha = 1;
-        ctx.drawImage(images[0], 0, 0, 1080, 1920);
-        ctx.globalAlpha = m;
-        ctx.drawImage(images[1], 0, 0, 1080, 1920);
-    } else if (t < 0.8) {
-        let m = Math.min(1, Math.max(0, (t - 0.5) / 0.25));
-        ctx.globalAlpha = 1;
-        ctx.drawImage(images[1], 0, 0, 1080, 1920);
-        ctx.globalAlpha = m;
-        ctx.drawImage(images[2], 0, 0, 1080, 1920);
-    } else {
-        // Transição de volta para a primeira imagem (Loop suave)
-        let m = Math.min(1, Math.max(0, (t - 0.85) / 0.15));
-        ctx.globalAlpha = 1;
-        ctx.drawImage(images[2], 0, 0, 1080, 1920);
-        ctx.globalAlpha = m;
-        ctx.drawImage(images[0], 0, 0, 1080, 1920);
+    // Dimensões fixas (alta qualidade)
+    canvas.width = 1080;
+    canvas.height = 1920;
+    
+    // ================= ÁUDIOS =================
+    const bgMusic = new Audio("https://projeto-lohra-api.vercel.app/api/media?type=audio&file=heart.mp3");
+    const narration = new Audio("https://projeto-lohra-api.vercel.app/api/media?type=audio&file=audio_narracao.ogg");
+    
+    bgMusic.loop = true;
+    bgMusic.volume = 0.35;
+    narration.volume = 0.8;
+    
+    // Estado do áudio
+    let audioEnabled = false;
+    let audioUnlocked = false;
+    
+    // ================= IMAGENS =================
+    const images = {
+        azul: new Image(),
+        rosa: new Image(),
+        verde: new Image()
+    };
+    
+    const imageUrls = {
+        azul: "https://projeto-lohra-api.vercel.app/api/media?type=image&file=kit_azul.jpeg",
+        rosa: "https://projeto-lohra-api.vercel.app/api/media?type=image&file=kit_rosa.jpeg",
+        verde: "https://projeto-lohra-api.vercel.app/api/media?type=image&file=kit_verde.jpeg"
+    };
+    
+    let imagesLoaded = 0;
+    const totalImages = 3;
+    
+    // ================= LEGENDAS SINCRONIZADAS =================
+    const captions = [
+        { time: 0, text: "🌱 Início da jornada · Kit Azul" },
+        { time: 2.5, text: "💫 Transformação começando..." },
+        { time: 5, text: "🌸 Kit Rosa · Metamorfose visual" },
+        { time: 7.5, text: "🍃 Transição para o novo ciclo" },
+        { time: 10, text: "✨ Kit Verde · Renovação completa" },
+        { time: 12.5, text: "🔄 Loop reiniciando · Ciclo infinito" }
+    ];
+    
+    // ================= VARIÁVEIS DE CONTROLE =================
+    let globalT = 0;        // 0 a 1
+    let playing = true;
+    let animationId = null;
+    let lastTimestamp = null;
+    
+    // Duração baseada na narração (vamos detectar ou usar fallback)
+    let videoDuration = 15; // segundos (fallback)
+    
+    // ================= FUNÇÃO EASING =================
+    function easeInOutCubic(t) {
+        return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
     }
-    ctx.globalAlpha = 1;
-}
-
-function unmute() {
-    bg.muted = false;
-    voice.muted = false;
-    document.getElementById("unmute-hint").style.display = "none";
-}
-
-function start() {
-    bg.play().catch(e => console.log("Autoplay com som bloqueado, iniciando mudo"));
-    voice.play().catch(e => {});
-    requestAnimationFrame(loop);
-}
-
-function loop(ts) {
-    if (!last) last = ts;
-    const delta = ts - last;
-    last = ts;
-
-    globalT += delta / (DURATION * 1000);
-
-    // REINICIAR LOOP
-    if (globalT >= 1) {
+    
+    // ================= DESENHO COM TRANSIÇÕES PROFISSIONAIS =================
+    function drawScene(progress) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Verificar se todas as imagens estão carregadas
+        if (!images.azul.complete || !images.rosa.complete || !images.verde.complete) {
+            ctx.fillStyle = "#000";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "white";
+            ctx.font = "30px system-ui";
+            ctx.textAlign = "center";
+            ctx.fillText("Carregando...", canvas.width/2, canvas.height/2);
+            return;
+        }
+        
+        // Definir as 3 fases do loop
+        // Fase 1: 0-0.4 → Azul para Rosa
+        // Fase 2: 0.4-0.7 → Rosa para Verde  
+        // Fase 3: 0.7-1.0 → Verde para Azul (loop)
+        
+        let phase = progress;
+        
+        if (phase < 0.4) {
+            // Transição Azul → Rosa
+            const t = easeInOutCubic(phase / 0.4); // 0 a 1
+            ctx.globalAlpha = 1;
+            ctx.drawImage(images.azul, 0, 0, canvas.width, canvas.height);
+            ctx.globalAlpha = t;
+            ctx.drawImage(images.rosa, 0, 0, canvas.width, canvas.height);
+        } 
+        else if (phase < 0.7) {
+            // Transição Rosa → Verde
+            const t = easeInOutCubic((phase - 0.4) / 0.3);
+            ctx.globalAlpha = 1;
+            ctx.drawImage(images.rosa, 0, 0, canvas.width, canvas.height);
+            ctx.globalAlpha = t;
+            ctx.drawImage(images.verde, 0, 0, canvas.width, canvas.height);
+        } 
+        else {
+            // Transição Verde → Azul (loop)
+            const t = easeInOutCubic((phase - 0.7) / 0.3);
+            ctx.globalAlpha = 1;
+            ctx.drawImage(images.verde, 0, 0, canvas.width, canvas.height);
+            ctx.globalAlpha = t;
+            ctx.drawImage(images.azul, 0, 0, canvas.width, canvas.height);
+        }
+        
+        ctx.globalAlpha = 1;
+        
+        // Efeito de brilho suave durante transições
+        if (phase > 0.3 && phase < 0.8) {
+            const intensity = Math.sin(phase * Math.PI) * 0.15;
+            ctx.fillStyle = `rgba(255, 215, 150, ${intensity})`;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+    }
+    
+    // ================= ATUALIZAR UI =================
+    function updateUI() {
+        // Barra de progresso
+        const progressPercent = globalT * 100;
+        document.getElementById('progressFill').style.width = `${progressPercent}%`;
+        
+        // Tempo decorrido
+        const currentSec = Math.floor(globalT * videoDuration);
+        const minutes = Math.floor(currentSec / 60);
+        const seconds = currentSec % 60;
+        const totalMin = Math.floor(videoDuration / 60);
+        const totalSec = videoDuration % 60;
+        document.getElementById('timeDisplay').innerHTML = `${minutes}:${seconds.toString().padStart(2,'0')} / ${totalMin}:${totalSec.toString().padStart(2,'0')}`;
+        
+        // Legenda atual
+        let currentCaption = captions[0].text;
+        for (let i = captions.length - 1; i >= 0; i--) {
+            if (globalT * videoDuration >= captions[i].time) {
+                currentCaption = captions[i].text;
+                break;
+            }
+        }
+        document.getElementById('caption').innerHTML = currentCaption;
+        
+        // Botão play/pause
+        const playBtn = document.getElementById('playPauseBtn');
+        playBtn.innerHTML = playing ? "⏸ Pausar" : "▶ Play";
+    }
+    
+    // ================= CONTROLE DE ÁUDIO =================
+    function unlockAudio() {
+        if (audioUnlocked) return;
+        
+        audioUnlocked = true;
+        bgMusic.muted = false;
+        narration.muted = false;
+        
+        bgMusic.play().then(() => {
+            console.log("Música iniciada");
+        }).catch(e => {
+            console.log("Erro ao iniciar música:", e);
+        });
+        
+        narration.play().then(() => {
+            console.log("Narração iniciada");
+        }).catch(e => {
+            console.log("Erro ao iniciar narração:", e);
+        });
+        
+        audioEnabled = true;
+        document.getElementById('audioHint').innerHTML = "🔊 Som ativado";
+        document.getElementById('audioHint').style.color = "#4fc3f7";
+        document.getElementById('tapHint').style.display = "none";
+    }
+    
+    function toggleAudio() {
+        if (!audioUnlocked) {
+            unlockAudio();
+            return;
+        }
+        
+        audioEnabled = !audioEnabled;
+        if (audioEnabled) {
+            bgMusic.muted = false;
+            narration.muted = false;
+            if (playing) {
+                bgMusic.play().catch(e => {});
+                narration.play().catch(e => {});
+            }
+            document.getElementById('audioHint').innerHTML = "🔊 Som ativado";
+            document.getElementById('audioHint').style.color = "#4fc3f7";
+        } else {
+            bgMusic.muted = true;
+            narration.muted = true;
+            document.getElementById('audioHint').innerHTML = "🔇 Som desativado";
+            document.getElementById('audioHint').style.color = "#ff6699";
+        }
+    }
+    
+    function syncAudioPosition() {
+        if (!audioUnlocked || !audioEnabled) return;
+        
+        const currentTime = globalT * videoDuration;
+        
+        // Sincronizar narração (evitar drift)
+        if (!isNaN(narration.duration) && isFinite(narration.duration)) {
+            const targetTime = currentTime % narration.duration;
+            if (Math.abs(narration.currentTime - targetTime) > 0.3) {
+                narration.currentTime = targetTime;
+            }
+        }
+        
+        // Sincronizar música de fundo
+        if (!isNaN(bgMusic.duration) && isFinite(bgMusic.duration)) {
+            const targetBg = currentTime % bgMusic.duration;
+            if (Math.abs(bgMusic.currentTime - targetBg) > 0.5) {
+                bgMusic.currentTime = targetBg;
+            }
+        }
+    }
+    
+    // ================= LOOP PRINCIPAL =================
+    function animationLoop(now) {
+        if (!lastTimestamp) lastTimestamp = now;
+        
+        if (playing) {
+            const delta = Math.min(100, now - lastTimestamp);
+            globalT += delta / (videoDuration * 1000);
+            
+            if (globalT >= 1) {
+                globalT = 0;
+                // Reiniciar narração suavemente
+                if (audioUnlocked && audioEnabled && narration) {
+                    narration.currentTime = 0;
+                    if (narration.paused) narration.play().catch(e => {});
+                }
+            }
+            
+            // Sincronizar áudio
+            if (audioUnlocked && audioEnabled && playing) {
+                syncAudioPosition();
+            }
+        }
+        
+        lastTimestamp = now;
+        
+        // Desenhar frame atual
+        drawScene(globalT);
+        updateUI();
+        
+        animationId = requestAnimationFrame(animationLoop);
+    }
+    
+    // ================= CONTROLES DE USUÁRIO =================
+    function togglePlayPause() {
+        playing = !playing;
+        
+        if (playing) {
+            lastTimestamp = null;
+            if (audioUnlocked && audioEnabled) {
+                bgMusic.play().catch(e => {});
+                narration.play().catch(e => {});
+            }
+        } else {
+            if (audioUnlocked && audioEnabled) {
+                bgMusic.pause();
+                narration.pause();
+            }
+        }
+        updateUI();
+    }
+    
+    function restartVideo() {
         globalT = 0;
-        voice.currentTime = 0; // Reinicia a narração
-        voice.play();
+        playing = true;
+        lastTimestamp = null;
+        
+        if (audioUnlocked && audioEnabled) {
+            narration.currentTime = 0;
+            bgMusic.currentTime = 0;
+            bgMusic.play().catch(e => {});
+            narration.play().catch(e => {});
+        }
+        
+        drawScene(0);
+        updateUI();
     }
-
-    draw(globalT);
-    requestAnimationFrame(loop);
-}
+    
+    function seekToProgress(e) {
+        const rect = document.getElementById('progressBar').getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const percent = Math.min(1, Math.max(0, clickX / rect.width));
+        globalT = percent;
+        
+        if (!playing) {
+            playing = true;
+        }
+        
+        if (audioUnlocked && audioEnabled) {
+            syncAudioPosition();
+            if (narration.paused) narration.play().catch(e => {});
+            if (bgMusic.paused) bgMusic.play().catch(e => {});
+        }
+        
+        drawScene(globalT);
+        updateUI();
+        lastTimestamp = null;
+    }
+    
+    // ================= DETECTAR DURAÇÃO DA NARRAÇÃO =================
+    function detectNarrationDuration() {
+        narration.addEventListener('loadedmetadata', () => {
+            if (narration.duration && !isNaN(narration.duration) && isFinite(narration.duration)) {
+                videoDuration = narration.duration;
+                console.log(`Duração detectada: ${videoDuration} segundos`);
+            }
+        });
+    }
+    
+    // ================= CARREGAR IMAGENS =================
+    function loadImages() {
+        images.azul.onload = () => { imagesLoaded++; checkReady(); };
+        images.rosa.onload = () => { imagesLoaded++; checkReady(); };
+        images.verde.onload = () => { imagesLoaded++; checkReady(); };
+        
+        images.azul.src = imageUrls.azul;
+        images.rosa.src = imageUrls.rosa;
+        images.verde.src = imageUrls.verde;
+    }
+    
+    function checkReady() {
+        if (imagesLoaded === totalImages) {
+            console.log("Todas as imagens carregadas");
+            document.getElementById('caption').innerHTML = "✨ Toque na tela para começar ✨";
+        }
+    }
+    
+    // ================= EVENTOS =================
+    function setupEvents() {
+        const stage = document.getElementById('stage');
+        stage.addEventListener('click', (e) => {
+            if (!audioUnlocked) unlockAudio();
+            e.stopPropagation();
+        });
+        
+        document.getElementById('playPauseBtn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            togglePlayPause();
+        });
+        
+        document.getElementById('restartBtn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            restartVideo();
+        });
+        
+        document.getElementById('audioHint').addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleAudio();
+        });
+        
+        document.getElementById('progressBar').addEventListener('click', (e) => {
+            e.stopPropagation();
+            seekToProgress(e);
+        });
+    }
+    
+    // ================= INICIALIZAÇÃO =================
+    function init() {
+        loadImages();
+        detectNarrationDuration();
+        setupEvents();
+        
+        // Pré-carregar áudios com muted para permitir autoplay futuro
+        bgMusic.load();
+        narration.load();
+        
+        // Desenhar placeholder
+        ctx.fillStyle = "#000";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Iniciar loop de animação
+        animationId = requestAnimationFrame(animationLoop);
+        
+        // Tentar unlock automático (apenas para mídia silenciosa)
+        setTimeout(() => {
+            if (!audioUnlocked) {
+                document.getElementById('tapHint').style.display = "flex";
+            }
+        }, 500);
+    }
+    
+    init();
+})();
 </script>
 </body>
 </html>
