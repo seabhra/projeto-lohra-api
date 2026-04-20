@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Lohra · Tela Cheia · YouTube/Instagram</title>
+    <title>Lohra · Tela Cheia · Peças Completas</title>
     <style>
         * {
             margin: 0;
@@ -28,7 +28,6 @@
             font-family: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
         }
 
-        /* Container ocupando 100% da tela SEM bordas pretas */
         .fullscreen-container {
             position: fixed;
             top: 0;
@@ -54,11 +53,12 @@
             height: 100%;
             top: 0;
             left: 0;
-            object-fit: cover;
+            object-fit: contain;
             display: block;
+            background: #000;
         }
 
-        /* Logo da marca centralizada no topo - exatamente top: 120px */
+        /* Logo da marca centralizada no topo */
         .brand-logo {
             position: absolute;
             top: 120px;
@@ -68,7 +68,7 @@
             width: 280px;
             max-width: 55%;
             pointer-events: none;
-            filter: drop-shadow(0 4px 20px rgba(0,0,0,0.4));
+            filter: drop-shadow(0 4px 20px rgba(0,0,0,0.5));
         }
 
         .brand-logo img {
@@ -77,14 +77,13 @@
             display: block;
         }
 
-        /* Botão de toque inicial elegante */
         .tap-hint {
             position: absolute;
             bottom: 15%;
             left: 50%;
             transform: translateX(-50%);
             color: white;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.75);
             padding: 14px 36px;
             border-radius: 60px;
             font-size: 18px;
@@ -102,10 +101,9 @@
 
         @keyframes pulseGlow {
             0%, 100% { opacity: 0.7; transform: translateX(-50%) scale(1); background: rgba(0,0,0,0.7); }
-            50% { opacity: 1; transform: translateX(-50%) scale(1.04); background: rgba(0,0,0,0.85); box-shadow: 0 0 25px rgba(255,255,255,0.15); }
+            50% { opacity: 1; transform: translateX(-50%) scale(1.04); background: rgba(0,0,0,0.85); }
         }
 
-        /* Garantia de que não há scroll ou espaços extras */
         ::-webkit-scrollbar {
             display: none;
         }
@@ -117,7 +115,6 @@
     <div id="stage">
         <canvas id="canvas"></canvas>
         
-        <!-- Logo da marca centralizada no topo (top: 120px) conforme solicitado -->
         <div class="brand-logo">
             <img src="/images/marca.png" alt="LOHRA" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 400 120\'%3E%3Crect width=\'400\' height=\'120\' fill=\'%231a1a2e\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'white\' font-size=\'36\' font-family=\'Arial\' font-weight=\'bold\'%3ELOHRA%3C/text%3E%3C/svg%3E'">
         </div>
@@ -129,27 +126,25 @@
 <script>
 (function() {
     // =================================================================
-    // LOHRA STUDIO - TELA CHEIA SEM BORDAS PRETAS
-    // O vídeo ocupa 100% da tela (object-fit: cover no canvas)
+    // LOHRA STUDIO - TELA CHEIA COM IMAGENS COMPLETAS
+    // As imagens são exibidas com object-fit: contain (sem cortes)
+    // Assim a parte de baixo das peças aparece por completo
     // Logo centralizada no topo (top: 120px)
-    // Sem marca d'água extra - apenas a logo solicitada
     // Loop de 18 segundos - Cada imagem (Azul, Rosa, Verde) aparece 3 vezes
     // =================================================================
     
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d");
     
-    // Função para ajustar o canvas ao tamanho real da tela
     function resizeCanvas() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-        // Redesenhar após resize
         if (images.azul.complete && images.rosa.complete && images.verde.complete) {
             drawFullscreenFrame(globalProgress);
         }
     }
     
-    // ========== IMAGENS DOS KITS (Azul, Rosa, Verde) ==========
+    // ========== IMAGENS DOS KITS ==========
     const images = {
         azul: new Image(),
         rosa: new Image(),
@@ -174,16 +169,15 @@
     let imagesLoadedCount = 0;
     const totalImagesToLoad = 3;
     
-    // Controle do progresso e tempo para 18 segundos exatos
-    let globalProgress = 0;           // 0 a 1 (1 = 18 segundos)
+    let globalProgress = 0;
     let playing = true;
     let animationId = null;
-    let videoStartTime = null;         // Timestamp de início absoluto
-    const TOTAL_DURATION_SEC = 18.0;   // 18 segundos fixos para o loop completo
+    let videoStartTime = null;
+    const TOTAL_DURATION_SEC = 18.0;
     
-    // ========== FUNÇÃO PARA DESENHAR IMAGEM EM TELA CHEIA (COVER) ==========
-    // Remove qualquer borda preta - a imagem cobre 100% da tela
-    function drawImageFullCover(img, ctx, targetW, targetH) {
+    // ========== FUNÇÃO PARA DESENHAR IMAGEM COMPLETA (SEM CORTES) ==========
+    // Usamos "contain" em vez de "cover" - a imagem inteira aparece, centralizada
+    function drawImageFullContain(img, ctx, targetW, targetH) {
         if (!img || !img.complete) return false;
         
         const imgW = img.naturalWidth;
@@ -191,22 +185,26 @@
         
         if (imgW === 0 || imgH === 0) return false;
         
-        // Calcular scale para cobrir completamente a tela (como object-fit: cover)
+        // Calcular scale para que a imagem caiba inteira dentro do canvas (como object-fit: contain)
         const scaleX = targetW / imgW;
         const scaleY = targetH / imgH;
-        const scale = Math.max(scaleX, scaleY);
+        const scale = Math.min(scaleX, scaleY);
         
         const drawW = imgW * scale;
         const drawH = imgH * scale;
         const offsetX = (targetW - drawW) / 2;
         const offsetY = (targetH - drawH) / 2;
         
+        // Limpar o fundo antes de desenhar
+        ctx.fillStyle = "#000000";
+        ctx.fillRect(0, 0, targetW, targetH);
+        
+        // Desenhar a imagem inteira, sem cortes
         ctx.drawImage(img, offsetX, offsetY, drawW, drawH);
         return true;
     }
     
-    // Mapeamento dos segmentos: 9 segmentos (3 imagens × 3 repetições = 9 aparições)
-    // Ordem cíclica: Azul -> Rosa -> Verde -> Azul -> Rosa -> Verde -> Azul -> Rosa -> Verde
+    // Mapeamento dos segmentos: 9 segmentos (3 imagens × 3 repetições)
     function getImageKeyByProgress(progress01) {
         const totalSegments = 9;
         let segmentIndex = Math.floor(progress01 * totalSegments);
@@ -218,7 +216,6 @@
         return imageOrder[cyclePosition];
     }
     
-    // Obter próxima imagem para transição suave (crossfade)
     function getNextImageKey(progress01) {
         const totalSegments = 9;
         let nextSegmentIndex = Math.floor(progress01 * totalSegments) + 1;
@@ -229,27 +226,23 @@
         return imageOrder[cyclePos];
     }
     
-    // Calcular fator de crossfade entre imagens (transições suaves)
     function getCrossfadeFactor(progress01) {
         const totalSegments = 9;
         const segmentDuration = 1.0 / totalSegments;
         const posInSegment = (progress01 % segmentDuration) / segmentDuration;
         
-        const fadeWidth = 0.22; // 22% de cada segmento para fade suave
+        const fadeWidth = 0.22;
         if (posInSegment > (1 - fadeWidth)) {
             return (posInSegment - (1 - fadeWidth)) / fadeWidth;
         }
         return 0;
     }
     
-    // Desenho principal em tela cheia (sem bordas pretas)
+    // Desenho principal com imagens COMPLETAS (sem cortes)
     function drawFullscreenFrame(progress) {
         const w = canvas.width;
         const h = canvas.height;
         
-        ctx.clearRect(0, 0, w, h);
-        
-        // Verificar se todas as imagens estão carregadas
         if (!images.azul.complete || !images.rosa.complete || !images.verde.complete) {
             ctx.fillStyle = "#050505";
             ctx.fillRect(0, 0, w, h);
@@ -268,35 +261,35 @@
         
         const currentImg = images[currentKey];
         
-        // Desenhar imagem atual cobrindo toda a tela
+        // Desenhar imagem atual (contém - inteira, sem cortes)
         if (currentImg && currentImg.complete) {
-            drawImageFullCover(currentImg, ctx, w, h);
+            drawImageFullContain(currentImg, ctx, w, h);
         } else {
             ctx.fillStyle = "#000000";
             ctx.fillRect(0, 0, w, h);
         }
         
-        // Aplicar crossfade com a próxima imagem se houver
+        // Crossfade com próxima imagem
         if (nextKey && blend > 0.01) {
             const nextImg = images[nextKey];
             if (nextImg && nextImg.complete) {
                 ctx.globalAlpha = blend;
-                drawImageFullCover(nextImg, ctx, w, h);
+                drawImageFullContain(nextImg, ctx, w, h);
                 ctx.globalAlpha = 1.0;
             }
         }
         
-        // Vinheta sutil apenas para dar profundidade (opcional, não é watermark)
+        // Vinheta suave apenas para destacar a logo
         ctx.globalCompositeOperation = 'source-over';
-        const gradient = ctx.createRadialGradient(w/2, h/2, w*0.3, w/2, h/2, w*0.8);
+        const gradient = ctx.createRadialGradient(w/2, h/2, w*0.3, w/2, h/2, w*0.85);
         gradient.addColorStop(0, 'rgba(0,0,0,0)');
-        gradient.addColorStop(1, 'rgba(0,0,0,0.15)');
+        gradient.addColorStop(1, 'rgba(0,0,0,0.2)');
         ctx.fillStyle = gradient;
         ctx.fillRect(0, 0, w, h);
         ctx.globalAlpha = 1.0;
     }
     
-    // ========== LOOP PRINCIPAL COM TEMPO ABSOLUTO (18 SEGUNDOS) ==========
+    // Loop de animação com 18 segundos
     function animationLoop(timestamp) {
         if (!playing) {
             animationId = requestAnimationFrame(animationLoop);
@@ -304,7 +297,6 @@
         }
         
         if (audioUnlocked) {
-            // Timer absoluto baseado em performance para garantir exatos 18 segundos por ciclo
             if (videoStartTime === null) {
                 videoStartTime = performance.now();
                 globalProgress = 0;
@@ -314,19 +306,17 @@
             let newProgress = elapsedSeconds / TOTAL_DURATION_SEC;
             
             if (newProgress >= 1.0) {
-                // Reinício suave do loop após completar 18 segundos
                 newProgress = newProgress % 1.0;
                 videoStartTime = performance.now() - (newProgress * TOTAL_DURATION_SEC * 1000);
-                console.log("🔄 Loop de 18s completo - Reiniciando com repetição das 3 imagens");
+                console.log("🔄 Loop de 18s completo - Reiniciando");
             }
             
             globalProgress = newProgress;
             drawFullscreenFrame(globalProgress);
         } else {
-            // Modo standby: mostrar primeira imagem (azul) com logo, sem áudio
+            // Modo standby: mostrar primeira imagem completa
             if (images.azul.complete) {
-                drawImageFullCover(images.azul, ctx, canvas.width, canvas.height);
-                // Leve overlay escuro para destacar o botão
+                drawImageFullContain(images.azul, ctx, canvas.width, canvas.height);
                 ctx.fillStyle = "rgba(0,0,0,0.1)";
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
             } else {
@@ -338,43 +328,37 @@
         animationId = requestAnimationFrame(animationLoop);
     }
     
-    // ========== INICIAR PLAYBACK COMPLETO COM ÁUDIO ==========
     function startFullPlayback() {
         if (!audioUnlocked) return;
         
-        // Resetar timer visual para começar do início do loop de 18s
         videoStartTime = performance.now();
         globalProgress = 0;
         playing = true;
         
-        // Resetar áudios e tocar
         bgMusic.currentTime = 0;
         narration.currentTime = 0;
         
-        bgMusic.play().catch(e => console.warn("bgMusic start:", e));
-        narration.play().catch(e => console.warn("narration start:", e));
+        bgMusic.play().catch(e => console.warn("bgMusic:", e));
+        narration.play().catch(e => console.warn("narration:", e));
         
-        // Esconder hint de toque
         const hint = document.getElementById('tapHint');
         if (hint) hint.style.display = 'none';
         
-        // Configurar loop contínuo da narração para alinhar com o vídeo
         narration.onended = () => {
             if (audioUnlocked && narration) {
                 narration.currentTime = 0;
-                narration.play().catch(e => console.log("reinício narração:", e));
+                narration.play().catch(e => console.log("reinício narração"));
             }
         };
         
         bgMusic.onended = () => {
             if (audioUnlocked && bgMusic) {
                 bgMusic.currentTime = 0;
-                bgMusic.play().catch(e => console.log("reinício música:", e));
+                bgMusic.play().catch(e => console.log("reinício música"));
             }
         };
     }
     
-    // Destravar áudio por interação do usuário (políticas do navegador)
     function unlockAudioAndStart() {
         if (audioUnlocked) return;
         
@@ -387,15 +371,13 @@
         }, 30);
     }
     
-    // ========== CARREGAR IMAGENS ==========
     function loadAllImages() {
         const onImageLoad = () => {
             imagesLoadedCount++;
             if (imagesLoadedCount === totalImagesToLoad) {
-                console.log("✅ Todas as imagens carregadas - Tela cheia sem bordas");
-                // Desenhar frame inicial
+                console.log("✅ Imagens carregadas - Peças aparecerão por completo");
                 if (!audioUnlocked && images.azul.complete) {
-                    drawImageFullCover(images.azul, ctx, canvas.width, canvas.height);
+                    drawImageFullContain(images.azul, ctx, canvas.width, canvas.height);
                 }
             }
         };
@@ -413,16 +395,13 @@
         images.verde.src = imageUrls.verde;
     }
     
-    // Preparar áudio com fallback
     function prepareAudio() {
         bgMusic.load();
         narration.load();
-        // Inicialmente mutado até interação
         bgMusic.muted = true;
         narration.muted = true;
     }
     
-    // ========== EVENTOS DE INTERAÇÃO ==========
     function bindEvents() {
         const stage = document.getElementById('stage');
         const hintDiv = document.getElementById('tapHint');
@@ -441,44 +420,37 @@
             hintDiv.addEventListener('touchstart', startHandler);
         }
         
-        // Teclado também inicia
         document.addEventListener('keydown', (e) => {
             if (e.code === 'Space' || e.code === 'Enter') {
                 if (!audioUnlocked) unlockAudioAndStart();
             }
         });
         
-        // Resize da tela
         window.addEventListener('resize', () => {
             resizeCanvas();
         });
     }
     
-    // ========== INICIALIZAÇÃO ==========
     function init() {
-        console.log("🎬 LOHRA STUDIO - TELA CHEIA | Sem bordas pretas | Logo topo central | Loop 18s");
+        console.log("🎬 LOHRA - Tela cheia | Imagens COMPLETAS (parte de baixo visível) | Logo topo | Loop 18s");
         
         resizeCanvas();
         loadAllImages();
         prepareAudio();
         bindEvents();
         
-        // Desenho inicial
         ctx.fillStyle = "#000000";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         
-        // Tentar mostrar imagem azul o mais rápido possível
         const checkImagesInterval = setInterval(() => {
             if (images.azul.complete) {
-                drawImageFullCover(images.azul, ctx, canvas.width, canvas.height);
+                drawImageFullContain(images.azul, ctx, canvas.width, canvas.height);
                 clearInterval(checkImagesInterval);
             }
         }, 100);
         
-        // Iniciar loop de animação
         animationId = requestAnimationFrame(animationLoop);
         
-        // Mostrar hint após breve delay
         setTimeout(() => {
             const hint = document.getElementById('tapHint');
             if (hint && !audioUnlocked) {
