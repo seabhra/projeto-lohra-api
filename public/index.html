@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Lohra · Loop 18s para Instagram</title>
+    <title>Lohra · Loop 1:1 para Instagram</title>
     <style>
         * {
             margin: 0;
@@ -23,23 +23,22 @@
             overflow: hidden;
         }
 
-        /* Container em 9:16 nativo para visualização, mas OBS capturará tela cheia */
-        .reels-container {
+        /* Container principal em 1:1 (quadrado perfeito) */
+        .square-container {
             position: relative;
             width: 100%;
-            max-width: 400px;
-            margin: 0 auto;
-            border-radius: 0px;
-            overflow: hidden;
+            max-width: 100vw;
+            max-height: 100vh;
+            aspect-ratio: 1 / 1;
             background: #000;
-            box-shadow: none;
+            margin: 0 auto;
         }
 
-        /* O canvas ocupa toda a largura e altura com aspect ratio 9:16 */
+        /* Stage ocupa 100% do quadrado */
         #stage {
             position: relative;
             width: 100%;
-            aspect-ratio: 9 / 16;
+            height: 100%;
             background: #000;
             overflow: hidden;
             cursor: pointer;
@@ -55,119 +54,100 @@
             display: block;
         }
 
-        /* Logo marca sobreposta (Lohra) */
+        /* Logo Lohra sobreposta - centralizada e elegante */
         .brand-logo {
             position: absolute;
-            top: 140px;
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translate(-50%, -50%);
             z-index: 20;
-            width: 42%;
-            max-width: 180px;
+            width: 55%;
+            max-width: 280px;
             pointer-events: none;
+            filter: drop-shadow(0 8px 24px rgba(0,0,0,0.5));
+            animation: gentlePulse 2.5s ease-in-out infinite;
         }
 
         .brand-logo img {
             width: 100%;
             height: auto;
             display: block;
-            filter: drop-shadow(0 4px 16px rgba(0,0,0,0.4));
         }
 
-        /* Botão / dica de toque elegante */
+        /* Toque inicial com estilo */
         .tap-hint {
             position: absolute;
-            bottom: 45%;
+            bottom: 12%;
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translateX(-50%);
             color: white;
-            background: rgba(0,0,0,0.65);
-            padding: 12px 28px;
+            background: rgba(0,0,0,0.7);
+            padding: 14px 32px;
             border-radius: 60px;
             font-size: 16px;
             font-weight: 600;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
             white-space: nowrap;
             z-index: 20;
-            animation: pulse 1.8s ease infinite;
+            animation: pulseGlow 1.8s ease infinite;
             pointer-events: none;
             backdrop-filter: blur(12px);
             font-family: inherit;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 0.65; transform: translate(-50%, -50%) scale(1); }
-            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.06); }
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.7; transform: translateX(-50%) scale(1); background: rgba(0,0,0,0.7); }
+            50% { opacity: 1; transform: translateX(-50%) scale(1.05); background: rgba(0,0,0,0.85); box-shadow: 0 0 20px rgba(255,255,255,0.2); }
         }
 
-        /* Garantia que em tela cheia o OBS capture sem bordas */
-        @media (min-aspect-ratio: 16/9) {
-            body {
-                background: #000;
-            }
-            .reels-container {
-                max-width: none;
-                width: 100%;
-                height: 100vh;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            #stage {
-                width: auto;
-                height: 100vh;
-                aspect-ratio: 9 / 16;
-            }
+        @keyframes gentlePulse {
+            0%, 100% { opacity: 0.92; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.02); }
+        }
+
+        /* Remover qualquer borda ou espaço extra */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
         }
     </style>
 </head>
 <body>
 
-<div class="reels-container">
+<div class="square-container">
     <div id="stage">
         <canvas id="canvas"></canvas>
         
         <div class="brand-logo">
-            <img src="https://projeto-lohra-api.vercel.app/api/media?type=image&file=marca_lohra.png" alt="Lohra" onerror="this.src='https://placehold.co/400x200/1a1a2e/white?text=LOHRA'">
+            <img src="https://projeto-lohra-api.vercel.app/api/media?type=image&file=marca_lohra.png" alt="LOHRA" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 400 200\'%3E%3Crect width=\'400\' height=\'200\' fill=\'%231a1a2e\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'white\' font-size=\'48\' font-family=\'Arial\' font-weight=\'bold\'%3ELOHRA%3C/text%3E%3C/svg%3E'">
         </div>
         
-        <div id="tapHint" class="tap-hint">✨ Toque para começar ✨</div>
+        <div id="tapHint" class="tap-hint">🎬 TOQUE PARA COMEÇAR 🎬</div>
     </div>
 </div>
 
 <script>
 (function() {
     // --------------------------------------------------------------
-    // CONFIGURAÇÃO PRINCIPAL: LOOP DE 18 SEGUNDOS EXATOS
-    // Cada imagem aparece em sequência com crossfade suave, e o ciclo
-    // completo de 3 imagens (azul → rosa → verde) se repete 3 vezes
-    // totalizando 18 segundos.
-    // 
-    // Estrutura de tempo:
-    // - Cada imagem principal tem 2 segundos de exibição plena, 
-    //   transições de 1 segundo entre elas.
-    // - Para 3 imagens, duração de cada ciclo: (2+1)+(2+1)+(2) = 8 segundos?
-    //   Mas o pedido: "repetisse as 3 imagens mais uma vez cada uma ao longo dos 18 segundos"
-    //   Interpretação: cada imagem deve aparecer 3 vezes ao total no vídeo de 18s.
-    //   Portanto: 3 imagens * 3 repetições = 9 segmentos de imagem.
-    //   Vamos distribuir 18s / 9 = 2 segundos por aparição de imagem (incluindo transições suaves).
-    //   Para manter elegância, cada imagem fica visível majoritariamente por ~1.7s e transições curtas.
-    //   Mas para garantir clareza: 18 segundos, 9 blocos visuais (cada imagem aparece três vezes).
-    //   Melhor: timeline linear onde cada imagem tem 2 segundos de destaque, com crossfade de 0.4s entre elas.
-    //   Total por passo: 2.0s, 0.4s de fade -> porém faremos fade contínuo suave. 
-    //   Abaixo: ciclo completo de 3 imagens = 6s (2s por imagem + transição suave) -> 3 ciclos = 18s.
-    //   Implementação robusta: controlador de progresso linear (0..1) com mapeamento para repetição de cada imagem 3 vezes.
+    // LOHRA STUDIO - VIDEO 1:1 QUADRADO PERFEITO
+    // Loop de 18 segundos com cada imagem (azul, rosa, verde) aparecendo 3 vezes
+    // Sem bordas pretas - canvas 1080x1080 (quadrado 1:1)
+    // Total de 9 segmentos (3 imagens x 3 repetições) = 18 segundos
     // --------------------------------------------------------------
     
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d");
     
-    // Resolução fixa para qualidade alta e proporção 9:16
+    // Configuração 1:1 (quadrado perfeito para Instagram Feed/Reels quadrado)
     canvas.width = 1080;
-    canvas.height = 1920;
+    canvas.height = 1080;
     
-    // ========== IMAGENS (Kits) ==========
+    // ========== IMAGENS DOS KITS ==========
     const images = {
         azul: new Image(),
         rosa: new Image(),
@@ -180,354 +160,359 @@
         verde: "https://projeto-lohra-api.vercel.app/api/media?type=image&file=kit_verde.jpeg"
     };
     
-    // ========== ÁUDIOS (background + narração) ==========
+    // ========== ÁUDIOS ==========
     const bgMusic = new Audio("https://projeto-lohra-api.vercel.app/api/media?type=audio&file=heart.mp3");
     const narration = new Audio("https://projeto-lohra-api.vercel.app/api/media?type=audio&file=audio_narracao.ogg");
     
     bgMusic.loop = true;
-    bgMusic.volume = 0.3;
-    narration.volume = 0.85;
+    bgMusic.volume = 0.32;
+    narration.volume = 0.88;
     
     let audioUnlocked = false;
-    let imagesLoadedCount = 0;
-    const totalImagesToLoad = 3;
+    let imagesLoaded = 0;
+    const totalImages = 3;
     
-    // Controle do loop visual sincronizado com timer absoluto de 18 segundos
-    // Cada ciclo completo de 3 imagens dura 6 segundos, repetido 3 vezes = 18s.
-    let globalProgress = 0;        // 0..1 (1 = 18 segundos)
+    // Controle de progresso e tempo
+    let globalProgress = 0;        // 0 a 1 (1 = 18 segundos)
     let playing = true;
     let animationId = null;
-    let startTimeAbsolute = null;
-    let currentLoopInterval = null;
-    let isUsingTimer = false;
-    let narrationDurationDetected = false;
-    
-    // Fallback de tempo caso narração não carregue corretamente
+    let videoStartReal = null;
     const TOTAL_DURATION_SEC = 18.0;   // 18 segundos fixos
     
-    // Estado de exibição para transições suaves e repetição exata das 3 imagens
-    // Mapeamento: temos 9 segmentos (cada imagem aparece 3 vezes)
-    // 0..1 = 18s, cada segmento = 2 segundos.
-    // Imagem índice em cada momento: baseado no progresso (0..1) dividido em 9 partes iguais.
+    // Estado para garantir que o loop reinicie infinitamente
+    let isLooping = true;
     
-    function getImageIndexAndBlend(progress) {
-        // progress de 0 a 1 (18s)
-        // Número total de segmentos: 9 (3 imagens * 3 repetições)
-        const totalSegments = 9;
-        const segmentDuration = 1.0 / totalSegments; // 0.111111...
+    // ========== FUNÇÃO PARA DESENHAR IMAGENS NO QUADRADO 1:1 ==========
+    // As imagens originais podem ser 9:16 ou quadradas, vamos centralizar e preencher o quadrado sem distorção
+    // usando object-fit: cover equivalente no canvas
+    
+    function drawImageCover(img, ctx, targetW, targetH) {
+        if (!img || !img.complete) return false;
         
-        let segPos = progress / segmentDuration; // 0..9
-        let segIndex = Math.floor(segPos);
-        let withinSeg = segPos - segIndex;
+        const imgW = img.naturalWidth;
+        const imgH = img.naturalHeight;
         
-        // Garantir limites
-        if (segIndex >= totalSegments) {
-            segIndex = totalSegments - 1;
-            withinSeg = 1.0;
-        }
-        if (segIndex < 0) segIndex = 0;
+        if (imgW === 0 || imgH === 0) return false;
         
-        // Mapeamento: cada segmento corresponde a uma imagem específica
-        // Padrão: azul(0), rosa(1), verde(2) -> repete 3 vezes
-        const imageOrder = ['azul', 'rosa', 'verde']; 
-        const cycleIndex = segIndex % 3;    // 0:azul, 1:rosa, 2:verde
-        const currentImageKey = imageOrder[cycleIndex];
+        // Calcular scale para cobrir o quadrado sem bordas pretas
+        const scaleX = targetW / imgW;
+        const scaleY = targetH / imgH;
+        const scale = Math.max(scaleX, scaleY);
         
-        // Próxima imagem (para transição)
-        let nextImageKey = null;
-        let nextSegIndex = segIndex + 1;
-        if (nextSegIndex < totalSegments) {
-            const nextCycle = nextSegIndex % 3;
-            nextImageKey = imageOrder[nextCycle];
-        } else {
-            nextImageKey = null; // final do video
-        }
+        const drawW = imgW * scale;
+        const drawH = imgH * scale;
+        const offsetX = (targetW - drawW) / 2;
+        const offsetY = (targetH - drawH) / 2;
         
-        // Fator de crossfade: nos extremos do segmento, fazer fade suave
-        // Dentro de cada segmento, 0.0 a 1.0, usamos curva de fade nos 20% iniciais e finais para transição elegante
-        let blendFactor = 0;
-        const fadeWidth = 0.25; // 25% do segmento para fade suave
-        
-        if (withinSeg <= fadeWidth) {
-            // fade in da próxima imagem? Não, estamos no início do segmento: a imagem atual domina, mas no final do segmento anterior já houve mistura.
-            // Abordagem: queremos que entre segmentos haja crossfade. Para isso, calculamos o blend baseado na proximidade com a borda direita.
-            // Vamos fazer: quando withinSeg < fadeWidth: fade saindo da imagem anterior? melhor usar lógica simétrica:
-            // Na verdade, para suavidade, fazemos blending entre a imagem atual e a próxima quando withinSeg > 1 - fadeWidth.
-            if (nextImageKey && withinSeg > (1 - fadeWidth)) {
-                blendFactor = (withinSeg - (1 - fadeWidth)) / fadeWidth;
-            } else if (nextImageKey && withinSeg < fadeWidth && segIndex > 0) {
-                // Caso especial: início do segmento, suavizar com a imagem anterior? vamos simplificar usando apenas fade final.
-                blendFactor = 0;
-            } else {
-                blendFactor = 0;
-            }
-        } else if (withinSeg > (1 - fadeWidth)) {
-            if (nextImageKey) {
-                blendFactor = (withinSeg - (1 - fadeWidth)) / fadeWidth;
-            } else {
-                blendFactor = 0;
-            }
-        } else {
-            blendFactor = 0;
-        }
-        
-        // Para evitar flickers, limitar blendFactor
-        blendFactor = Math.min(0.98, Math.max(0, blendFactor));
-        
-        return { current: currentImageKey, next: nextImageKey, blend: blendFactor };
+        ctx.drawImage(img, offsetX, offsetY, drawW, drawH);
+        return true;
     }
     
-    // Desenho principal com crossfade garantido e repetição das imagens 3x
-    function drawFromProgress(progress01) {
+    // Mapeamento de segmentos: 9 segmentos (cada imagem aparece 3 vezes)
+    // Ordem: Azul (0), Rosa (1), Verde (2) -> repete 3x
+    function getImageForProgress(progress01) {
+        // progress01: 0 a 1 (18s)
+        const totalSegments = 9;  // 3 imagens * 3 repetições
+        const segmentIndex = Math.floor(progress01 * totalSegments);
+        const clampedIndex = Math.min(segmentIndex, totalSegments - 1);
+        
+        const imageOrder = ['azul', 'rosa', 'verde'];
+        const cyclePos = clampedIndex % 3;
+        return imageOrder[cyclePos];
+    }
+    
+    // Obter próximo segmento para crossfade suave
+    function getNextImageForProgress(progress01) {
+        const totalSegments = 9;
+        let nextSegmentIndex = Math.floor(progress01 * totalSegments) + 1;
+        if (nextSegmentIndex >= totalSegments) return null;
+        
+        const imageOrder = ['azul', 'rosa', 'verde'];
+        const cyclePos = nextSegmentIndex % 3;
+        return imageOrder[cyclePos];
+    }
+    
+    // Calcular fator de blend (crossfade) nas bordas dos segmentos
+    function getBlendFactor(progress01) {
+        const totalSegments = 9;
+        const segmentDuration = 1.0 / totalSegments;
+        const posInSegment = (progress01 % segmentDuration) / segmentDuration; // 0..1 dentro do segmento
+        
+        const fadeWidth = 0.22; // 22% de cada segmento para transição suave
+        if (posInSegment > (1 - fadeWidth)) {
+            // Final do segmento: fade para próxima imagem
+            return (posInSegment - (1 - fadeWidth)) / fadeWidth;
+        }
+        return 0;
+    }
+    
+    // Desenho principal com crossfade e proporção 1:1 perfeita
+    function drawSquareFrame(progress) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Verificar se todas as imagens estão carregadas
         if (!images.azul.complete || !images.rosa.complete || !images.verde.complete) {
-            ctx.fillStyle = "#000";
+            ctx.fillStyle = "#0a0a0a";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
+            // Mostrar texto de carregamento sutil
+            ctx.fillStyle = "#ffffff80";
+            ctx.font = "14px system-ui";
+            ctx.textAlign = "center";
+            ctx.fillText("carregando...", canvas.width/2, canvas.height/2);
             return;
         }
         
-        // Limitar progresso entre 0 e 1
-        let p = Math.min(0.999, Math.max(0, progress01));
-        const { current, next, blend } = getImageIndexAndBlend(p);
+        let p = Math.min(0.9999, Math.max(0, progress));
         
-        // Desenhar imagem atual
-        const currentImg = images[current];
+        // Obter imagem atual e próxima
+        const currentKey = getImageForProgress(p);
+        const nextKey = getNextImageForProgress(p);
+        const blend = getBlendFactor(p);
+        
+        const currentImg = images[currentKey];
+        
+        // Desenhar imagem atual (cover no quadrado)
         if (currentImg && currentImg.complete) {
-            ctx.globalAlpha = 1.0;
-            ctx.drawImage(currentImg, 0, 0, canvas.width, canvas.height);
+            drawImageCover(currentImg, ctx, canvas.width, canvas.height);
         } else {
             ctx.fillStyle = "#111";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
         }
         
-        // Se existe próxima imagem e blend > 0, desenhar por cima com transparência
-        if (next && blend > 0.01) {
-            const nextImg = images[next];
+        // Se houver próxima imagem e blend > 0, desenhar com transparência
+        if (nextKey && blend > 0.01) {
+            const nextImg = images[nextKey];
             if (nextImg && nextImg.complete) {
                 ctx.globalAlpha = blend;
-                ctx.drawImage(nextImg, 0, 0, canvas.width, canvas.height);
+                drawImageCover(nextImg, ctx, canvas.width, canvas.height);
+                ctx.globalAlpha = 1.0;
             }
         }
         
+        // Pequeno detalhe de vinheta sutil para destacar a logo
+        ctx.globalCompositeOperation = 'source-over';
+        const gradient = ctx.createRadialGradient(canvas.width/2, canvas.height/2, canvas.width*0.2, canvas.width/2, canvas.height/2, canvas.width*0.7);
+        gradient.addColorStop(0, 'rgba(0,0,0,0)');
+        gradient.addColorStop(1, 'rgba(0,0,0,0.25)');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.globalAlpha = 1.0;
-        
-        // (Opcional) texto debug? Não necessário para release, mas limpo
     }
     
-    // Função de loop visual: sincroniza com timer absoluto se áudio estiver ativo OU usa fallback baseado em desempenho
-    let animationTimestamp = null;
-    let videoStartReal = null;
-    let useAudioSync = false;
-    let currentNarrationProgress = 0;
-    
-    function updateVisualFrame(now) {
+    // Função principal de animação baseada em timer absoluto de 18 segundos
+    function updateAnimationFrame(now) {
         if (!playing) return;
         
-        if (audioUnlocked && narration && !isNaN(narration.duration) && narration.duration > 0 && !narration.paused) {
-            // Sincronia com narração: mapear tempo da narração para os 18 segundos totais
-            // Mas a narração pode ter duração diferente de 18s? O requisito é que o vídeo dure exatos 18s.
-            // Vamos forçar mapeamento linear: a narração tem duração própria, mas o progresso visual será mapeado de 0 a 1
-            // independente da duração real da narração. Para manter 18s fixos, vamos usar timer real quando áudio estiver ativo
-            // mas respeitar que o vídeo final deve ter exatos 18s independente do áudio.
-            // Para garantir a repetição das imagens três vezes e duração exata, usaremos melhor: timer de performance.
-            if (videoStartReal === null) {
-                videoStartReal = performance.now() - (globalProgress * TOTAL_DURATION_SEC * 1000);
-            }
-            const elapsed = (performance.now() - videoStartReal) / 1000;
-            let newProgress = elapsed / TOTAL_DURATION_SEC;
-            if (newProgress >= 1.0) {
-                // Loop infinito: reiniciar progresso mantendo a reprodução contínua
-                newProgress = newProgress % 1.0;
-                videoStartReal = performance.now() - (newProgress * TOTAL_DURATION_SEC * 1000);
-            }
-            globalProgress = newProgress;
-            drawFromProgress(globalProgress);
-        } 
-        else if (audioUnlocked && narration && narration.duration && narration.duration > 0) {
-            // Aguardando play ou pausado? tenta sincronizar
+        if (audioUnlocked) {
+            // Sistema de tempo preciso para 18 segundos de loop
             if (videoStartReal === null) {
                 videoStartReal = performance.now();
                 globalProgress = 0;
             }
+            
             const elapsed = (performance.now() - videoStartReal) / 1000;
             let newProgress = elapsed / TOTAL_DURATION_SEC;
+            
             if (newProgress >= 1.0) {
+                // Reinício suave do loop após completar 18 segundos
                 newProgress = newProgress % 1.0;
                 videoStartReal = performance.now() - (newProgress * TOTAL_DURATION_SEC * 1000);
+                console.log("🔄 Loop completo 18s, reiniciando progresso visual");
             }
+            
             globalProgress = newProgress;
-            drawFromProgress(globalProgress);
-        }
-        else if (!audioUnlocked) {
-            // Modo pausa: mostrar primeira imagem (azul) estática
+            drawSquareFrame(globalProgress);
+        } else {
+            // Modo stand-by: mostrar primeira imagem (azul) com logo
             if (images.azul.complete) {
-                ctx.drawImage(images.azul, 0, 0, canvas.width, canvas.height);
+                drawImageCover(images.azul, ctx, canvas.width, canvas.height);
+                // Efeito suave overlay
+                ctx.fillStyle = "rgba(0,0,0,0.15)";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
             } else {
                 ctx.fillStyle = "#000";
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
             }
         }
-        else {
-            // Fallback quando narração não está pronta mas áudio destravado
-            if (videoStartReal === null) videoStartReal = performance.now();
-            const elapsed = (performance.now() - videoStartReal) / 1000;
-            let newProgress = elapsed / TOTAL_DURATION_SEC;
-            if (newProgress >= 1.0) {
-                newProgress = newProgress % 1.0;
-                videoStartReal = performance.now() - (newProgress * TOTAL_DURATION_SEC * 1000);
-            }
-            globalProgress = newProgress;
-            drawFromProgress(globalProgress);
-        }
         
-        animationId = requestAnimationFrame(updateVisualFrame);
+        animationId = requestAnimationFrame(updateAnimationFrame);
     }
     
-    // Função para iniciar o loop baseado em timer absoluto (18s) e repetições
-    function startVideoPlayback() {
+    // Gerenciar áudio e sincronia perfeita
+    function startFullPlayback() {
         if (!audioUnlocked) return;
         
-        // Resetar estado visual
+        // Resetar timer visual para começar do início
         videoStartReal = performance.now();
         globalProgress = 0;
         playing = true;
         
-        // Garantir que a narração e música tocam
+        // Reiniciar áudios
         bgMusic.currentTime = 0;
         narration.currentTime = 0;
         
-        bgMusic.play().catch(e => console.warn("bgMusic play:", e));
-        narration.play().catch(e => console.warn("narration play:", e));
+        // Tocar com tratamento de erro
+        const playPromises = [];
+        playPromises.push(bgMusic.play().catch(e => console.warn("bgMusic start:", e)));
+        playPromises.push(narration.play().catch(e => console.warn("narration start:", e)));
         
-        // Esconder hint
+        // Esconder o hint de toque
         const hint = document.getElementById('tapHint');
         if (hint) hint.style.display = 'none';
         
-        // Se narração acabar antes dos 18s, ela vai reiniciar suavemente, mas nosso timer mantém o ciclo visual das imagens
-        // Configurar evento de loop da narração para garantir que ela recomece e fique contínua
+        // Configurar loop infinito da narração para alinhar com os 18s do vídeo
         narration.onended = () => {
-            if (audioUnlocked) {
+            if (audioUnlocked && narration) {
                 narration.currentTime = 0;
-                narration.play().catch(e => console.log("reinício narração:", e));
+                narration.play().catch(e => console.log("restart narration:", e));
             }
         };
         
-        // Para manter sincronia geral, não interrompemos o timer visual.
+        bgMusic.onended = () => {
+            if (audioUnlocked && bgMusic) {
+                bgMusic.currentTime = 0;
+                bgMusic.play().catch(e => console.log("restart bgMusic:", e));
+            }
+        };
     }
     
-    // Destravar áudio após interação do usuário
-    function unlockAudioAndStart() {
+    // Destravar áudio após interação do usuário (necessário para navegadores)
+    function unlockAndStart() {
         if (audioUnlocked) return;
         
         audioUnlocked = true;
         bgMusic.muted = false;
         narration.muted = false;
         
-        // Configura volumes
-        bgMusic.volume = 0.3;
-        narration.volume = 0.85;
-        
-        startVideoPlayback();
+        // Pequeno delay para garantir que tudo está pronto
+        setTimeout(() => {
+            startFullPlayback();
+        }, 50);
     }
     
-    // Carregar imagens e verificar prontidão
+    // Carregar imagens com verificação de conclusão
     function loadAllImages() {
-        images.azul.onload = () => { imagesLoadedCount++; onImageLoaded(); };
-        images.rosa.onload = () => { imagesLoadedCount++; onImageLoaded(); };
-        images.verde.onload = () => { imagesLoadedCount++; onImageLoaded(); };
+        const onLoad = () => {
+            imagesLoaded++;
+            if (imagesLoaded === totalImages) {
+                console.log("✅ Todas as imagens carregadas em 1:1");
+                // Desenhar frame inicial
+                if (!audioUnlocked) {
+                    if (images.azul.complete) {
+                        drawImageCover(images.azul, ctx, canvas.width, canvas.height);
+                    }
+                } else {
+                    drawSquareFrame(globalProgress);
+                }
+            }
+        };
+        
+        images.azul.onload = onLoad;
+        images.rosa.onload = onLoad;
+        images.verde.onload = onLoad;
+        
+        images.azul.onerror = () => { console.error("Erro azul"); imagesLoaded++; onLoad(); };
+        images.rosa.onerror = () => { console.error("Erro rosa"); imagesLoaded++; onLoad(); };
+        images.verde.onerror = () => { console.error("Erro verde"); imagesLoaded++; onLoad(); };
         
         images.azul.src = imageUrls.azul;
         images.rosa.src = imageUrls.rosa;
         images.verde.src = imageUrls.verde;
     }
     
-    function onImageLoaded() {
-        if (imagesLoadedCount === totalImagesToLoad) {
-            console.log("✅ Todas as imagens carregadas. Pronto para exibição.");
-            // Se já estiver destravado, forçar redesenho
-            if (audioUnlocked) {
-                drawFromProgress(globalProgress);
-            } else {
-                // Mostrar primeira imagem estática
-                if (images.azul.complete) {
-                    ctx.drawImage(images.azul, 0, 0, canvas.width, canvas.height);
-                }
-            }
-        }
-    }
-    
-    // Tratar carregamento de áudio e duração (fallback)
-    function prepareAudio() {
+    // Preparar áudios e fallback
+    function prepareAudioFiles() {
         bgMusic.load();
         narration.load();
-        // Forçar carregamento de metadados
-        narration.addEventListener('loadedmetadata', () => {
-            console.log(`Narração duração: ${narration.duration}s`);
-            narrationDurationDetected = true;
-        });
+        
+        // Garantir que o áudio não auto-play sem interação
+        bgMusic.muted = true;
+        narration.muted = true;
+        
+        // Fallback caso a narração não carregue metadados
         setTimeout(() => {
-            if (!narrationDurationDetected) {
-                console.log("Usando duração padrão de 18s para o loop.");
-                narrationDurationDetected = true;
+            if (narration.readyState === 0) {
+                console.log("Áudio pode estar lento, mas o loop visual 18s continua perfeito.");
             }
         }, 2000);
     }
     
-    // Configurar eventos de clique/touch para iniciar (necessário para políticas de áudio)
-    function bindUserEvents() {
-        const stageEl = document.getElementById('stage');
-        const tapHintDiv = document.getElementById('tapHint');
+    // Eventos de toque/clique para iniciar (política de áudio)
+    function bindInteractionEvents() {
+        const stage = document.getElementById('stage');
+        const hintBtn = document.getElementById('tapHint');
         
-        const startHandler = () => {
+        const startHandler = (e) => {
+            e.preventDefault();
             if (!audioUnlocked) {
-                unlockAudioAndStart();
+                unlockAndStart();
             }
         };
         
-        stageEl.addEventListener('click', startHandler);
-        stageEl.addEventListener('touchstart', startHandler);
-        // Também clicar no hint dispara
-        if (tapHintDiv) tapHintDiv.addEventListener('click', startHandler);
-    }
-    
-    // Desenho inicial para não ficar tela preta
-    function initialDraw() {
-        ctx.fillStyle = "#000";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        if (images.azul.complete) {
-            ctx.drawImage(images.azul, 0, 0, canvas.width, canvas.height);
+        stage.addEventListener('click', startHandler);
+        stage.addEventListener('touchstart', startHandler);
+        if (hintBtn) {
+            hintBtn.addEventListener('click', startHandler);
+            hintBtn.addEventListener('touchstart', startHandler);
         }
+        
+        // Suporte para tecla espaço/enter
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' || e.code === 'Enter') {
+                if (!audioUnlocked) unlockAndStart();
+            }
+        });
     }
     
-    // ========== INICIALIZAÇÃO ==========
+    // Ajuste de redimensionamento para garantir que o container seja sempre 1:1 sem bordas pretas
+    function ensureSquareRatio() {
+        const container = document.querySelector('.square-container');
+        if (!container) return;
+        
+        const windowW = window.innerWidth;
+        const windowH = window.innerHeight;
+        
+        // Quadrado perfeito ocupando o máximo possível sem bordas
+        const size = Math.min(windowW, windowH);
+        container.style.width = size + 'px';
+        container.style.height = size + 'px';
+        container.style.maxWidth = 'none';
+        container.style.margin = '0 auto';
+    }
+    
+    // Inicialização completa
     function init() {
-        console.log("🎬 Lohra Studio - Loop 18s com 3 repetições das imagens");
+        console.log("🎬 LOHRA STUDIO - Modo 1:1 Quadrado | Loop 18s | 3 repetições por imagem");
+        
+        ensureSquareRatio();
+        window.addEventListener('resize', ensureSquareRatio);
+        
         loadAllImages();
-        prepareAudio();
-        bindUserEvents();
+        prepareAudioFiles();
+        bindInteractionEvents();
         
-        // Iniciar a animação contínua (sempre rodando)
-        animationId = requestAnimationFrame(updateVisualFrame);
+        // Desenho inicial escuro com logo
+        ctx.fillStyle = "#0a0a0a";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
         
-        // Tentar desenhar algo inicial
-        setTimeout(() => {
+        // Mostrar placeholder da primeira imagem se disponível
+        const tryDrawInitial = setInterval(() => {
             if (images.azul.complete) {
-                initialDraw();
-            } else {
-                const interval = setInterval(() => {
-                    if (images.azul.complete) {
-                        initialDraw();
-                        clearInterval(interval);
-                    }
-                }, 100);
+                drawImageCover(images.azul, ctx, canvas.width, canvas.height);
+                ctx.fillStyle = "rgba(0,0,0,0.2)";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                clearInterval(tryDrawInitial);
             }
-        }, 50);
+        }, 150);
         
-        // Garantir que mesmo sem interação, o canvas não fique branco
-        setInterval(() => {
-            if (!audioUnlocked && images.azul.complete) {
-                ctx.drawImage(images.azul, 0, 0, canvas.width, canvas.height);
-                const logoImg = document.querySelector('.brand-logo img');
-                if (logoImg && logoImg.complete) {} // nada
+        // Iniciar loop de animação
+        animationId = requestAnimationFrame(updateAnimationFrame);
+        
+        // Fallback: após 5 segundos se o usuário não interagir, mostrar hint com mais ênfase
+        setTimeout(() => {
+            const hint = document.getElementById('tapHint');
+            if (hint && !audioUnlocked) {
+                hint.style.display = 'flex';
             }
         }, 500);
     }
