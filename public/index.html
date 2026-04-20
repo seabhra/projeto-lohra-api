@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Lohra · Loop 1:1 para Instagram</title>
+    <title>Lohra · YouTube 16:9 · Loop 18s</title>
     <style>
         * {
             margin: 0;
@@ -19,22 +19,21 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
             overflow: hidden;
         }
 
-        /* Container principal em 1:1 (quadrado perfeito) */
-        .square-container {
+        /* Container 16:9 perfeito para YouTube */
+        .youtube-container {
             position: relative;
             width: 100%;
-            max-width: 100vw;
-            max-height: 100vh;
-            aspect-ratio: 1 / 1;
+            max-width: 1280px;
+            aspect-ratio: 16 / 9;
             background: #000;
             margin: 0 auto;
+            box-shadow: 0 0 0 0 rgba(0,0,0,0);
         }
 
-        /* Stage ocupa 100% do quadrado */
         #stage {
             position: relative;
             width: 100%;
@@ -54,60 +53,70 @@
             display: block;
         }
 
-        /* Logo Lohra sobreposta - centralizada e elegante */
-        .brand-logo {
+        /* Logo original da Lohra - posicionada de forma elegante sem atrapalhar */
+        .lohra-brand {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            bottom: 8%;
+            right: 5%;
             z-index: 20;
-            width: 55%;
-            max-width: 280px;
+            width: 180px;
+            max-width: 18%;
             pointer-events: none;
-            filter: drop-shadow(0 8px 24px rgba(0,0,0,0.5));
-            animation: gentlePulse 2.5s ease-in-out infinite;
+            filter: drop-shadow(0 4px 20px rgba(0,0,0,0.4));
+            opacity: 0.92;
+            transition: opacity 0.3s ease;
         }
 
-        .brand-logo img {
+        .lohra-brand img {
             width: 100%;
             height: auto;
             display: block;
         }
 
-        /* Toque inicial com estilo */
+        /* Versão alternativa da marca também pode aparecer centralizada suavemente */
+        .lohra-brand-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 20;
+            width: 280px;
+            max-width: 30%;
+            pointer-events: none;
+            filter: drop-shadow(0 8px 28px rgba(0,0,0,0.5));
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        /* Toque inicial estiloso */
         .tap-hint {
             position: absolute;
-            bottom: 12%;
+            bottom: 15%;
             left: 50%;
             transform: translateX(-50%);
             color: white;
-            background: rgba(0,0,0,0.7);
-            padding: 14px 32px;
+            background: rgba(0,0,0,0.75);
+            padding: 14px 36px;
             border-radius: 60px;
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 600;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             white-space: nowrap;
-            z-index: 20;
-            animation: pulseGlow 1.8s ease infinite;
+            z-index: 30;
+            animation: pulseGlow 1.6s ease infinite;
             pointer-events: none;
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(16px);
             font-family: inherit;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.25);
         }
 
         @keyframes pulseGlow {
             0%, 100% { opacity: 0.7; transform: translateX(-50%) scale(1); background: rgba(0,0,0,0.7); }
-            50% { opacity: 1; transform: translateX(-50%) scale(1.05); background: rgba(0,0,0,0.85); box-shadow: 0 0 20px rgba(255,255,255,0.2); }
+            50% { opacity: 1; transform: translateX(-50%) scale(1.04); background: rgba(0,0,0,0.85); box-shadow: 0 0 25px rgba(255,255,255,0.15); }
         }
 
-        @keyframes gentlePulse {
-            0%, 100% { opacity: 0.92; transform: translate(-50%, -50%) scale(1); }
-            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.02); }
-        }
-
-        /* Remover qualquer borda ou espaço extra */
+        /* Sempre 16:9 sem bordas */
         html, body {
             margin: 0;
             padding: 0;
@@ -119,35 +128,38 @@
 </head>
 <body>
 
-<div class="square-container">
+<div class="youtube-container">
     <div id="stage">
         <canvas id="canvas"></canvas>
         
-        <div class="brand-logo">
-            <img src="https://projeto-lohra-api.vercel.app/api/media?type=image&file=marca_lohra.png" alt="LOHRA" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 400 200\'%3E%3Crect width=\'400\' height=\'200\' fill=\'%231a1a2e\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'white\' font-size=\'48\' font-family=\'Arial\' font-weight=\'bold\'%3ELOHRA%3C/text%3E%3C/svg%3E'">
+        <!-- Marca original Lohra - posicionada inferior direita (sem watermark intrusiva) -->
+        <div class="lohra-brand">
+            <img src="https://projeto-lohra-api.vercel.app/api/media?type=image&file=marca_lohra.png" alt="LOHRA" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 400 150\'%3E%3Crect width=\'400\' height=\'150\' fill=\'%231a1a2e\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'white\' font-size=\'42\' font-family=\'Arial\' font-weight=\'bold\'%3ELOHRA%3C/text%3E%3C/svg%3E'">
         </div>
         
-        <div id="tapHint" class="tap-hint">🎬 TOQUE PARA COMEÇAR 🎬</div>
+        <!-- Marca adicional centralizada apenas se necessário (opcional) mas deixamos sem -->
+        
+        <div id="tapHint" class="tap-hint">🎬 TOQUE PARA INICIAR 🎬</div>
     </div>
 </div>
 
 <script>
 (function() {
-    // --------------------------------------------------------------
-    // LOHRA STUDIO - VIDEO 1:1 QUADRADO PERFEITO
-    // Loop de 18 segundos com cada imagem (azul, rosa, verde) aparecendo 3 vezes
-    // Sem bordas pretas - canvas 1080x1080 (quadrado 1:1)
-    // Total de 9 segmentos (3 imagens x 3 repetições) = 18 segundos
-    // --------------------------------------------------------------
+    // =================================================================
+    // LOHRA STUDIO - YOUTUBE 16:9 (1920x1080)
+    // Loop de 18 segundos exatos - Cada imagem (Azul, Rosa, Verde) aparece 3 vezes
+    // Sem marcas d'água extras - Apenas a logo original da Lohra
+    // Proporção 16:9 perfeita para YouTube Shorts ou vídeo horizontal
+    // =================================================================
     
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d");
     
-    // Configuração 1:1 (quadrado perfeito para Instagram Feed/Reels quadrado)
-    canvas.width = 1080;
+    // Configuração 16:9 - Resolução nativa alta para qualidade YouTube
+    canvas.width = 1920;
     canvas.height = 1080;
     
-    // ========== IMAGENS DOS KITS ==========
+    // ========== IMAGENS DOS KITS (Azul, Rosa, Verde) ==========
     const images = {
         azul: new Image(),
         rosa: new Image(),
@@ -165,28 +177,23 @@
     const narration = new Audio("https://projeto-lohra-api.vercel.app/api/media?type=audio&file=audio_narracao.ogg");
     
     bgMusic.loop = true;
-    bgMusic.volume = 0.32;
-    narration.volume = 0.88;
+    bgMusic.volume = 0.3;
+    narration.volume = 0.85;
     
     let audioUnlocked = false;
-    let imagesLoaded = 0;
-    const totalImages = 3;
+    let imagesLoadedCount = 0;
+    const totalImagesToLoad = 3;
     
-    // Controle de progresso e tempo
-    let globalProgress = 0;        // 0 a 1 (1 = 18 segundos)
+    // Controle do progresso e tempo para 18 segundos exatos
+    let globalProgress = 0;           // 0 a 1 (1 = 18 segundos)
     let playing = true;
     let animationId = null;
-    let videoStartReal = null;
-    const TOTAL_DURATION_SEC = 18.0;   // 18 segundos fixos
+    let videoStartTime = null;         // Timestamp de início absoluto
+    const TOTAL_DURATION_SEC = 18.0;   // 18 segundos fixos para o loop completo
     
-    // Estado para garantir que o loop reinicie infinitamente
-    let isLooping = true;
-    
-    // ========== FUNÇÃO PARA DESENHAR IMAGENS NO QUADRADO 1:1 ==========
-    // As imagens originais podem ser 9:16 ou quadradas, vamos centralizar e preencher o quadrado sem distorção
-    // usando object-fit: cover equivalente no canvas
-    
-    function drawImageCover(img, ctx, targetW, targetH) {
+    // ========== FUNÇÃO PARA DESENHAR IMAGEM EM 16:9 COBRINDO TODO O CANVAS ==========
+    // As imagens originais podem ser 9:16 ou quadradas, então fazemos "cover" centralizado
+    function drawImageCover16x9(img, ctx, targetW, targetH) {
         if (!img || !img.complete) return false;
         
         const imgW = img.naturalWidth;
@@ -194,7 +201,7 @@
         
         if (imgW === 0 || imgH === 0) return false;
         
-        // Calcular scale para cobrir o quadrado sem bordas pretas
+        // Calcular scale para cobrir completamente o retângulo 16:9 sem bordas pretas
         const scaleX = targetW / imgW;
         const scaleY = targetH / imgH;
         const scale = Math.max(scaleX, scaleY);
@@ -208,21 +215,22 @@
         return true;
     }
     
-    // Mapeamento de segmentos: 9 segmentos (cada imagem aparece 3 vezes)
-    // Ordem: Azul (0), Rosa (1), Verde (2) -> repete 3x
-    function getImageForProgress(progress01) {
-        // progress01: 0 a 1 (18s)
-        const totalSegments = 9;  // 3 imagens * 3 repetições
-        const segmentIndex = Math.floor(progress01 * totalSegments);
-        const clampedIndex = Math.min(segmentIndex, totalSegments - 1);
+    // Mapeamento dos segmentos: 9 segmentos (3 imagens × 3 repetições = 9 aparições)
+    // Ordem cíclica: Azul -> Rosa -> Verde -> Azul -> Rosa -> Verde -> Azul -> Rosa -> Verde
+    function getImageKeyByProgress(progress01) {
+        const totalSegments = 9;
+        // Garantir que progresso seja entre 0 e 0.9999
+        let segmentIndex = Math.floor(progress01 * totalSegments);
+        if (segmentIndex >= totalSegments) segmentIndex = totalSegments - 1;
+        if (segmentIndex < 0) segmentIndex = 0;
         
         const imageOrder = ['azul', 'rosa', 'verde'];
-        const cyclePos = clampedIndex % 3;
-        return imageOrder[cyclePos];
+        const cyclePosition = segmentIndex % 3;
+        return imageOrder[cyclePosition];
     }
     
-    // Obter próximo segmento para crossfade suave
-    function getNextImageForProgress(progress01) {
+    // Obter próxima imagem para transição suave (crossfade)
+    function getNextImageKey(progress01) {
         const totalSegments = 9;
         let nextSegmentIndex = Math.floor(progress01 * totalSegments) + 1;
         if (nextSegmentIndex >= totalSegments) return null;
@@ -232,289 +240,277 @@
         return imageOrder[cyclePos];
     }
     
-    // Calcular fator de blend (crossfade) nas bordas dos segmentos
-    function getBlendFactor(progress01) {
+    // Calcular fator de crossfade entre imagens (transições suaves de 0.22 do segmento)
+    function getCrossfadeFactor(progress01) {
         const totalSegments = 9;
         const segmentDuration = 1.0 / totalSegments;
         const posInSegment = (progress01 % segmentDuration) / segmentDuration; // 0..1 dentro do segmento
         
-        const fadeWidth = 0.22; // 22% de cada segmento para transição suave
+        const fadeWidth = 0.22; // 22% de cada segmento para fade suave
         if (posInSegment > (1 - fadeWidth)) {
-            // Final do segmento: fade para próxima imagem
             return (posInSegment - (1 - fadeWidth)) / fadeWidth;
         }
         return 0;
     }
     
-    // Desenho principal com crossfade e proporção 1:1 perfeita
-    function drawSquareFrame(progress) {
+    // Desenho principal com crossfade e 16:9 impecável
+    function draw16x9Frame(progress) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         
         // Verificar se todas as imagens estão carregadas
         if (!images.azul.complete || !images.rosa.complete || !images.verde.complete) {
-            ctx.fillStyle = "#0a0a0a";
+            ctx.fillStyle = "#050505";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-            // Mostrar texto de carregamento sutil
-            ctx.fillStyle = "#ffffff80";
-            ctx.font = "14px system-ui";
+            ctx.fillStyle = "#ffffff60";
+            ctx.font = "18px system-ui";
             ctx.textAlign = "center";
-            ctx.fillText("carregando...", canvas.width/2, canvas.height/2);
+            ctx.fillText("Carregando mídias...", canvas.width/2, canvas.height/2);
             return;
         }
         
-        let p = Math.min(0.9999, Math.max(0, progress));
+        let p = Math.min(0.99999, Math.max(0, progress));
         
-        // Obter imagem atual e próxima
-        const currentKey = getImageForProgress(p);
-        const nextKey = getNextImageForProgress(p);
-        const blend = getBlendFactor(p);
+        const currentKey = getImageKeyByProgress(p);
+        const nextKey = getNextImageKey(p);
+        const blend = getCrossfadeFactor(p);
         
         const currentImg = images[currentKey];
         
-        // Desenhar imagem atual (cover no quadrado)
+        // Desenhar imagem atual com cobertura total 16:9
         if (currentImg && currentImg.complete) {
-            drawImageCover(currentImg, ctx, canvas.width, canvas.height);
+            drawImageCover16x9(currentImg, ctx, canvas.width, canvas.height);
         } else {
-            ctx.fillStyle = "#111";
+            ctx.fillStyle = "#000000";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
         }
         
-        // Se houver próxima imagem e blend > 0, desenhar com transparência
+        // Aplicar crossfade com a próxima imagem se houver
         if (nextKey && blend > 0.01) {
             const nextImg = images[nextKey];
             if (nextImg && nextImg.complete) {
                 ctx.globalAlpha = blend;
-                drawImageCover(nextImg, ctx, canvas.width, canvas.height);
+                drawImageCover16x9(nextImg, ctx, canvas.width, canvas.height);
                 ctx.globalAlpha = 1.0;
             }
         }
         
-        // Pequeno detalhe de vinheta sutil para destacar a logo
+        // Leve vinheta sutil para dar profundidade e destacar a marca (sem overdo)
         ctx.globalCompositeOperation = 'source-over';
-        const gradient = ctx.createRadialGradient(canvas.width/2, canvas.height/2, canvas.width*0.2, canvas.width/2, canvas.height/2, canvas.width*0.7);
+        const gradient = ctx.createRadialGradient(canvas.width/2, canvas.height/2, canvas.width*0.35, canvas.width/2, canvas.height/2, canvas.width*0.75);
         gradient.addColorStop(0, 'rgba(0,0,0,0)');
-        gradient.addColorStop(1, 'rgba(0,0,0,0.25)');
+        gradient.addColorStop(1, 'rgba(0,0,0,0.2)');
         ctx.fillStyle = gradient;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.globalAlpha = 1.0;
     }
     
-    // Função principal de animação baseada em timer absoluto de 18 segundos
-    function updateAnimationFrame(now) {
-        if (!playing) return;
+    // ========== LOOP PRINCIPAL COM TEMPO ABSOLUTO (18 SEGUNDOS) ==========
+    function animationLoop(timestamp) {
+        if (!playing) {
+            animationId = requestAnimationFrame(animationLoop);
+            return;
+        }
         
         if (audioUnlocked) {
-            // Sistema de tempo preciso para 18 segundos de loop
-            if (videoStartReal === null) {
-                videoStartReal = performance.now();
+            // Timer absoluto baseado em performance para garantir exatos 18 segundos por ciclo
+            if (videoStartTime === null) {
+                videoStartTime = performance.now();
                 globalProgress = 0;
             }
             
-            const elapsed = (performance.now() - videoStartReal) / 1000;
-            let newProgress = elapsed / TOTAL_DURATION_SEC;
+            const elapsedSeconds = (performance.now() - videoStartTime) / 1000;
+            let newProgress = elapsedSeconds / TOTAL_DURATION_SEC;
             
             if (newProgress >= 1.0) {
                 // Reinício suave do loop após completar 18 segundos
                 newProgress = newProgress % 1.0;
-                videoStartReal = performance.now() - (newProgress * TOTAL_DURATION_SEC * 1000);
-                console.log("🔄 Loop completo 18s, reiniciando progresso visual");
+                videoStartTime = performance.now() - (newProgress * TOTAL_DURATION_SEC * 1000);
+                console.log("🔄 Loop de 18s completo - Reiniciando com repetição das 3 imagens");
             }
             
             globalProgress = newProgress;
-            drawSquareFrame(globalProgress);
+            draw16x9Frame(globalProgress);
         } else {
-            // Modo stand-by: mostrar primeira imagem (azul) com logo
+            // Modo standby: mostrar primeira imagem (azul) com logo, sem áudio
             if (images.azul.complete) {
-                drawImageCover(images.azul, ctx, canvas.width, canvas.height);
-                // Efeito suave overlay
-                ctx.fillStyle = "rgba(0,0,0,0.15)";
+                drawImageCover16x9(images.azul, ctx, canvas.width, canvas.height);
+                ctx.fillStyle = "rgba(0,0,0,0.1)";
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
             } else {
-                ctx.fillStyle = "#000";
+                ctx.fillStyle = "#0a0a0a";
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
             }
         }
         
-        animationId = requestAnimationFrame(updateAnimationFrame);
+        animationId = requestAnimationFrame(animationLoop);
     }
     
-    // Gerenciar áudio e sincronia perfeita
+    // ========== INICIAR PLAYBACK COMPLETO COM ÁUDIO ==========
     function startFullPlayback() {
         if (!audioUnlocked) return;
         
-        // Resetar timer visual para começar do início
-        videoStartReal = performance.now();
+        // Resetar timer visual para começar do início do loop de 18s
+        videoStartTime = performance.now();
         globalProgress = 0;
         playing = true;
         
-        // Reiniciar áudios
+        // Resetar áudios e tocar
         bgMusic.currentTime = 0;
         narration.currentTime = 0;
         
-        // Tocar com tratamento de erro
-        const playPromises = [];
-        playPromises.push(bgMusic.play().catch(e => console.warn("bgMusic start:", e)));
-        playPromises.push(narration.play().catch(e => console.warn("narration start:", e)));
+        bgMusic.play().catch(e => console.warn("bgMusic start:", e));
+        narration.play().catch(e => console.warn("narration start:", e));
         
-        // Esconder o hint de toque
+        // Esconder hint de toque
         const hint = document.getElementById('tapHint');
         if (hint) hint.style.display = 'none';
         
-        // Configurar loop infinito da narração para alinhar com os 18s do vídeo
+        // Configurar loop contínuo da narração para alinhar com o vídeo
         narration.onended = () => {
             if (audioUnlocked && narration) {
                 narration.currentTime = 0;
-                narration.play().catch(e => console.log("restart narration:", e));
+                narration.play().catch(e => console.log("reinício narração:", e));
             }
         };
         
         bgMusic.onended = () => {
             if (audioUnlocked && bgMusic) {
                 bgMusic.currentTime = 0;
-                bgMusic.play().catch(e => console.log("restart bgMusic:", e));
+                bgMusic.play().catch(e => console.log("reinício música:", e));
             }
         };
     }
     
-    // Destravar áudio após interação do usuário (necessário para navegadores)
-    function unlockAndStart() {
+    // Destravar áudio por interação do usuário (políticas do navegador)
+    function unlockAudioAndStart() {
         if (audioUnlocked) return;
         
         audioUnlocked = true;
         bgMusic.muted = false;
         narration.muted = false;
         
-        // Pequeno delay para garantir que tudo está pronto
         setTimeout(() => {
             startFullPlayback();
-        }, 50);
+        }, 30);
     }
     
-    // Carregar imagens com verificação de conclusão
+    // ========== CARREGAR IMAGENS ==========
     function loadAllImages() {
-        const onLoad = () => {
-            imagesLoaded++;
-            if (imagesLoaded === totalImages) {
-                console.log("✅ Todas as imagens carregadas em 1:1");
+        const onImageLoad = () => {
+            imagesLoadedCount++;
+            if (imagesLoadedCount === totalImagesToLoad) {
+                console.log("✅ Todas as imagens carregadas - 16:9 pronto para YouTube");
                 // Desenhar frame inicial
-                if (!audioUnlocked) {
-                    if (images.azul.complete) {
-                        drawImageCover(images.azul, ctx, canvas.width, canvas.height);
-                    }
-                } else {
-                    drawSquareFrame(globalProgress);
+                if (!audioUnlocked && images.azul.complete) {
+                    drawImageCover16x9(images.azul, ctx, canvas.width, canvas.height);
                 }
             }
         };
         
-        images.azul.onload = onLoad;
-        images.rosa.onload = onLoad;
-        images.verde.onload = onLoad;
+        images.azul.onload = onImageLoad;
+        images.rosa.onload = onImageLoad;
+        images.verde.onload = onImageLoad;
         
-        images.azul.onerror = () => { console.error("Erro azul"); imagesLoaded++; onLoad(); };
-        images.rosa.onerror = () => { console.error("Erro rosa"); imagesLoaded++; onLoad(); };
-        images.verde.onerror = () => { console.error("Erro verde"); imagesLoaded++; onLoad(); };
+        images.azul.onerror = () => { console.warn("Erro azul"); imagesLoadedCount++; onImageLoad(); };
+        images.rosa.onerror = () => { console.warn("Erro rosa"); imagesLoadedCount++; onImageLoad(); };
+        images.verde.onerror = () => { console.warn("Erro verde"); imagesLoadedCount++; onImageLoad(); };
         
         images.azul.src = imageUrls.azul;
         images.rosa.src = imageUrls.rosa;
         images.verde.src = imageUrls.verde;
     }
     
-    // Preparar áudios e fallback
-    function prepareAudioFiles() {
+    // Preparar áudio com fallback
+    function prepareAudio() {
         bgMusic.load();
         narration.load();
-        
-        // Garantir que o áudio não auto-play sem interação
+        // Inicialmente mutado até interação
         bgMusic.muted = true;
         narration.muted = true;
-        
-        // Fallback caso a narração não carregue metadados
-        setTimeout(() => {
-            if (narration.readyState === 0) {
-                console.log("Áudio pode estar lento, mas o loop visual 18s continua perfeito.");
-            }
-        }, 2000);
     }
     
-    // Eventos de toque/clique para iniciar (política de áudio)
-    function bindInteractionEvents() {
+    // ========== EVENTOS DE INTERAÇÃO ==========
+    function bindEvents() {
         const stage = document.getElementById('stage');
-        const hintBtn = document.getElementById('tapHint');
+        const hintDiv = document.getElementById('tapHint');
         
         const startHandler = (e) => {
             e.preventDefault();
             if (!audioUnlocked) {
-                unlockAndStart();
+                unlockAudioAndStart();
             }
         };
         
         stage.addEventListener('click', startHandler);
         stage.addEventListener('touchstart', startHandler);
-        if (hintBtn) {
-            hintBtn.addEventListener('click', startHandler);
-            hintBtn.addEventListener('touchstart', startHandler);
+        if (hintDiv) {
+            hintDiv.addEventListener('click', startHandler);
+            hintDiv.addEventListener('touchstart', startHandler);
         }
         
-        // Suporte para tecla espaço/enter
+        // Teclado também inicia
         document.addEventListener('keydown', (e) => {
             if (e.code === 'Space' || e.code === 'Enter') {
-                if (!audioUnlocked) unlockAndStart();
+                if (!audioUnlocked) unlockAudioAndStart();
             }
         });
     }
     
-    // Ajuste de redimensionamento para garantir que o container seja sempre 1:1 sem bordas pretas
-    function ensureSquareRatio() {
-        const container = document.querySelector('.square-container');
+    // Ajuste responsivo para garantir 16:9 sempre
+    function ensure16x9() {
+        const container = document.querySelector('.youtube-container');
         if (!container) return;
         
         const windowW = window.innerWidth;
         const windowH = window.innerHeight;
+        const targetRatio = 16/9;
         
-        // Quadrado perfeito ocupando o máximo possível sem bordas
-        const size = Math.min(windowW, windowH);
-        container.style.width = size + 'px';
-        container.style.height = size + 'px';
-        container.style.maxWidth = 'none';
+        let width = windowW;
+        let height = width / targetRatio;
+        
+        if (height > windowH) {
+            height = windowH;
+            width = height * targetRatio;
+        }
+        
+        container.style.width = width + 'px';
+        container.style.height = height + 'px';
         container.style.margin = '0 auto';
     }
     
-    // Inicialização completa
+    // ========== INICIALIZAÇÃO ==========
     function init() {
-        console.log("🎬 LOHRA STUDIO - Modo 1:1 Quadrado | Loop 18s | 3 repetições por imagem");
+        console.log("🎬 LOHRA STUDIO - YouTube 16:9 | Loop 18s | 3 repetições por imagem | Sem marca d'água extra");
         
-        ensureSquareRatio();
-        window.addEventListener('resize', ensureSquareRatio);
+        ensure16x9();
+        window.addEventListener('resize', ensure16x9);
         
         loadAllImages();
-        prepareAudioFiles();
-        bindInteractionEvents();
+        prepareAudio();
+        bindEvents();
         
-        // Desenho inicial escuro com logo
-        ctx.fillStyle = "#0a0a0a";
+        // Desenho inicial
+        ctx.fillStyle = "#000000";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         
-        // Mostrar placeholder da primeira imagem se disponível
-        const tryDrawInitial = setInterval(() => {
+        // Tentar mostrar imagem azul o mais rápido possível
+        const checkImagesInterval = setInterval(() => {
             if (images.azul.complete) {
-                drawImageCover(images.azul, ctx, canvas.width, canvas.height);
-                ctx.fillStyle = "rgba(0,0,0,0.2)";
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                clearInterval(tryDrawInitial);
+                drawImageCover16x9(images.azul, ctx, canvas.width, canvas.height);
+                clearInterval(checkImagesInterval);
             }
-        }, 150);
+        }, 100);
         
         // Iniciar loop de animação
-        animationId = requestAnimationFrame(updateAnimationFrame);
+        animationId = requestAnimationFrame(animationLoop);
         
-        // Fallback: após 5 segundos se o usuário não interagir, mostrar hint com mais ênfase
+        // Mostrar hint após breve delay
         setTimeout(() => {
             const hint = document.getElementById('tapHint');
             if (hint && !audioUnlocked) {
                 hint.style.display = 'flex';
             }
-        }, 500);
+        }, 600);
     }
     
     init();
