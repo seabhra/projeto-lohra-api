@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Lohra · Tela Cheia · Peças Completas</title>
+    <title>Lohra · Tela Cheia · Fundo Borrado</title>
     <style>
         * {
             margin: 0;
@@ -53,12 +53,19 @@
             height: 100%;
             top: 0;
             left: 0;
-            object-fit: contain;
             display: block;
-            background: #000;
         }
 
-        /* Logo da marca centralizada no topo */
+        /* Canvas de fundo (blur) */
+        #bgCanvas {
+            z-index: 1;
+        }
+
+        /* Canvas principal (imagem nítida) */
+        #mainCanvas {
+            z-index: 2;
+        }
+
         .brand-logo {
             position: absolute;
             top: 120px;
@@ -83,7 +90,7 @@
             left: 50%;
             transform: translateX(-50%);
             color: white;
-            background: rgba(0,0,0,0.75);
+            background: rgba(0,0,0,0.7);
             padding: 14px 36px;
             border-radius: 60px;
             font-size: 18px;
@@ -100,8 +107,8 @@
         }
 
         @keyframes pulseGlow {
-            0%, 100% { opacity: 0.7; transform: translateX(-50%) scale(1); background: rgba(0,0,0,0.7); }
-            50% { opacity: 1; transform: translateX(-50%) scale(1.04); background: rgba(0,0,0,0.85); }
+            0%, 100% { opacity: 0.7; transform: translateX(-50%) scale(1); }
+            50% { opacity: 1; transform: translateX(-50%) scale(1.04); }
         }
 
         ::-webkit-scrollbar {
@@ -113,7 +120,8 @@
 
 <div class="fullscreen-container">
     <div id="stage">
-        <canvas id="canvas"></canvas>
+        <canvas id="bgCanvas"></canvas>
+        <canvas id="mainCanvas"></canvas>
         
         <div class="brand-logo">
             <img src="/images/marca.png" alt="LOHRA" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 400 120\'%3E%3Crect width=\'400\' height=\'120\' fill=\'%231a1a2e\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'white\' font-size=\'36\' font-family=\'Arial\' font-weight=\'bold\'%3ELOHRA%3C/text%3E%3C/svg%3E'">
@@ -126,22 +134,26 @@
 <script>
 (function() {
     // =================================================================
-    // LOHRA STUDIO - TELA CHEIA COM IMAGENS COMPLETAS
-    // As imagens são exibidas com object-fit: contain (sem cortes)
-    // Assim a parte de baixo das peças aparece por completo
-    // Logo centralizada no topo (top: 120px)
-    // Loop de 18 segundos - Cada imagem (Azul, Rosa, Verde) aparece 3 vezes
+    // LOHRA STUDIO - TELA CHEIA SEM BORDAS PRETAS
+    // Técnica: fundo com a mesma imagem ampliada e desfocada (blur)
+    // Imagem principal centralizada e nítida (contain)
+    // Assim: sem preto nas laterais + peças completamente visíveis
     // =================================================================
     
-    const canvas = document.getElementById("canvas");
-    const ctx = canvas.getContext("2d");
+    const bgCanvas = document.getElementById("bgCanvas");
+    const mainCanvas = document.getElementById("mainCanvas");
+    const bgCtx = bgCanvas.getContext("2d");
+    const mainCtx = mainCanvas.getContext("2d");
     
-    function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        if (images.azul.complete && images.rosa.complete && images.verde.complete) {
-            drawFullscreenFrame(globalProgress);
-        }
+    let cachedBlurCanvas = null; // Cache do fundo borrado para performance
+    
+    function resizeCanvases() {
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+        bgCanvas.width = w;
+        bgCanvas.height = h;
+        mainCanvas.width = w;
+        mainCanvas.height = h;
     }
     
     // ========== IMAGENS DOS KITS ==========
@@ -175,9 +187,11 @@
     let videoStartTime = null;
     const TOTAL_DURATION_SEC = 18.0;
     
-    // ========== FUNÇÃO PARA DESENHAR IMAGEM COMPLETA (SEM CORTES) ==========
-    // Usamos "contain" em vez de "cover" - a imagem inteira aparece, centralizada
-    function drawImageFullContain(img, ctx, targetW, targetH) {
+    let currentImageKey = 'azul';
+    
+    // ========== FUNÇÃO PARA DESENHAR FUNDO BORRADO ==========
+    // Cria uma versão ampliada (cover) e desfocada da imagem para preencher as laterais
+    function drawBlurredBackground(img, ctx, targetW, targetH) {
         if (!img || !img.complete) return false;
         
         const imgW = img.naturalWidth;
@@ -185,7 +199,42 @@
         
         if (imgW === 0 || imgH === 0) return false;
         
-        // Calcular scale para que a imagem caiba inteira dentro do canvas (como object-fit: contain)
+        // Desenhar a imagem em COVER (preenche toda a tela, mesmo que corte)
+        const scaleX = targetW / imgW;
+        const scaleY = targetH / imgH;
+        const scale = Math.max(scaleX, scaleY);
+        
+        const drawW = imgW * scale;
+        const drawH = imgH * scale;
+        const offsetX = (targetW - drawW) / 2;
+        const offsetY = (targetH - drawH) / 2;
+        
+        // Desenhar em um canvas temporário para aplicar blur
+        const tempCanvas = document.createElement('canvas');
+        tempCanvas.width = targetW;
+        tempCanvas.height = targetH;
+        const tempCtx = tempCanvas.getContext('2d');
+        
+        tempCtx.drawImage(img, offsetX, offsetY, drawW, drawH);
+        
+        // Aplicar blur no contexto principal
+        ctx.filter = 'blur(25px)';
+        ctx.drawImage(tempCanvas, 0, 0, targetW, targetH);
+        ctx.filter = 'none';
+        
+        return true;
+    }
+    
+    // ========== FUNÇÃO PARA DESENHAR IMAGEM PRINCIPAL NÍTIDA (CONTAIN) ==========
+    function drawSharpImage(img, ctx, targetW, targetH) {
+        if (!img || !img.complete) return false;
+        
+        const imgW = img.naturalWidth;
+        const imgH = img.naturalHeight;
+        
+        if (imgW === 0 || imgH === 0) return false;
+        
+        // CONTAIN: imagem inteira visível, centralizada
         const scaleX = targetW / imgW;
         const scaleY = targetH / imgH;
         const scale = Math.min(scaleX, scaleY);
@@ -195,101 +244,90 @@
         const offsetX = (targetW - drawW) / 2;
         const offsetY = (targetH - drawH) / 2;
         
-        // Limpar o fundo antes de desenhar
-        ctx.fillStyle = "#000000";
-        ctx.fillRect(0, 0, targetW, targetH);
-        
-        // Desenhar a imagem inteira, sem cortes
         ctx.drawImage(img, offsetX, offsetY, drawW, drawH);
         return true;
     }
     
-    // Mapeamento dos segmentos: 9 segmentos (3 imagens × 3 repetições)
-    function getImageKeyByProgress(progress01) {
+    // ========== DESENHO COMPLETO (FUNDO BORRADO + IMAGEM NÍTIDA) ==========
+    function drawFullscreenWithBlur(progress) {
+        const w = mainCanvas.width;
+        const h = mainCanvas.height;
+        
+        if (!images.azul.complete || !images.rosa.complete || !images.verde.complete) {
+            bgCtx.fillStyle = "#050505";
+            bgCtx.fillRect(0, 0, w, h);
+            mainCtx.fillStyle = "#050505";
+            mainCtx.fillRect(0, 0, w, h);
+            return;
+        }
+        
+        // Determinar qual imagem exibir baseado no progresso
         const totalSegments = 9;
-        let segmentIndex = Math.floor(progress01 * totalSegments);
+        let segmentIndex = Math.floor(progress * totalSegments);
         if (segmentIndex >= totalSegments) segmentIndex = totalSegments - 1;
         if (segmentIndex < 0) segmentIndex = 0;
         
         const imageOrder = ['azul', 'rosa', 'verde'];
         const cyclePosition = segmentIndex % 3;
-        return imageOrder[cyclePosition];
-    }
-    
-    function getNextImageKey(progress01) {
-        const totalSegments = 9;
-        let nextSegmentIndex = Math.floor(progress01 * totalSegments) + 1;
-        if (nextSegmentIndex >= totalSegments) return null;
+        const currentImgKey = imageOrder[cyclePosition];
+        const currentImg = images[currentImgKey];
         
-        const imageOrder = ['azul', 'rosa', 'verde'];
-        const cyclePos = nextSegmentIndex % 3;
-        return imageOrder[cyclePos];
-    }
-    
-    function getCrossfadeFactor(progress01) {
-        const totalSegments = 9;
+        // Próxima imagem para crossfade
+        let nextSegmentIndex = segmentIndex + 1;
+        let nextImgKey = null;
+        let nextImg = null;
+        if (nextSegmentIndex < totalSegments) {
+            nextImgKey = imageOrder[nextSegmentIndex % 3];
+            nextImg = images[nextImgKey];
+        }
+        
+        // Calcular blend factor (crossfade)
         const segmentDuration = 1.0 / totalSegments;
-        const posInSegment = (progress01 % segmentDuration) / segmentDuration;
-        
+        const posInSegment = (progress % segmentDuration) / segmentDuration;
+        let blend = 0;
         const fadeWidth = 0.22;
         if (posInSegment > (1 - fadeWidth)) {
-            return (posInSegment - (1 - fadeWidth)) / fadeWidth;
-        }
-        return 0;
-    }
-    
-    // Desenho principal com imagens COMPLETAS (sem cortes)
-    function drawFullscreenFrame(progress) {
-        const w = canvas.width;
-        const h = canvas.height;
-        
-        if (!images.azul.complete || !images.rosa.complete || !images.verde.complete) {
-            ctx.fillStyle = "#050505";
-            ctx.fillRect(0, 0, w, h);
-            ctx.fillStyle = "#ffffff80";
-            ctx.font = "18px system-ui";
-            ctx.textAlign = "center";
-            ctx.fillText("Carregando...", w/2, h/2);
-            return;
+            blend = (posInSegment - (1 - fadeWidth)) / fadeWidth;
+            blend = Math.min(0.98, Math.max(0, blend));
         }
         
-        let p = Math.min(0.99999, Math.max(0, progress));
-        
-        const currentKey = getImageKeyByProgress(p);
-        const nextKey = getNextImageKey(p);
-        const blend = getCrossfadeFactor(p);
-        
-        const currentImg = images[currentKey];
-        
-        // Desenhar imagem atual (contém - inteira, sem cortes)
+        // ===== 1. DESENHAR FUNDO BORRADO (imagem atual) =====
         if (currentImg && currentImg.complete) {
-            drawImageFullContain(currentImg, ctx, w, h);
-        } else {
-            ctx.fillStyle = "#000000";
-            ctx.fillRect(0, 0, w, h);
+            drawBlurredBackground(currentImg, bgCtx, w, h);
         }
         
-        // Crossfade com próxima imagem
-        if (nextKey && blend > 0.01) {
-            const nextImg = images[nextKey];
-            if (nextImg && nextImg.complete) {
-                ctx.globalAlpha = blend;
-                drawImageFullContain(nextImg, ctx, w, h);
-                ctx.globalAlpha = 1.0;
-            }
+        // Se houver blend, desenhar também o fundo borrado da próxima imagem
+        if (nextImg && blend > 0.05) {
+            bgCtx.globalAlpha = blend;
+            drawBlurredBackground(nextImg, bgCtx, w, h);
+            bgCtx.globalAlpha = 1.0;
         }
         
-        // Vinheta suave apenas para destacar a logo
-        ctx.globalCompositeOperation = 'source-over';
-        const gradient = ctx.createRadialGradient(w/2, h/2, w*0.3, w/2, h/2, w*0.85);
+        // ===== 2. DESENHAR IMAGEM PRINCIPAL NÍTIDA =====
+        mainCtx.clearRect(0, 0, w, h);
+        
+        if (currentImg && currentImg.complete) {
+            drawSharpImage(currentImg, mainCtx, w, h);
+        }
+        
+        // Crossfade da imagem principal
+        if (nextImg && blend > 0.05) {
+            mainCtx.globalAlpha = blend;
+            drawSharpImage(nextImg, mainCtx, w, h);
+            mainCtx.globalAlpha = 1.0;
+        }
+        
+        // Vinheta sutil na imagem principal para destacar a logo
+        mainCtx.globalCompositeOperation = 'source-over';
+        const gradient = mainCtx.createRadialGradient(w/2, h/2, w*0.3, w/2, h/2, w*0.85);
         gradient.addColorStop(0, 'rgba(0,0,0,0)');
-        gradient.addColorStop(1, 'rgba(0,0,0,0.2)');
-        ctx.fillStyle = gradient;
-        ctx.fillRect(0, 0, w, h);
-        ctx.globalAlpha = 1.0;
+        gradient.addColorStop(1, 'rgba(0,0,0,0.15)');
+        mainCtx.fillStyle = gradient;
+        mainCtx.fillRect(0, 0, w, h);
+        mainCtx.globalAlpha = 1.0;
     }
     
-    // Loop de animação com 18 segundos
+    // ========== LOOP DE ANIMAÇÃO ==========
     function animationLoop(timestamp) {
         if (!playing) {
             animationId = requestAnimationFrame(animationLoop);
@@ -308,26 +346,26 @@
             if (newProgress >= 1.0) {
                 newProgress = newProgress % 1.0;
                 videoStartTime = performance.now() - (newProgress * TOTAL_DURATION_SEC * 1000);
-                console.log("🔄 Loop de 18s completo - Reiniciando");
+                console.log("🔄 Loop 18s completo");
             }
             
             globalProgress = newProgress;
-            drawFullscreenFrame(globalProgress);
+            drawFullscreenWithBlur(globalProgress);
         } else {
-            // Modo standby: mostrar primeira imagem completa
+            // Modo standby: mostrar primeira imagem
             if (images.azul.complete) {
-                drawImageFullContain(images.azul, ctx, canvas.width, canvas.height);
-                ctx.fillStyle = "rgba(0,0,0,0.1)";
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-            } else {
-                ctx.fillStyle = "#0a0a0a";
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                drawBlurredBackground(images.azul, bgCtx, bgCanvas.width, bgCanvas.height);
+                mainCtx.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
+                drawSharpImage(images.azul, mainCtx, mainCanvas.width, mainCanvas.height);
+                mainCtx.fillStyle = "rgba(0,0,0,0.1)";
+                mainCtx.fillRect(0, 0, mainCanvas.width, mainCanvas.height);
             }
         }
         
         animationId = requestAnimationFrame(animationLoop);
     }
     
+    // ========== ÁUDIO E PLAYBACK ==========
     function startFullPlayback() {
         if (!audioUnlocked) return;
         
@@ -371,13 +409,15 @@
         }, 30);
     }
     
+    // ========== CARREGAR IMAGENS ==========
     function loadAllImages() {
         const onImageLoad = () => {
             imagesLoadedCount++;
             if (imagesLoadedCount === totalImagesToLoad) {
-                console.log("✅ Imagens carregadas - Peças aparecerão por completo");
+                console.log("✅ Imagens carregadas - Modo blur ativado");
                 if (!audioUnlocked && images.azul.complete) {
-                    drawImageFullContain(images.azul, ctx, canvas.width, canvas.height);
+                    drawBlurredBackground(images.azul, bgCtx, bgCanvas.width, bgCanvas.height);
+                    drawSharpImage(images.azul, mainCtx, mainCanvas.width, mainCanvas.height);
                 }
             }
         };
@@ -427,27 +467,25 @@
         });
         
         window.addEventListener('resize', () => {
-            resizeCanvas();
+            resizeCanvases();
+            if (images.azul.complete) {
+                drawFullscreenWithBlur(globalProgress);
+            }
         });
     }
     
     function init() {
-        console.log("🎬 LOHRA - Tela cheia | Imagens COMPLETAS (parte de baixo visível) | Logo topo | Loop 18s");
+        console.log("🎬 LOHRA - Tela cheia | Fundo borrado | Sem bordas pretas | Peças completas");
         
-        resizeCanvas();
+        resizeCanvases();
         loadAllImages();
         prepareAudio();
         bindEvents();
         
-        ctx.fillStyle = "#000000";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        
-        const checkImagesInterval = setInterval(() => {
-            if (images.azul.complete) {
-                drawImageFullContain(images.azul, ctx, canvas.width, canvas.height);
-                clearInterval(checkImagesInterval);
-            }
-        }, 100);
+        bgCtx.fillStyle = "#000000";
+        bgCtx.fillRect(0, 0, bgCanvas.width, bgCanvas.height);
+        mainCtx.fillStyle = "#000000";
+        mainCtx.fillRect(0, 0, mainCanvas.width, mainCanvas.height);
         
         animationId = requestAnimationFrame(animationLoop);
         
