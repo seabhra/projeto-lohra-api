@@ -2,8 +2,8 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Lohra · YouTube 16:9 · Loop 18s</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Lohra · Tela Cheia · YouTube/Instagram</title>
     <style>
         * {
             margin: 0;
@@ -13,25 +13,30 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        body {
+        html, body {
+            width: 100%;
+            height: 100%;
             background: #000000;
+            overflow: hidden;
+            position: fixed;
+        }
+
+        body {
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
             font-family: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
-            overflow: hidden;
         }
 
-        /* Container 16:9 perfeito para YouTube */
-        .youtube-container {
-            position: relative;
+        /* Container ocupando 100% da tela SEM bordas pretas */
+        .fullscreen-container {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-width: 1280px;
-            aspect-ratio: 16 / 9;
+            height: 100%;
             background: #000;
-            margin: 0 auto;
-            box-shadow: 0 0 0 0 rgba(0,0,0,0);
+            overflow: hidden;
         }
 
         #stage {
@@ -53,49 +58,33 @@
             display: block;
         }
 
-        /* Logo original da Lohra - posicionada de forma elegante sem atrapalhar */
-        .lohra-brand {
+        /* Logo da marca centralizada no topo - exatamente top: 120px */
+        .brand-logo {
             position: absolute;
-            bottom: 8%;
-            right: 5%;
+            top: 120px;
+            left: 50%;
+            transform: translateX(-50%);
             z-index: 20;
-            width: 180px;
-            max-width: 18%;
+            width: 280px;
+            max-width: 55%;
             pointer-events: none;
             filter: drop-shadow(0 4px 20px rgba(0,0,0,0.4));
-            opacity: 0.92;
-            transition: opacity 0.3s ease;
         }
 
-        .lohra-brand img {
+        .brand-logo img {
             width: 100%;
             height: auto;
             display: block;
         }
 
-        /* Versão alternativa da marca também pode aparecer centralizada suavemente */
-        .lohra-brand-center {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 20;
-            width: 280px;
-            max-width: 30%;
-            pointer-events: none;
-            filter: drop-shadow(0 8px 28px rgba(0,0,0,0.5));
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        /* Toque inicial estiloso */
+        /* Botão de toque inicial elegante */
         .tap-hint {
             position: absolute;
             bottom: 15%;
             left: 50%;
             transform: translateX(-50%);
             color: white;
-            background: rgba(0,0,0,0.75);
+            background: rgba(0,0,0,0.7);
             padding: 14px 36px;
             border-radius: 60px;
             font-size: 18px;
@@ -116,48 +105,49 @@
             50% { opacity: 1; transform: translateX(-50%) scale(1.04); background: rgba(0,0,0,0.85); box-shadow: 0 0 25px rgba(255,255,255,0.15); }
         }
 
-        /* Sempre 16:9 sem bordas */
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            background: #000;
+        /* Garantia de que não há scroll ou espaços extras */
+        ::-webkit-scrollbar {
+            display: none;
         }
     </style>
 </head>
 <body>
 
-<div class="youtube-container">
+<div class="fullscreen-container">
     <div id="stage">
         <canvas id="canvas"></canvas>
         
-        <!-- Marca original Lohra - posicionada inferior direita (sem watermark intrusiva) -->
-        <div class="lohra-brand">
-            <img src="https://projeto-lohra-api.vercel.app/api/media?type=image&file=marca_lohra.png" alt="LOHRA" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 400 150\'%3E%3Crect width=\'400\' height=\'150\' fill=\'%231a1a2e\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'white\' font-size=\'42\' font-family=\'Arial\' font-weight=\'bold\'%3ELOHRA%3C/text%3E%3C/svg%3E'">
+        <!-- Logo da marca centralizada no topo (top: 120px) conforme solicitado -->
+        <div class="brand-logo">
+            <img src="/images/marca.png" alt="LOHRA" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 400 120\'%3E%3Crect width=\'400\' height=\'120\' fill=\'%231a1a2e\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'white\' font-size=\'36\' font-family=\'Arial\' font-weight=\'bold\'%3ELOHRA%3C/text%3E%3C/svg%3E'">
         </div>
         
-        <!-- Marca adicional centralizada apenas se necessário (opcional) mas deixamos sem -->
-        
-        <div id="tapHint" class="tap-hint">🎬 TOQUE PARA INICIAR 🎬</div>
+        <div id="tapHint" class="tap-hint">🎬 TOQUE PARA COMEÇAR 🎬</div>
     </div>
 </div>
 
 <script>
 (function() {
     // =================================================================
-    // LOHRA STUDIO - YOUTUBE 16:9 (1920x1080)
-    // Loop de 18 segundos exatos - Cada imagem (Azul, Rosa, Verde) aparece 3 vezes
-    // Sem marcas d'água extras - Apenas a logo original da Lohra
-    // Proporção 16:9 perfeita para YouTube Shorts ou vídeo horizontal
+    // LOHRA STUDIO - TELA CHEIA SEM BORDAS PRETAS
+    // O vídeo ocupa 100% da tela (object-fit: cover no canvas)
+    // Logo centralizada no topo (top: 120px)
+    // Sem marca d'água extra - apenas a logo solicitada
+    // Loop de 18 segundos - Cada imagem (Azul, Rosa, Verde) aparece 3 vezes
     // =================================================================
     
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d");
     
-    // Configuração 16:9 - Resolução nativa alta para qualidade YouTube
-    canvas.width = 1920;
-    canvas.height = 1080;
+    // Função para ajustar o canvas ao tamanho real da tela
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        // Redesenhar após resize
+        if (images.azul.complete && images.rosa.complete && images.verde.complete) {
+            drawFullscreenFrame(globalProgress);
+        }
+    }
     
     // ========== IMAGENS DOS KITS (Azul, Rosa, Verde) ==========
     const images = {
@@ -191,9 +181,9 @@
     let videoStartTime = null;         // Timestamp de início absoluto
     const TOTAL_DURATION_SEC = 18.0;   // 18 segundos fixos para o loop completo
     
-    // ========== FUNÇÃO PARA DESENHAR IMAGEM EM 16:9 COBRINDO TODO O CANVAS ==========
-    // As imagens originais podem ser 9:16 ou quadradas, então fazemos "cover" centralizado
-    function drawImageCover16x9(img, ctx, targetW, targetH) {
+    // ========== FUNÇÃO PARA DESENHAR IMAGEM EM TELA CHEIA (COVER) ==========
+    // Remove qualquer borda preta - a imagem cobre 100% da tela
+    function drawImageFullCover(img, ctx, targetW, targetH) {
         if (!img || !img.complete) return false;
         
         const imgW = img.naturalWidth;
@@ -201,7 +191,7 @@
         
         if (imgW === 0 || imgH === 0) return false;
         
-        // Calcular scale para cobrir completamente o retângulo 16:9 sem bordas pretas
+        // Calcular scale para cobrir completamente a tela (como object-fit: cover)
         const scaleX = targetW / imgW;
         const scaleY = targetH / imgH;
         const scale = Math.max(scaleX, scaleY);
@@ -219,7 +209,6 @@
     // Ordem cíclica: Azul -> Rosa -> Verde -> Azul -> Rosa -> Verde -> Azul -> Rosa -> Verde
     function getImageKeyByProgress(progress01) {
         const totalSegments = 9;
-        // Garantir que progresso seja entre 0 e 0.9999
         let segmentIndex = Math.floor(progress01 * totalSegments);
         if (segmentIndex >= totalSegments) segmentIndex = totalSegments - 1;
         if (segmentIndex < 0) segmentIndex = 0;
@@ -240,11 +229,11 @@
         return imageOrder[cyclePos];
     }
     
-    // Calcular fator de crossfade entre imagens (transições suaves de 0.22 do segmento)
+    // Calcular fator de crossfade entre imagens (transições suaves)
     function getCrossfadeFactor(progress01) {
         const totalSegments = 9;
         const segmentDuration = 1.0 / totalSegments;
-        const posInSegment = (progress01 % segmentDuration) / segmentDuration; // 0..1 dentro do segmento
+        const posInSegment = (progress01 % segmentDuration) / segmentDuration;
         
         const fadeWidth = 0.22; // 22% de cada segmento para fade suave
         if (posInSegment > (1 - fadeWidth)) {
@@ -253,18 +242,21 @@
         return 0;
     }
     
-    // Desenho principal com crossfade e 16:9 impecável
-    function draw16x9Frame(progress) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // Desenho principal em tela cheia (sem bordas pretas)
+    function drawFullscreenFrame(progress) {
+        const w = canvas.width;
+        const h = canvas.height;
+        
+        ctx.clearRect(0, 0, w, h);
         
         // Verificar se todas as imagens estão carregadas
         if (!images.azul.complete || !images.rosa.complete || !images.verde.complete) {
             ctx.fillStyle = "#050505";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = "#ffffff60";
+            ctx.fillRect(0, 0, w, h);
+            ctx.fillStyle = "#ffffff80";
             ctx.font = "18px system-ui";
             ctx.textAlign = "center";
-            ctx.fillText("Carregando mídias...", canvas.width/2, canvas.height/2);
+            ctx.fillText("Carregando...", w/2, h/2);
             return;
         }
         
@@ -276,12 +268,12 @@
         
         const currentImg = images[currentKey];
         
-        // Desenhar imagem atual com cobertura total 16:9
+        // Desenhar imagem atual cobrindo toda a tela
         if (currentImg && currentImg.complete) {
-            drawImageCover16x9(currentImg, ctx, canvas.width, canvas.height);
+            drawImageFullCover(currentImg, ctx, w, h);
         } else {
             ctx.fillStyle = "#000000";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillRect(0, 0, w, h);
         }
         
         // Aplicar crossfade com a próxima imagem se houver
@@ -289,18 +281,18 @@
             const nextImg = images[nextKey];
             if (nextImg && nextImg.complete) {
                 ctx.globalAlpha = blend;
-                drawImageCover16x9(nextImg, ctx, canvas.width, canvas.height);
+                drawImageFullCover(nextImg, ctx, w, h);
                 ctx.globalAlpha = 1.0;
             }
         }
         
-        // Leve vinheta sutil para dar profundidade e destacar a marca (sem overdo)
+        // Vinheta sutil apenas para dar profundidade (opcional, não é watermark)
         ctx.globalCompositeOperation = 'source-over';
-        const gradient = ctx.createRadialGradient(canvas.width/2, canvas.height/2, canvas.width*0.35, canvas.width/2, canvas.height/2, canvas.width*0.75);
+        const gradient = ctx.createRadialGradient(w/2, h/2, w*0.3, w/2, h/2, w*0.8);
         gradient.addColorStop(0, 'rgba(0,0,0,0)');
-        gradient.addColorStop(1, 'rgba(0,0,0,0.2)');
+        gradient.addColorStop(1, 'rgba(0,0,0,0.15)');
         ctx.fillStyle = gradient;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillRect(0, 0, w, h);
         ctx.globalAlpha = 1.0;
     }
     
@@ -329,11 +321,12 @@
             }
             
             globalProgress = newProgress;
-            draw16x9Frame(globalProgress);
+            drawFullscreenFrame(globalProgress);
         } else {
             // Modo standby: mostrar primeira imagem (azul) com logo, sem áudio
             if (images.azul.complete) {
-                drawImageCover16x9(images.azul, ctx, canvas.width, canvas.height);
+                drawImageFullCover(images.azul, ctx, canvas.width, canvas.height);
+                // Leve overlay escuro para destacar o botão
                 ctx.fillStyle = "rgba(0,0,0,0.1)";
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
             } else {
@@ -399,10 +392,10 @@
         const onImageLoad = () => {
             imagesLoadedCount++;
             if (imagesLoadedCount === totalImagesToLoad) {
-                console.log("✅ Todas as imagens carregadas - 16:9 pronto para YouTube");
+                console.log("✅ Todas as imagens carregadas - Tela cheia sem bordas");
                 // Desenhar frame inicial
                 if (!audioUnlocked && images.azul.complete) {
-                    drawImageCover16x9(images.azul, ctx, canvas.width, canvas.height);
+                    drawImageFullCover(images.azul, ctx, canvas.width, canvas.height);
                 }
             }
         };
@@ -454,37 +447,18 @@
                 if (!audioUnlocked) unlockAudioAndStart();
             }
         });
-    }
-    
-    // Ajuste responsivo para garantir 16:9 sempre
-    function ensure16x9() {
-        const container = document.querySelector('.youtube-container');
-        if (!container) return;
         
-        const windowW = window.innerWidth;
-        const windowH = window.innerHeight;
-        const targetRatio = 16/9;
-        
-        let width = windowW;
-        let height = width / targetRatio;
-        
-        if (height > windowH) {
-            height = windowH;
-            width = height * targetRatio;
-        }
-        
-        container.style.width = width + 'px';
-        container.style.height = height + 'px';
-        container.style.margin = '0 auto';
+        // Resize da tela
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+        });
     }
     
     // ========== INICIALIZAÇÃO ==========
     function init() {
-        console.log("🎬 LOHRA STUDIO - YouTube 16:9 | Loop 18s | 3 repetições por imagem | Sem marca d'água extra");
+        console.log("🎬 LOHRA STUDIO - TELA CHEIA | Sem bordas pretas | Logo topo central | Loop 18s");
         
-        ensure16x9();
-        window.addEventListener('resize', ensure16x9);
-        
+        resizeCanvas();
         loadAllImages();
         prepareAudio();
         bindEvents();
@@ -496,7 +470,7 @@
         // Tentar mostrar imagem azul o mais rápido possível
         const checkImagesInterval = setInterval(() => {
             if (images.azul.complete) {
-                drawImageCover16x9(images.azul, ctx, canvas.width, canvas.height);
+                drawImageFullCover(images.azul, ctx, canvas.width, canvas.height);
                 clearInterval(checkImagesInterval);
             }
         }, 100);
