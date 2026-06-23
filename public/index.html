@@ -104,8 +104,28 @@
   .product-fav.favorited{color:var(--rose);background:rgba(212,131,155,0.15);border-color:var(--rose)}
   .product-body{padding:14px 16px}
   .product-category{display:inline-block;font-size:0.58rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:20px;margin-bottom:8px}
-  .product-name{font-family:'Playfair Display',serif;font-size:1.02rem;font-weight:700;line-height:1.3;margin-bottom:6px;color:var(--text);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-  .product-desc{font-size:0.78rem;color:var(--text-muted);line-height:1.5;margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+ 
+  .product-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.02rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 6px;
+  color: var(--text);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+  .product-desc {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
   .product-footer{display:flex;align-items:center;justify-content:space-between}
   .product-price{font-family:'Rajdhani',sans-serif;font-size:1.2rem;font-weight:700;color:var(--accent-dark)}
   .product-price-old{font-size:0.78rem;color:var(--text-muted);text-decoration:line-through;margin-right:6px;font-weight:400}
@@ -491,11 +511,7 @@
   }
   function lightboxNav(dir){lightboxIdx=(lightboxIdx+dir+lightboxData.length)%lightboxData.length;atualizarLightbox()}
 
-  function renderStoreList(){
-    var l=document.getElementById('store-list');l.innerHTML='';
-    if(!userStores.length){l.innerHTML='<div class="no-stores-msg"><i class="fas fa-map-marker-alt" style="display:block;margin-bottom:6px;opacity:0.3;font-size:1.2rem;"></i>Nenhuma feira cadastrada</div>';return}
-    userStores.forEach(function(s,i){var it=document.createElement('div');it.className='store-item';it.style.animationDelay=(i*0.05)+'s';it.innerHTML='<div class="store-item-info"><div class="store-item-dot"></div><div><div class="store-item-name">'+s.name+'</div><div class="store-item-cat">'+s.type+(s.url?' — '+s.url:'')+'</div></div></div><button class="store-item-remove" data-idx="'+i+'"><i class="fas fa-times"></i></button>';l.appendChild(it);it.querySelector('.store-item-remove').addEventListener('click',function(){userStores.splice(parseInt(this.getAttribute('data-idx')),1);try{localStorage.setItem('atelier_stores',JSON.stringify(userStores))}catch(e){}renderStoreList();showToast('Removido')})})})
-  }
+  function renderStoreList(){var l=document.getElementById('store-list');l.innerHTML='';if(!userStores.length){l.innerHTML='<div class="no-stores-msg"><i class="fas fa-map-marker-alt" style="display:block;margin-bottom:6px;opacity:0.3;font-size:1.2rem;"></i>Nenhuma feira cadastrada</div>';return}userStores.forEach(function(s,i){var it=document.createElement('div');it.className='store-item';it.style.animationDelay=(i*0.05)+'s';it.innerHTML='<div class="store-item-info"><div class="store-item-dot"></div><div><div class="store-item-name">'+s.name+'</div><div class="store-item-cat">'+s.type+(s.url?' — '+s.url:'')+'</div></div></div><button class="store-item-remove" data-idx="'+i+'"><i class="fas fa-times"></i></button>';l.appendChild(it);it.querySelector('.store-item-remove').addEventListener('click',function(){userStores.splice(parseInt(this.getAttribute('data-idx')),1);try{localStorage.setItem('atelier_stores',JSON.stringify(userStores))}catch(e){}renderStoreList();showToast('Removido')})})}
 
   var paypalVerificado=false;
   function iniciarPaypal(){
