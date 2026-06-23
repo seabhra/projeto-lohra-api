@@ -3,38 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Atelier Sorelle Santos — Artesanato Autoral</title>
+  <title>Atelier Sorelle Santos — Bolsas e Acessórios Artesanais</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Inter:wght@300;400;500;600;700;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <link rel="shortcut icon" href="./imagens_app/ic_icon_app.png">
-
   <link rel="icon" type="image/x-icon" href="/favicon_io/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon_io/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon_io/favicon-16x16.png">
   <link rel="apple-touch-icon" href="/favicon_io/apple-touch-icon.png">
   <link rel="manifest" href="/favicon_io/site.webmanifest">
-
-
 <style>
-  :root{--bg:#0f0d0b;--panel:#181510;--card:#1f1b15;--accent:#D4A574;--accent-dark:#B8895A;--accent-glow:rgba(212,165,116,0.15);--terracotta:#C17F59;--rose:#C48B7A;--olive:#8B9A6B;--text:#F2EDE8;--text-muted:#8A8279;--radius-sm:8px;--radius-md:12px;--radius-lg:18px;--radius-full:50px}
+  :root{--bg:#FAF7F5;--panel:#F5F0EC;--card:#FFFFFF;--accent:#D4839B;--accent-dark:#C06E7A;--accent-glow:rgba(212,131,155,0.12);--terracotta:#E8A060;--rose:#D4839B;--olive:#7DBF8E;--lilas:#B89FD4;--azul:#8FBFE3;--amarelo:#F0D58C;--text:#3D3239;--text-muted:#9A8E95;--radius-sm:8px;--radius-md:12px;--radius-lg:18px;--radius-full:50px;--shadow-sm:0 2px 8px rgba(0,0,0,0.06);--shadow-md:0 4px 20px rgba(0,0,0,0.08);--shadow-lg:0 12px 40px rgba(0,0,0,0.12)}
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
   html{scroll-behavior:smooth}
   body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden}
 
-  /* ===== HEADER ===== */
-  header{background:linear-gradient(135deg,var(--panel) 0%,#1e1914 100%);padding:14px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1.5px solid var(--accent);box-shadow:0 4px 25px rgba(212,165,116,0.1);z-index:1000;flex-shrink:0;position:relative}
+  header{background:linear-gradient(135deg,#fff 0%,var(--panel) 100%);padding:14px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--accent);box-shadow:var(--shadow-sm);z-index:1000;flex-shrink:0;position:relative}
   .header-left{display:flex;align-items:center;gap:12px}
-  .atelier-logo{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--terracotta));display:flex;align-items:center;justify-content:center;font-size:18px;color:#0f0d0b;font-weight:900;font-family:'Playfair Display',serif;box-shadow:0 2px 12px rgba(212,165,116,0.3)}
-  .atelier-name h1{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;letter-spacing:0.5px;line-height:1.2}
+  .atelier-logo{width:44px;height:44px;border-radius:50%;overflow:hidden;box-shadow:0 2px 12px rgba(212,131,155,0.25);border:2px solid rgba(212,131,155,0.2)}
+  .atelier-logo img{width:100%;height:100%;object-fit:contain}
+  .atelier-name h1{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;letter-spacing:0.5px;line-height:1.2;color:var(--text)}
   .atelier-name h1 span{color:var(--accent);font-style:italic}
-  .atelier-name .subtitle{font-size:0.58rem;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--text-muted);margin-top:1px}
+  .atelier-name .subtitle{font-size:0.55rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--text-muted);margin-top:1px}
   .header-right{display:flex;align-items:center;gap:10px;position:relative}
-  .header-badge{display:flex;align-items:center;gap:5px;background:rgba(212,165,116,0.08);border:1px solid rgba(212,165,116,0.2);border-radius:var(--radius-full);padding:5px 11px;font-size:0.7rem;font-weight:600;color:var(--accent)}
+  .header-badge{display:flex;align-items:center;gap:5px;background:rgba(212,131,155,0.08);border:1px solid rgba(212,131,155,0.2);border-radius:var(--radius-full);padding:5px 11px;font-size:0.7rem;font-weight:600;color:var(--accent)}
   .header-badge i{font-size:0.8rem}
 
-  /* ===== MENU HAMBURGER ===== */
-  .btn-menu-toggle{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:none;border:1.5px solid rgba(212,165,116,0.25);border-radius:10px;padding:8px 13px 6px;cursor:pointer;transition:all 0.25s ease;user-select:none;position:relative;z-index:1100}
-  .btn-menu-toggle:hover{border-color:var(--accent);background:rgba(212,165,116,0.05)}
+  .btn-menu-toggle{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:none;border:1.5px solid rgba(212,131,155,0.3);border-radius:10px;padding:8px 13px 6px;cursor:pointer;transition:all 0.25s ease;user-select:none;position:relative;z-index:1100}
+  .btn-menu-toggle:hover{border-color:var(--accent);background:rgba(212,131,155,0.05)}
   .btn-menu-toggle:active{transform:scale(0.93)}
   .menu-hamburger{display:flex;flex-direction:column;gap:4px;width:22px}
   .menu-hamburger span{display:block;height:2px;width:100%;background-color:var(--accent);border-radius:2px;transition:all 0.35s cubic-bezier(0.4,0,0.2,1);transform-origin:center}
@@ -43,222 +39,198 @@
   .btn-menu-toggle.active .menu-hamburger span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
   .menu-label{font-size:0.5rem;font-weight:700;letter-spacing:1.5px;color:var(--accent);text-transform:uppercase;line-height:1;margin-top:2px}
 
-  /* ===== MENU DROPDOWN ===== */
-  .menu-dropdown{position:absolute;top:calc(100% + 8px);right:0;width:300px;background:var(--panel);border:1px solid rgba(212,165,116,0.2);border-radius:var(--radius-lg);box-shadow:0 16px 50px rgba(0,0,0,0.8),0 0 40px rgba(212,165,116,0.05);z-index:1050;overflow:hidden;opacity:0;visibility:hidden;transform:translateY(-12px) scale(0.95);transition:all 0.3s cubic-bezier(0.4,0,0.2,1);pointer-events:none}
+  .menu-dropdown{position:absolute;top:calc(100% + 8px);right:0;width:300px;background:#fff;border:1px solid rgba(212,131,155,0.15);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);z-index:1050;overflow:hidden;opacity:0;visibility:hidden;transform:translateY(-12px) scale(0.95);transition:all 0.3s cubic-bezier(0.4,0,0.2,1);pointer-events:none}
   .menu-dropdown.open{opacity:1;visibility:visible;transform:translateY(0) scale(1);pointer-events:auto}
-  .menu-dropdown::before{content:'';position:absolute;top:-7px;right:52px;width:14px;height:14px;background:var(--panel);border-left:1px solid rgba(212,165,116,0.2);border-top:1px solid rgba(212,165,116,0.2);transform:rotate(45deg);z-index:1}
+  .menu-dropdown::before{content:'';position:absolute;top:-7px;right:52px;width:14px;height:14px;background:#fff;border-left:1px solid rgba(212,131,155,0.15);border-top:1px solid rgba(212,131,155,0.15);transform:rotate(45deg);z-index:1}
   .menu-dropdown-inner{padding:6px 0;position:relative;z-index:2}
-  .menu-divider{height:1px;background:rgba(255,255,255,0.05);margin:6px 16px}
+  .menu-divider{height:1px;background:rgba(0,0,0,0.05);margin:6px 16px}
   .menu-item{display:flex;align-items:center;gap:14px;padding:13px 20px;cursor:pointer;transition:all 0.2s ease;border:none;background:none;width:100%;text-align:left;font-family:'Inter',sans-serif;color:var(--text);position:relative;overflow:hidden}
-  .menu-item::before{content:'';position:absolute;inset:0;background:rgba(212,165,116,0);transition:background 0.2s ease}
-  .menu-item:hover::before{background:rgba(212,165,116,0.05)}
+  .menu-item::before{content:'';position:absolute;inset:0;background:rgba(212,131,155,0);transition:background 0.2s ease}
+  .menu-item:hover::before{background:rgba(212,131,155,0.05)}
   .menu-item:active{transform:scale(0.98)}
   .menu-item-icon{width:38px;height:38px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:0.95rem;flex-shrink:0}
   .menu-item-text{flex:1;min-width:0}
-  .menu-item-text .mi-title{font-size:0.85rem;font-weight:700;line-height:1.3}
+  .menu-item-text .mi-title{font-size:0.85rem;font-weight:700;line-height:1.3;color:var(--text)}
   .menu-item-text .mi-desc{font-size:0.63rem;color:var(--text-muted);margin-top:2px;line-height:1.3}
   .menu-item-arrow{color:var(--text-muted);font-size:0.65rem;transition:all 0.2s ease}
   .menu-item:hover .menu-item-arrow{transform:translateX(3px);color:var(--accent)}
-  .menu-item-plus{background:linear-gradient(135deg,var(--accent),var(--terracotta))!important;color:#0f0d0b!important;margin:4px 12px;border-radius:var(--radius-md)!important;padding:14px 18px!important;box-shadow:0 4px 18px rgba(212,165,116,0.25);transition:all 0.25s ease;border:none;cursor:pointer;width:calc(100% - 24px);text-align:left;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:12px}
-  .menu-item-plus:hover{box-shadow:0 6px 28px rgba(212,165,116,0.4);transform:translateY(-1px)!important}
+  .menu-item-plus{background:linear-gradient(135deg,var(--accent),var(--accent-dark))!important;color:#fff!important;margin:4px 12px;border-radius:var(--radius-md)!important;padding:14px 18px!important;box-shadow:0 4px 18px rgba(212,131,155,0.2);transition:all 0.25s ease;border:none;cursor:pointer;width:calc(100% - 24px);text-align:left;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:12px}
+  .menu-item-plus:hover{box-shadow:0 6px 28px rgba(212,131,155,0.35);transform:translateY(-1px)!important}
   .menu-item-plus:active{transform:scale(0.97)!important}
-  .menu-item-plus .plus-circle{width:34px;height:34px;border-radius:50%;background:rgba(15,13,11,0.18);display:flex;align-items:center;justify-content:center;font-size:1.3rem;font-weight:900;color:#0f0d0b;flex-shrink:0}
-  .menu-item-plus .mi-title{color:#0f0d0b!important;font-weight:800!important}
-  .menu-item-plus .mi-desc{color:rgba(15,13,11,0.5)!important}
-  .menu-item-plus .menu-item-arrow{color:rgba(15,13,11,0.35)!important}
-  .menu-item-plus:hover .menu-item-arrow{color:#0f0d0b!important}
+  .menu-item-plus .plus-circle{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:1.3rem;font-weight:900;color:#fff;flex-shrink:0}
+  .menu-item-plus .mi-title{color:#fff!important;font-weight:800!important}
+  .menu-item-plus .mi-desc{color:rgba(255,255,255,0.7)!important}
+  .menu-item-plus .menu-item-arrow{color:rgba(255,255,255,0.5)!important}
+  .menu-item-plus:hover .menu-item-arrow{color:#fff!important}
 
-  /* ===== TABS ===== */
-  .tab-bar{display:flex;background:var(--panel);border-bottom:1px solid rgba(255,255,255,0.04);flex-shrink:0;overflow-x:auto;scrollbar-width:none}
+  .tab-bar{display:flex;background:#fff;border-bottom:1px solid rgba(0,0,0,0.06);flex-shrink:0;overflow-x:auto;scrollbar-width:none}
   .tab-bar::-webkit-scrollbar{display:none}
   .tab-btn{flex:1;min-width:0;padding:12px 6px;background:none;border:none;color:var(--text-muted);font-family:'Inter',sans-serif;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;cursor:pointer;transition:all 0.25s ease;position:relative;white-space:nowrap;display:flex;flex-direction:column;align-items:center;gap:4px}
   .tab-btn i{font-size:0.95rem}
   .tab-btn.active{color:var(--accent)}
   .tab-btn.active::after{content:'';position:absolute;bottom:0;left:20%;right:20%;height:2.5px;background:var(--accent);border-radius:3px 3px 0 0}
 
-  /* ===== MAIN ===== */
   .main-content{flex:1;overflow:hidden;position:relative;display:flex;flex-direction:column}
   .content-area{flex:1;overflow-y:auto;overflow-x:hidden;padding:14px;scroll-behavior:smooth}
   .content-area::-webkit-scrollbar{width:4px}
-  .content-area::-webkit-scrollbar-thumb{background:rgba(212,165,116,0.2);border-radius:4px}
-  .search-bar{position:absolute;top:0;left:0;width:100%;background:rgba(24,21,16,0.98);backdrop-filter:blur(8px);display:flex;gap:10px;z-index:800;max-height:0;overflow:hidden;opacity:0;padding:0 14px;border-bottom:1px solid transparent;transition:all 0.3s ease;align-items:center}
-  .search-bar.active{max-height:70px;opacity:1;padding:12px 14px;border-bottom:1px solid rgba(212,165,116,0.15);box-shadow:0 4px 15px rgba(0,0,0,0.5)}
-  .search-bar input{flex:1;padding:11px 18px;border-radius:var(--radius-full);border:1px solid #2a2520;background:#0a0908;color:var(--text);font-size:0.85rem;outline:none;font-family:'Inter',sans-serif}
-  .search-bar input:focus{border-color:var(--accent);box-shadow:0 0 0 2px rgba(212,165,116,0.1)}
-  .btn-search{flex-shrink:0;width:42px;height:42px;border-radius:50%;border:none;cursor:pointer;background:linear-gradient(135deg,var(--accent),var(--terracotta));color:#0f0d0b;font-size:0.9rem;display:flex;align-items:center;justify-content:center;transition:all 0.2s ease}
+  .content-area::-webkit-scrollbar-thumb{background:rgba(212,131,155,0.25);border-radius:4px}
+  .search-bar{position:absolute;top:0;left:0;width:100%;background:rgba(255,255,255,0.98);backdrop-filter:blur(8px);display:flex;gap:10px;z-index:800;max-height:0;overflow:hidden;opacity:0;padding:0 14px;border-bottom:1px solid transparent;transition:all 0.3s ease;align-items:center}
+  .search-bar.active{max-height:70px;opacity:1;padding:12px 14px;border-bottom:1px solid rgba(212,131,155,0.15);box-shadow:var(--shadow-md)}
+  .search-bar input{flex:1;padding:11px 18px;border-radius:var(--radius-full);border:1px solid #e0d8d3;background:var(--bg);color:var(--text);font-size:0.85rem;outline:none;font-family:'Inter',sans-serif}
+  .search-bar input:focus{border-color:var(--accent);box-shadow:0 0 0 2px rgba(212,131,155,0.1)}
+  .btn-search{flex-shrink:0;width:42px;height:42px;border-radius:50%;border:none;cursor:pointer;background:linear-gradient(135deg,var(--accent),var(--accent-dark));color:#fff;font-size:0.9rem;display:flex;align-items:center;justify-content:center;transition:all 0.2s ease}
   .btn-search:active{transform:scale(0.9)}
-  .fab-search{position:absolute;top:12px;right:14px;z-index:600;width:42px;height:42px;border-radius:50%;border:1px solid rgba(212,165,116,0.2);background:rgba(24,21,16,0.92);box-shadow:0 3px 10px rgba(0,0,0,0.5);color:var(--accent);font-size:0.95rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s ease;backdrop-filter:blur(8px)}
-  .fab-search:hover{transform:scale(1.08);border-color:var(--accent);background:rgba(212,165,116,0.06)}
+  .fab-search{position:absolute;top:12px;right:14px;z-index:600;width:42px;height:42px;border-radius:50%;border:1px solid rgba(212,131,155,0.2);background:rgba(255,255,255,0.92);box-shadow:var(--shadow-sm);color:var(--accent);font-size:0.95rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s ease;backdrop-filter:blur(8px)}
+  .fab-search:hover{transform:scale(1.08);border-color:var(--accent);background:rgba(212,131,155,0.06)}
   .fab-search:active{transform:scale(0.92)}
   .fab-search.hidden-fab{opacity:0;pointer-events:none;transform:translateX(10px)}
 
-  /* ===== FILTER CHIPS ===== */
-  .filter-strip{display:flex;gap:7px;padding:10px 14px;overflow-x:auto;scrollbar-width:none;flex-shrink:0;border-bottom:1px solid rgba(255,255,255,0.03)}
+  .filter-strip{display:flex;gap:7px;padding:10px 14px;overflow-x:auto;scrollbar-width:none;flex-shrink:0;border-bottom:1px solid rgba(0,0,0,0.04)}
   .filter-strip::-webkit-scrollbar{display:none}
-  .filter-chip{padding:6px 13px;border-radius:var(--radius-full);border:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.02);color:var(--text-muted);font-size:0.67rem;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;cursor:pointer;white-space:nowrap;transition:all 0.2s ease;display:flex;align-items:center;gap:5px}
-  .filter-chip:hover{border-color:rgba(255,255,255,0.12);background:rgba(255,255,255,0.04)}
-  .filter-chip.active{border-color:var(--accent);background:rgba(212,165,116,0.1);color:var(--accent)}
+  .filter-chip{padding:6px 13px;border-radius:var(--radius-full);border:1px solid rgba(0,0,0,0.08);background:rgba(0,0,0,0.02);color:var(--text-muted);font-size:0.67rem;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;cursor:pointer;white-space:nowrap;transition:all 0.2s ease;display:flex;align-items:center;gap:5px}
+  .filter-chip:hover{border-color:rgba(0,0,0,0.15);background:rgba(0,0,0,0.04)}
+  .filter-chip.active{border-color:var(--accent);background:rgba(212,131,155,0.1);color:var(--accent)}
   .filter-chip .chip-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
 
-  /* ===== PRODUCT CARDS ===== */
-  .product-card{background:var(--card);border-radius:var(--radius-lg);margin-bottom:14px;overflow:hidden;border:1px solid rgba(255,255,255,0.04);transition:all 0.3s ease;animation:cardIn 0.4s ease-out both;cursor:pointer}
-  .product-card:hover{border-color:rgba(212,165,116,0.15);transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,0.4)}
+  .product-card{background:var(--card);border-radius:var(--radius-lg);margin-bottom:14px;overflow:hidden;border:1px solid rgba(0,0,0,0.06);transition:all 0.3s ease;animation:cardIn 0.4s ease-out both;cursor:pointer;box-shadow:var(--shadow-sm)}
+  .product-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:rgba(212,131,155,0.15)}
   @keyframes cardIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-  .product-img-wrap{position:relative;width:100%;height:200px;overflow:hidden;background:#0a0908}
+  .product-img-wrap{position:relative;width:100%;height:220px;overflow:hidden;background:linear-gradient(135deg,#f0e8e4,#e8ddd6)}
   .product-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease}
   .product-card:hover .product-img-wrap img{transform:scale(1.05)}
-  .product-badge{position:absolute;top:10px;left:10px;padding:4px 10px;border-radius:4px;font-size:0.6rem;font-weight:800;letter-spacing:0.8px;text-transform:uppercase;color:#fff;z-index:2}
-  .product-fav{position:absolute;top:10px;right:10px;width:34px;height:34px;border-radius:50%;background:rgba(15,13,11,0.6);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,0.1);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.85rem;transition:all 0.25s ease;z-index:2}
-  .product-fav:hover{background:rgba(196,139,122,0.3);border-color:var(--rose)}
-  .product-fav.favorited{color:var(--rose);background:rgba(196,139,122,0.2);border-color:var(--rose)}
+  .product-badge{position:absolute;top:10px;left:10px;padding:4px 10px;border-radius:20px;font-size:0.58rem;font-weight:800;letter-spacing:0.8px;text-transform:uppercase;color:#fff;z-index:2}
+  .product-fav{position:absolute;top:10px;right:10px;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.85);backdrop-filter:blur(4px);border:1px solid rgba(0,0,0,0.06);color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.85rem;transition:all 0.25s ease;z-index:2}
+  .product-fav:hover{color:var(--rose);border-color:var(--rose);background:rgba(212,131,155,0.1)}
+  .product-fav.favorited{color:var(--rose);background:rgba(212,131,155,0.15);border-color:var(--rose)}
   .product-body{padding:14px 16px}
-  .product-category{display:inline-block;font-size:0.6rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:4px;margin-bottom:8px}
-  .product-name{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;line-height:1.3;margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .product-category{display:inline-block;font-size:0.58rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:20px;margin-bottom:8px}
+  .product-name{font-family:'Playfair Display',serif;font-size:1.02rem;font-weight:700;line-height:1.3;margin-bottom:6px;color:var(--text);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
   .product-desc{font-size:0.78rem;color:var(--text-muted);line-height:1.5;margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
   .product-footer{display:flex;align-items:center;justify-content:space-between}
-  .product-price{font-family:'Rajdhani',sans-serif;font-size:1.2rem;font-weight:700;color:var(--accent)}
+  .product-price{font-family:'Rajdhani',sans-serif;font-size:1.2rem;font-weight:700;color:var(--accent-dark)}
   .product-price-old{font-size:0.78rem;color:var(--text-muted);text-decoration:line-through;margin-right:6px;font-weight:400}
-  .product-stock{font-size:0.65rem;color:var(--olive);font-weight:600;display:flex;align-items:center;gap:4px}
+  .product-stock{font-size:0.62rem;color:var(--olive);font-weight:600;display:flex;align-items:center;gap:4px}
   .product-stock.low{color:var(--terracotta)}
-  .btn-buy{padding:8px 20px;border-radius:var(--radius-full);border:none;font-family:'Inter',sans-serif;font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;cursor:pointer;color:#0f0d0b;transition:all 0.2s ease;background:linear-gradient(135deg,var(--accent),var(--terracotta))}
+  .btn-buy{padding:8px 20px;border-radius:var(--radius-full);border:none;font-family:'Inter',sans-serif;font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;cursor:pointer;color:#fff;transition:all 0.2s ease;background:linear-gradient(135deg,var(--accent),var(--accent-dark))}
   .btn-buy:active{transform:scale(0.93)}
-  .btn-buy:hover{filter:brightness(1.1);box-shadow:0 4px 15px rgba(212,165,116,0.3)}
+  .btn-buy:hover{filter:brightness(1.05);box-shadow:0 4px 15px rgba(212,131,155,0.3)}
 
-  /* ===== GALLERY ===== */
   .gallery-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
-  .gallery-item{position:relative;border-radius:var(--radius-md);overflow:hidden;aspect-ratio:1;cursor:pointer;animation:cardIn 0.4s ease-out both;background:#0a0908}
+  .gallery-item{position:relative;border-radius:var(--radius-md);overflow:hidden;aspect-ratio:1;cursor:pointer;animation:cardIn 0.4s ease-out both;background:#f0e8e4;box-shadow:var(--shadow-sm)}
   .gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s ease}
   .gallery-item:hover img{transform:scale(1.08)}
-  .gallery-item::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(15,13,11,0.6));pointer-events:none}
+  .gallery-item::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(0,0,0,0.15));pointer-events:none}
   .gallery-item.span-2{grid-column:span 2;aspect-ratio:2/1}
 
-  /* ===== LIGHTBOX ===== */
-  .lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:5000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px);flex-direction:column;gap:16px;padding:20px}
+  .lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:5000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px);flex-direction:column;gap:16px;padding:20px}
   .lightbox.active{display:flex}
-  .lightbox img{max-width:92%;max-height:75vh;border-radius:var(--radius-md);object-fit:contain;animation:modalIn 0.3s ease-out}
-  .lightbox-caption{color:var(--text);font-family:'Playfair Display',serif;font-size:1rem;font-weight:600;text-align:center;max-width:80%}
-  .lightbox-close{position:absolute;top:16px;right:16px;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.08);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:all 0.2s ease;z-index:10}
-  .lightbox-close:hover{background:rgba(255,255,255,0.15)}
-  .lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:all 0.2s ease}
-  .lightbox-nav:hover{background:rgba(212,165,116,0.15);border-color:var(--accent);color:var(--accent)}
+  .lightbox img{max-width:92%;max-height:75vh;border-radius:var(--radius-md);object-fit:contain;animation:modalIn 0.3s ease-out;box-shadow:var(--shadow-lg)}
+  .lightbox-caption{color:#fff;font-family:'Playfair Display',serif;font-size:1rem;font-weight:600;text-align:center;max-width:80%}
+  .lightbox-close{position:absolute;top:16px;right:16px;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.1);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:all 0.2s ease;z-index:10}
+  .lightbox-close:hover{background:rgba(255,255,255,0.2)}
+  .lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.08);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:all 0.2s ease}
+  .lightbox-nav:hover{background:rgba(212,131,155,0.2);border-color:var(--accent);color:var(--accent)}
   .lightbox-prev{left:12px}
   .lightbox-next{right:12px}
-  .lightbox-counter{color:var(--text-muted);font-size:0.75rem;font-weight:600;letter-spacing:1px}
+  .lightbox-counter{color:rgba(255,255,255,0.6);font-size:0.75rem;font-weight:600;letter-spacing:1px}
 
-  /* ===== CONTACT / ABOUT CARDS ===== */
-  .about-card{background:var(--card);border-radius:var(--radius-lg);padding:20px;margin-bottom:14px;border:1px solid rgba(255,255,255,0.04);animation:cardIn 0.4s ease-out both}
-  .about-card h3{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:10px}
-  .about-card h3 i{color:var(--accent);font-size:0.9rem}
+  .about-card{background:var(--card);border-radius:var(--radius-lg);padding:20px;margin-bottom:14px;border:1px solid rgba(0,0,0,0.06);animation:cardIn 0.4s ease-out both;box-shadow:var(--shadow-sm)}
+  .about-card h3{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:10px;color:var(--text)}
+  .about-card h3 i{font-size:0.9rem}
   .about-card p{font-size:0.8rem;color:var(--text-muted);line-height:1.7}
   .social-links{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
-  .social-link{width:42px;height:42px;border-radius:50%;border:1px solid rgba(212,165,116,0.2);background:rgba(212,165,116,0.06);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:1rem;cursor:pointer;transition:all 0.25s ease;text-decoration:none}
-  .social-link:hover{background:var(--accent);color:#0f0d0b;transform:translateY(-2px);box-shadow:0 4px 15px rgba(212,165,116,0.3)}
-  .contact-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04)}
+  .social-link{width:42px;height:42px;border-radius:50%;border:1px solid rgba(212,131,155,0.2);background:rgba(212,131,155,0.06);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:1rem;cursor:pointer;transition:all 0.25s ease;text-decoration:none}
+  .social-link:hover{background:var(--accent);color:#fff;transform:translateY(-2px);box-shadow:0 4px 15px rgba(212,131,155,0.25)}
+  .contact-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(0,0,0,0.05)}
   .contact-item:last-child{border-bottom:none}
-  .contact-item i{color:var(--accent);font-size:0.9rem;width:20px;text-align:center}
+  .contact-item i{font-size:0.9rem;width:20px;text-align:center}
   .contact-item span{font-size:0.82rem;color:var(--text-muted)}
 
-  /* ===== EMPTY STATE ===== */
-  .empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:50px 20px;text-align:center;opacity:0.5}
+  .empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:50px 20px;text-align:center;opacity:0.4}
   .empty-state i{font-size:3rem;margin-bottom:16px;color:var(--accent);opacity:0.3}
   .empty-state p{font-size:0.88rem;color:var(--text-muted);line-height:1.6}
 
-  /* ===== TOAST ===== */
-  .toast{position:absolute;top:20px;left:50%;transform:translateX(-50%) translateY(-20px);background:rgba(24,21,16,0.96);color:var(--text);padding:12px 24px;border-radius:var(--radius-full);border:1px solid rgba(212,165,116,0.25);box-shadow:0 10px 30px rgba(0,0,0,0.7);z-index:2000;opacity:0;font-size:0.82rem;font-weight:600;text-align:center;pointer-events:none;transition:opacity 0.3s ease,transform 0.3s ease;white-space:nowrap;backdrop-filter:blur(8px)}
+  .toast{position:absolute;top:20px;left:50%;transform:translateX(-50%) translateY(-20px);background:rgba(255,255,255,0.96);color:var(--text);padding:12px 24px;border-radius:var(--radius-full);border:1px solid rgba(212,131,155,0.2);box-shadow:var(--shadow-lg);z-index:2000;opacity:0;font-size:0.82rem;font-weight:600;text-align:center;pointer-events:none;transition:opacity 0.3s ease,transform 0.3s ease;white-space:nowrap;backdrop-filter:blur(8px)}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-  /* ===== MODALS ===== */
-  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:3000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:3000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
   .modal-overlay.active{display:flex}
-  .modal-box{background:var(--panel);border:1px solid rgba(212,165,116,0.15);border-radius:var(--radius-lg);padding:24px;width:90%;max-width:420px;max-height:85vh;overflow-y:auto;animation:modalIn 0.3s ease-out}
+  .modal-box{background:#fff;border:1px solid rgba(0,0,0,0.08);border-radius:var(--radius-lg);padding:24px;width:90%;max-width:420px;max-height:85vh;overflow-y:auto;animation:modalIn 0.3s ease-out;box-shadow:var(--shadow-lg)}
   .modal-box::-webkit-scrollbar{width:4px}
-  .modal-box::-webkit-scrollbar-thumb{background:rgba(212,165,116,0.2);border-radius:4px}
+  .modal-box::-webkit-scrollbar-thumb{background:rgba(212,131,155,0.2);border-radius:4px}
   @keyframes modalIn{from{opacity:0;transform:scale(0.9) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
-  .modal-box h2{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;margin-bottom:6px}
+  .modal-box h2{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;margin-bottom:6px;color:var(--text)}
   .modal-box p{font-size:0.8rem;color:var(--text-muted);margin-bottom:18px;line-height:1.5}
   .modal-box label{display:block;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);margin-bottom:6px}
-  .modal-box input,.modal-box select,.modal-box textarea{width:100%;padding:12px 16px;border-radius:var(--radius-sm);border:1px solid #2a2520;background:#0a0908;color:var(--text);font-size:0.88rem;font-family:'Inter',sans-serif;outline:none;margin-bottom:14px}
-  .modal-box input:focus,.modal-box select:focus,.modal-box textarea:focus{border-color:var(--accent);box-shadow:0 0 0 2px rgba(212,165,116,0.1)}
+  .modal-box input,.modal-box select,.modal-box textarea{width:100%;padding:12px 16px;border-radius:var(--radius-sm);border:1px solid #e0d8d3;background:var(--bg);color:var(--text);font-size:0.88rem;font-family:'Inter',sans-serif;outline:none;margin-bottom:14px}
+  .modal-box input:focus,.modal-box select:focus,.modal-box textarea:focus{border-color:var(--accent);box-shadow:0 0 0 2px rgba(212,131,155,0.1)}
   .modal-box textarea{resize:vertical;min-height:60px}
   .modal-actions{display:flex;gap:10px;margin-top:6px}
   .modal-actions button{flex:1;padding:12px;border-radius:var(--radius-sm);border:none;font-family:'Inter',sans-serif;font-size:0.82rem;font-weight:700;cursor:pointer;transition:all 0.2s ease}
   .modal-actions button:active{transform:scale(0.96)}
-  .btn-cancel{background:rgba(255,255,255,0.05);color:var(--text-muted);border:1px solid rgba(255,255,255,0.07)!important}
-  .btn-confirm{background:linear-gradient(135deg,var(--accent),var(--terracotta));color:#0f0d0b}
+  .btn-cancel{background:rgba(0,0,0,0.04);color:var(--text-muted);border:1px solid rgba(0,0,0,0.08)!important}
+  .btn-confirm{background:linear-gradient(135deg,var(--accent),var(--accent-dark));color:#fff}
 
-  /* ===== PAYPAL SECTION ===== */
-  .paypal-section{margin-top:16px;border-top:1px solid rgba(255,255,255,0.05);padding-top:16px}
+  .paypal-section{margin-top:16px;border-top:1px solid rgba(0,0,0,0.06);padding-top:16px}
   .paypal-section-label{display:flex;align-items:center;gap:8px;margin-bottom:12px;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-muted)}
   .paypal-section-label i{color:#0070D2;font-size:0.85rem}
-  .paypal-iframe-wrapper{position:relative;width:100%;min-height:160px;border-radius:var(--radius-md);overflow:hidden;border:1px solid rgba(0,112,210,0.15);background:rgba(0,112,210,0.02)}
+  .paypal-iframe-wrapper{position:relative;width:100%;min-height:160px;border-radius:var(--radius-md);overflow:hidden;border:1px solid rgba(0,112,210,0.12);background:rgba(0,112,210,0.02)}
   .iframe-content{width:100%;height:180px;border:none;display:block;background:#fff;border-radius:var(--radius-md)}
-  .iframe-fallback{display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22px 16px;gap:10px;min-height:160px;border-radius:var(--radius-md);border:1px solid rgba(0,112,210,0.12);background:linear-gradient(135deg,rgba(0,112,210,0.04),rgba(0,112,210,0.01))}
+  .iframe-fallback{display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22px 16px;gap:10px;min-height:160px;border-radius:var(--radius-md);border:1px solid rgba(0,112,210,0.1);background:rgba(0,112,210,0.02)}
   .iframe-fallback.visible{display:flex;animation:cardIn 0.4s ease-out both}
   .iframe-fallback i{font-size:1.6rem;color:#0070D2;opacity:0.6}
-  .iframe-fallback h3{font-size:0.88rem;font-weight:800}
+  .iframe-fallback h3{font-size:0.88rem;font-weight:800;color:var(--text)}
   .iframe-fallback p{font-size:0.7rem;color:var(--text-muted);line-height:1.5;max-width:280px;margin-bottom:0}
-  .btn-external{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:var(--radius-full);background:linear-gradient(135deg,#0070D2,#003087);color:#fff;text-decoration:none;font-family:'Inter',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.3px;transition:all 0.25s ease;box-shadow:0 4px 15px rgba(0,112,210,0.25);margin-top:4px}
-  .btn-external:hover{transform:translateY(-2px);box-shadow:0 6px 25px rgba(0,112,210,0.4)}
+  .btn-external{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:var(--radius-full);background:linear-gradient(135deg,#0070D2,#003087);color:#fff;text-decoration:none;font-family:'Inter',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.3px;transition:all 0.25s ease;box-shadow:0 4px 15px rgba(0,112,210,0.2);margin-top:4px}
+  .btn-external:hover{transform:translateY(-2px);box-shadow:0 6px 25px rgba(0,112,210,0.35)}
   .btn-external:active{transform:scale(0.96)}
-  .donate-option-link{display:flex;align-items:center;gap:14px;padding:13px 16px;border-radius:var(--radius-md);background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);text-decoration:none;color:var(--text);transition:all 0.25s ease;cursor:pointer}
-  .donate-option-link:hover{background:rgba(212,165,116,0.05);border-color:rgba(212,165,116,0.15);transform:translateX(4px)}
+  .donate-option-link{display:flex;align-items:center;gap:14px;padding:13px 16px;border-radius:var(--radius-md);background:rgba(0,0,0,0.02);border:1px solid rgba(0,0,0,0.06);text-decoration:none;color:var(--text);transition:all 0.25s ease;cursor:pointer}
+  .donate-option-link:hover{background:rgba(212,131,155,0.05);border-color:rgba(212,131,155,0.15);transform:translateX(4px)}
   .donate-option-link:active{transform:scale(0.98)}
   .donate-option-icon-wrap{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
   .donate-option-text{flex:1;min-width:0}
-  .donate-option-text .do-title{font-size:0.82rem;font-weight:700}
+  .donate-option-text .do-title{font-size:0.82rem;font-weight:700;color:var(--text)}
   .donate-option-text .do-desc{font-size:0.65rem;color:var(--text-muted);margin-top:2px}
-  .donate-loading{display:flex;align-items:center;justify-content:center;gap:10px;padding:30px;color:var(--text-muted);font-size:0.8rem}
 
-  /* ===== LOADING ===== */
   .loading-fullscreen{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity 0.6s ease,visibility 0.6s ease}
   .loading-fullscreen.fade-out{opacity:0;visibility:hidden}
   .loader-artisan{width:50px;height:50px;position:relative;margin-bottom:24px}
-  .loader-artisan::before{content:'';position:absolute;inset:0;border-radius:50%;border:3px solid transparent;border-top-color:var(--accent);border-right-color:var(--terracotta);animation:spin 1s cubic-bezier(0.68,-0.15,0.27,1.15) infinite}
+  .loader-artisan::before{content:'';position:absolute;inset:0;border-radius:50%;border:3px solid transparent;border-top-color:var(--accent);border-right-color:var(--lilas);animation:spin 1s cubic-bezier(0.68,-0.15,0.27,1.15) infinite}
   .loader-artisan::after{content:'✦';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--accent);animation:pulseText 1.5s ease-in-out infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
   @keyframes pulseText{0%,100%{opacity:0.4}50%{opacity:1}}
-  .loading-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;text-align:center}
+  .loading-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;text-align:center;color:var(--text)}
   .loading-title span{color:var(--accent);font-style:italic}
   .loading-sub{margin-top:8px;font-size:0.78rem;color:var(--text-muted);animation:pulseText 1.8s ease-in-out infinite;letter-spacing:1px}
 
-  /* ===== STORE LIST ===== */
   .store-list{max-height:160px;overflow-y:auto;margin-bottom:14px}
   .store-list::-webkit-scrollbar{width:4px}
-  .store-list::-webkit-scrollbar-thumb{background:rgba(212,165,116,0.2);border-radius:4px}
-  .store-item{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;border-radius:var(--radius-sm);background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);margin-bottom:5px;animation:cardIn 0.3s ease-out both}
+  .store-list::-webkit-scrollbar-thumb{background:rgba(212,131,155,0.2);border-radius:4px}
+  .store-item{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;border-radius:var(--radius-sm);background:rgba(0,0,0,0.02);border:1px solid rgba(0,0,0,0.04);margin-bottom:5px;animation:cardIn 0.3s ease-out both}
   .store-item-info{display:flex;align-items:center;gap:10px;min-width:0;flex:1}
   .store-item-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex-shrink:0}
-  .store-item-name{font-size:0.8rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .store-item-name{font-size:0.8rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)}
   .store-item-cat{font-size:0.62rem;color:var(--text-muted)}
-  .store-item-remove{width:26px;height:26px;border-radius:50%;border:1px solid rgba(255,255,255,0.06);background:none;color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.65rem;transition:all 0.2s ease;flex-shrink:0;margin-left:6px}
-  .store-item-remove:hover{border-color:var(--terracotta);color:var(--terracotta);background:rgba(193,127,89,0.08)}
+  .store-item-remove{width:26px;height:26px;border-radius:50%;border:1px solid rgba(0,0,0,0.06);background:none;color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.65rem;transition:all 0.2s ease;flex-shrink:0;margin-left:6px}
+  .store-item-remove:hover{border-color:var(--accent);color:var(--accent);background:rgba(212,131,155,0.08)}
   .no-stores-msg{text-align:center;padding:14px;color:var(--text-muted);font-size:0.78rem}
-
-  .info-version{text-align:center;margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.04);font-size:0.68rem;color:var(--text-muted);font-style:italic;font-family:'Playfair Display',serif}
-
-  @media(max-width:380px){.atelier-name h1{font-size:0.92rem}.header-badge{display:none}.gallery-grid{gap:6px}.product-img-wrap{height:160px}.menu-dropdown{width:270px;right:0}}
+  .info-version{text-align:center;margin-top:14px;padding-top:14px;border-top:1px solid rgba(0,0,0,0.05);font-size:0.68rem;color:var(--text-muted);font-style:italic;font-family:'Playfair Display',serif}
+  @media(max-width:380px){.atelier-name h1{font-size:0.92rem}.header-badge{display:none}.gallery-grid{gap:6px}.product-img-wrap{height:180px}.menu-dropdown{width:270px;right:0}}
   @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important}}
 </style>
 </head>
 <body>
-
-  <!-- LOADING -->
   <div class="loading-fullscreen" id="loading-screen">
     <div class="loader-artisan"></div>
     <div class="loading-title">Atelier <span>Sorelle</span> Santos</div>
     <div class="loading-sub">Carregando pecas artesanais...</div>
   </div>
-
-  <!-- HEADER -->
   <header>
     <div class="header-left">
-      <div class="atelier-logo" style="width: 42px; height: 42px; padding: 4px;">
-				<img src="./imagens_app/ic_icon_app.png" alt="ATELIER SORELLE" style="width:42px;height:42px;border-radius:10px;object-fit:contain;">
-	       </div>
-
+      <div class="atelier-logo"><img src="./imagens_app/ic_icon_app.png" alt="ATELIER SORELLE"></div>
       <div class="atelier-name">
         <h1>Atelier <span>Sorelle</span> Santos</h1>
-        <div class="subtitle">Artesanato Autoral</div>
+        <div class="subtitle">Bolsas e Acessorios Artesanais</div>
       </div>
     </div>
     <div class="header-right">
@@ -269,49 +241,25 @@
       </button>
       <div class="menu-dropdown" id="menu-dropdown">
         <div class="menu-dropdown-inner">
-          <button class="menu-item" id="menu-info">
-            <div class="menu-item-icon" style="background:rgba(212,165,116,0.1);color:var(--accent);"><i class="fas fa-circle-info"></i></div>
-            <div class="menu-item-text"><div class="mi-title">Informação</div><div class="mi-desc">Sobre o Atelier</div></div>
-            <i class="fas fa-chevron-right menu-item-arrow"></i>
-          </button>
-          <button class="menu-item" id="menu-gallery">
-            <div class="menu-item-icon" style="background:rgba(196,139,122,0.1);color:var(--rose);"><i class="fas fa-images"></i></div>
-            <div class="menu-item-text"><div class="mi-title">Galeria de Fotos</div><div class="mi-desc">Nossas pecas em detalhe</div></div>
-            <i class="fas fa-chevron-right menu-item-arrow"></i>
-          </button>
-          <button class="menu-item" id="menu-donate">
-            <div class="menu-item-icon" style="background:rgba(193,127,89,0.1);color:var(--terracotta);"><i class="fas fa-heart"></i></div>
-            <div class="menu-item-text"><div class="mi-title">Apoie o Atelier</div><div class="mi-desc">Doe e incentive a arte</div></div>
-            <i class="fas fa-chevron-right menu-item-arrow"></i>
-          </button>
+          <button class="menu-item" id="menu-info"><div class="menu-item-icon" style="background:rgba(212,131,155,0.1);color:var(--accent);"><i class="fas fa-circle-info"></i></div><div class="menu-item-text"><div class="mi-title">Informação</div><div class="mi-desc">Sobre o Atelier</div></div><i class="fas fa-chevron-right menu-item-arrow"></i></button>
+          <button class="menu-item" id="menu-gallery"><div class="menu-item-icon" style="background:rgba(184,159,212,0.1);color:var(--lilas);"><i class="fas fa-images"></i></div><div class="menu-item-text"><div class="mi-title">Galeria de Fotos</div><div class="mi-desc">Nossas pecas em detalhe</div></div><i class="fas fa-chevron-right menu-item-arrow"></i></button>
+          <button class="menu-item" id="menu-donate"><div class="menu-item" style="background:rgba(212,131,155,0.1);color:var(--accent);"><div class="menu-item-icon"><i class="fas fa-heart"></i></div><div class="menu-item-text"><div class="mi-title">Apoie o Atelier</div><div class="mi-desc">Doe e incentive a arte</div></div><i class="fas fa-chevron-right menu-item-arrow"></i></button>
           <div class="menu-divider"></div>
-          <button class="menu-item-plus" id="menu-add-product">
-            <div class="plus-circle">+</div>
-            <div class="menu-item-text"><div class="mi-title">Cadastrar Peca</div><div class="mi-desc">Adicione ao catálogo</div></div>
-            <i class="fas fa-chevron-right menu-item-arrow"></i>
-          </button>
-          <button class="menu-item-plus" id="menu-add-store">
-            <div class="plus-circle">+</div>
-            <div class="menu-item-text"><div class="mi-title">Inserir Loja / Feira</div><div class="mi-desc">Onde encontramos</div></div>
-            <i class="fas fa-chevron-right menu-item-arrow"></i>
-          </button>
+          <button class="menu-item-plus" id="menu-add-product"><div class="plus-circle">+</div><div class="menu-item-text"><div class="mi-title">Cadastrar Peca</div><div class="mi-desc">Adicione ao catálogo</div></div><i class="fas fa-chevron-right menu-item-arrow"></i></button>
+          <button class="menu-item-plus" id="menu-add-store"><div class="plus-circle">+</div><div class="menu-item-text"><div class="mi-title">Inserir Loja / Feira</div><div class="mi-desc">Onde encontramos</div></div><i class="fas fa-chevron-right menu-item-arrow"></i></button>
         </div>
       </div>
     </div>
   </header>
-
-  <!-- TABS -->
   <nav class="tab-bar" id="tab-bar">
     <button class="tab-btn active" data-tab="catalog"><i class="fas fa-store"></i> Catalogo</button>
     <button class="tab-btn" data-tab="gallery"><i class="fas fa-images"></i> Galeria</button>
     <button class="tab-btn" data-tab="about"><i class="fas fa-feather-pointed"></i> Sobre</button>
     <button class="tab-btn" data-tab="contact"><i class="fas fa-paper-plane"></i> Contato</button>
   </nav>
-
-  <!-- MAIN -->
   <div class="main-content">
     <div class="search-bar" id="search-bar">
-      <input type="text" id="search-query" placeholder="Buscar peca, categoria, material..." aria-label="Buscar">
+      <input type="text" id="search-query" placeholder="Buscar peca, categoria..." aria-label="Buscar">
       <button class="btn-search" id="btn-search"><i class="fas fa-search"></i></button>
     </div>
     <div class="filter-strip" id="filter-strip"></div>
@@ -319,8 +267,6 @@
     <button class="fab-search" id="btn-search-toggle" title="Buscar"><i class="fas fa-search"></i></button>
     <div class="toast" id="toast-msg"></div>
   </div>
-
-  <!-- LIGHTBOX -->
   <div class="lightbox" id="lightbox">
     <button class="lightbox-close" id="lightbox-close"><i class="fas fa-times"></i></button>
     <button class="lightbox-nav lightbox-prev" id="lb-prev"><i class="fas fa-chevron-left"></i></button>
@@ -329,181 +275,135 @@
     <div class="lightbox-caption" id="lb-caption"></div>
     <div class="lightbox-counter" id="lb-counter"></div>
   </div>
-
-  <!-- MODAL: Informação -->
-  <div class="modal-overlay" id="modal-info">
-    <div class="modal-box">
-      <h2><i class="fas fa-feather-pointed" style="color:var(--accent);margin-right:8px;"></i>Sobre o Atelier</h2>
-      <p>Conheca a historia por tras de cada peca artesanal.</p>
-      <div style="font-size:0.8rem;color:var(--text-muted);line-height:1.8;">
-        <p style="margin-bottom:14px;">O <strong style="color:var(--accent);">Atelier Sorelle Santos</strong> nasceu da paixao por criar com as maos. Cada peca e unica, feita com dedicacao e materiais selecionados, traduzindo a essencia do artesanato brasileiro contemporaneo.</p>
-        <p style="margin-bottom:14px;">Trabalhamos com tecidos naturais, fibras, ceramica, madeira reciclada e elementos da natureza. Cada criação carrega um pedaco da nossa historia e identidade cultural.</p>
-        <p>Nossas pecas sao perfeitas para decorar, presentear ou simplesmente apreciar a beleza do feito a mao.</p>
-      </div>
-      <div class="info-version">Atelier Sorelle Santos — Feito com amor e arte</div>
-      <div class="modal-actions" style="margin-top:16px;"><button class="btn-confirm" id="btn-info-close" style="flex:1;">Entendi</button></div>
+  <div class="modal-overlay" id="modal-info"><div class="modal-box">
+    <h2><i class="fas fa-feather-pointed" style="color:var(--accent);margin-right:8px;"></i>Sobre o Atelier</h2>
+    <p>Conheca a historia por tras de cada peca artesanal.</p>
+    <div style="font-size:0.8rem;color:var(--text-muted);line-height:1.8;">
+      <p style="margin-bottom:14px;">O <strong style="color:var(--accent);">Atelier Sorelle Santos</strong> nasceu da paixao por criar com as maos. Cada peca e unica, feita com dedicacao e materiais selecionados, traduzindo a essencia do artesanato brasileiro contemporaneo.</p>
+      <p style="margin-bottom:14px;">Trabalhamos com tecidos naturais, fibras, palha, crochet e materiais sustentaveis. Cada criacao carrega um pedaco da nossa historia e identidade cultural.</p>
+      <p>Nossas bolsas e acessorios sao perfeitos para o dia a dia, presentear ou simplesmente apreciar a beleza do feito a mao.</p>
     </div>
-  </div>
-
-  <!-- MODAL: Cadastrar Peça -->
-  <div class="modal-overlay" id="modal-add-product">
-    <div class="modal-box">
-      <h2>Cadastrar Peca</h2>
-      <p>Adicione uma nova peca ao catalogo do atelier.</p>
-      <label>Nome da Peca</label>
-      <input type="text" id="inp-prod-name" placeholder="Ex: Bolsa Tricô Sertão">
-      <label>Categoria</label>
-      <select id="inp-prod-cat">
-        <option value="textil">Textil / Tricô / Crochê</option>
-        <option value="ceramica">Ceramica</option>
-        <option value="madeira">Madeira</option>
-        <option value="joias">Joias / Acessorios</option>
-        <option value="pintura">Pintura / Quadros</option>
-        <option value="decoracao">Decoracao</option>
-        <option value="velas">Velas Artesanais</option>
-        <option value="outro">Outro</option>
-      </select>
-      <label>Descricao</label>
-      <textarea id="inp-prod-desc" placeholder="Descreva materiais, tecnicas, dimensoes..."></textarea>
-      <label>Preco (R$)</label>
-      <input type="number" id="inp-prod-price" placeholder="Ex: 189" min="0" step="0.01">
-      <label>URL da Imagem (opcional)</label>
-      <input type="url" id="inp-prod-img" placeholder="https://...">
-      <div class="modal-actions">
-        <button class="btn-cancel" id="btn-prod-cancel">Cancelar</button>
-        <button class="btn-confirm" id="btn-prod-confirm">Cadastrar</button>
-      </div>
+    <div class="info-version">Atelier Sorelle Santos — Feito com amor e arte</div>
+    <div class="modal-actions" style="margin-top:16px;"><button class="btn-confirm" id="btn-info-close" style="flex:1;">Entendi</button></div>
+  </div></div>
+  <div class="modal-overlay" id="modal-add-product"><div class="modal-box">
+    <h2>Cadastrar Peca</h2>
+    <p>Adicione uma nova peca ao catalogo do atelier.</p>
+    <label>Nome da Peca</label><input type="text" id="inp-prod-name" placeholder="Ex: Bolsa Praia Rosa">
+    <label>Categoria</label><select id="inp-prod-cat">
+      <option value="bolsas">Bolsas</option>
+      <option value="kits">Kits</option>
+      <option value="mochilas">Mochilas</option>
+      <option value="pochetes">Pochetes</option>
+      <option value="outro">Outro</option>
+    </select>
+    <label>Descricao</label><textarea id="inp-prod-desc" placeholder="Descreva materiais, tecnicas, dimensoes..."></textarea>
+    <label>Preco (R$)</label><input type="number" id="inp-prod-price" placeholder="Ex: 189" min="0" step="0.01">
+    <label>URL da Imagem (opcional)</label><input type="url" id="inp-prod-img" placeholder="https://...">
+    <div class="modal-actions"><button class="btn-cancel" id="btn-prod-cancel">Cancelar</button><button class="btn-confirm" id="btn-prod-confirm">Cadastrar</button></div>
+  </div></div>
+  <div class="modal-overlay" id="modal-add-store"><div class="modal-box">
+    <h2>Inserir Loja / Feira</h2>
+    <p>Onde o Atelier Sorelle Santos pode ser encontrado.</p>
+    <label>Nome</label><input type="text" id="inp-store-name" placeholder="Ex: Feira de Artesanato da Praca">
+    <label>Endereco / URL</label><input type="text" id="inp-store-url" placeholder="Ex: Rua das Flores, 123 ou @instagram">
+    <label>Tipo</label><select id="inp-store-type">
+      <option value="Feira">Feira de Artesanato</option><option value="Loja Fisica">Loja Fisica</option><option value="Online">Loja Online</option><option value="Evento">Evento / Exposicao</option><option value="Outro">Outro</option>
+    </select>
+    <div id="store-list" class="store-list"></div>
+    <div class="modal-actions"><button class="btn-cancel" id="btn-store-cancel">Cancelar</button><button class="btn-confirm" id="btn-store-confirm">Adicionar</button></div>
+  </div></div>
+  <div class="modal-overlay" id="modal-donate"><div class="modal-box">
+    <h2><i class="fas fa-heart" style="color:var(--accent);margin-right:8px;"></i>Apoie o Atelier</h2>
+    <p>Cada contribuicao ajuda a comprar materiais, participar de feiras e continuar criando arte com as maos.</p>
+    <div id="donate-options-list">
+      <div class="donate-option-link" onclick="showToast('Chave PIX copiada!')"><div class="donate-option-icon-wrap" style="background:rgba(76,175,80,0.08);color:#4CAF50;"><i class="fas fa-qrcode"></i></div><div class="donate-option-text"><div class="do-title">PIX</div><div class="do-desc">sorelle.santos@pix.com</div></div></div>
     </div>
-  </div>
-
-  <!-- MODAL: Inserir Loja/Feira -->
-  <div class="modal-overlay" id="modal-add-store">
-    <div class="modal-box">
-      <h2>Inserir Loja / Feira</h2>
-      <p>Onde o Atelier Sorelle Santos pode ser encontrado.</p>
-      <label>Nome</label>
-      <input type="text" id="inp-store-name" placeholder="Ex: Feira de Artesanato da Praça">
-      <label>Endereco / URL</label>
-      <input type="text" id="inp-store-url" placeholder="Ex: Rua das Flores, 123 ou @instagram">
-      <label>Tipo</label>
-      <select id="inp-store-type">
-        <option value="Feira">Feira de Artesanato</option>
-        <option value="Loja Fisica">Loja Fisica</option>
-        <option value="Online">Loja Online</option>
-        <option value="Evento">Evento / Exposicao</option>
-        <option value="Outro">Outro</option>
-      </select>
-      <div id="store-list" class="store-list"></div>
-      <div class="modal-actions">
-        <button class="btn-cancel" id="btn-store-cancel">Cancelar</button>
-        <button class="btn-confirm" id="btn-store-confirm">Adicionar</button>
+    <div class="paypal-section">
+      <div class="paypal-section-label"><i class="fab fa-paypal"></i><span>Doacao via PayPal</span></div>
+      <div class="paypal-iframe-wrapper" id="paypal-wrapper"><iframe src="about:blank" class="iframe-content" id="paypal-iframe" title="Doação PayPal" loading="lazy" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe></div>
+      <div class="iframe-fallback" id="fallback-message">
+        <i class="fas fa-shield-halved"></i>
+        <h3>Rede Segura do PayPal</h3>
+        <p>Por seguranca, o PayPal abre em nova aba.</p>
+        <a href="https://www.paypal.com/donate/?hosted_button_id=VVRPXE4C2JYUE" target="_blank" rel="noopener noreferrer" class="btn-external"><i class="fas fa-external-link-alt"></i> Ir para o PayPal</a>
       </div>
     </div>
-  </div>
-
-  <!-- MODAL: Apoie o Atelier -->
-  <div class="modal-overlay" id="modal-donate">
-    <div class="modal-box">
-      <h2><i class="fas fa-heart" style="color:var(--terracotta);margin-right:8px;"></i>Apoie o Atelier</h2>
-      <p>Cada contribuicao ajuda a comprar materiais, participar de feiras e continuar criando arte com as maos.</p>
-      <div id="donate-options-list">
-        <div class="donate-option-link" onclick="showToast('Chave PIX copiada!')">
-          <div class="donate-option-icon-wrap" style="background:rgba(76,175,80,0.1);color:#4CAF50;"><i class="fas fa-qrcode"></i></div>
-          <div class="donate-option-text"><div class="do-title">PIX</div><div class="do-desc">sorelle.santos@pix.com</div></div>
-        </div>
-      </div>
-      <div class="paypal-section">
-        <div class="paypal-section-label"><i class="fab fa-paypal"></i><span>Doacao via PayPal</span></div>
-        <div class="paypal-iframe-wrapper" id="paypal-wrapper">
-          <iframe src="https://www.paypal.com/donate/?hosted_button_id=VVRPXE4C2JYUE" class="iframe-content" id="paypal-iframe" title="Doação PayPal" loading="lazy" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
-        </div>
-        <div class="iframe-fallback" id="fallback-message">
-          <i class="fas fa-shield-halved"></i>
-          <h3>Rede Segura do PayPal</h3>
-          <p>Por seguranca, o PayPal abre em nova aba para concluir sua doacao.</p>
-          <a href="https://www.paypal.com/donate/?hosted_button_id=VVRPXE4C2JYUE" target="_blank" rel="noopener noreferrer" class="btn-external"><i class="fas fa-external-link-alt"></i> Ir para o PayPal</a>
-        </div>
-      </div>
-      <p style="text-align:center;font-size:0.68rem;color:var(--text-muted);margin-bottom:0;margin-top:14px;">Cada apoio faz diferenca. Obrigada!</p>
-      <div class="modal-actions" style="margin-top:16px;"><button class="btn-cancel" id="btn-donate-close" style="flex:1;">Fechar</button></div>
-    </div>
-  </div>
-
+    <p style="text-align:center;font-size:0.68rem;color:var(--text-muted);margin-bottom:0;margin-top:14px;">Cada apoio faz diferenca. Obrigada!</p>
+    <div class="modal-actions" style="margin-top:16px;"><button class="btn-cancel" id="btn-donate-close" style="flex:1;">Fechar</button></div>
+  </div></div>
 <script>
-  // ===================================================================
-  // DADOS DO ATELIER
-  // ===================================================================
-  var CATEGORIAS = {
-    'textil':{icon:'fas fa-shirt',color:'#C48B7A',label:'Textil / Tricô'},
-    'ceramica':{icon:'fas fa-mug-hot',color:'#B8895A',label:'Ceramica'},
-    'madeira':{icon:'fas fa-tree',color:'#8B7355',label:'Madeira'},
-    'joias':{icon:'fas fa-gem',color:'#D4A574',label:'Joias / Acessorios'},
-    'pintura':{icon:'fas fa-palette',color:'#9B7EBD',label:'Pintura'},
-    'decoracao':{icon:'fas fa-couch',color:'#7BA68C',label:'Decoracao'},
-    'velas':{icon:'fas fa-fire',color:'#E8A87C',label:'Velas Artesanais'},
-    'outro':{icon:'fas fa-shapes',color:'#8A8279',label:'Outro'}
+  var CATEGORIAS={
+    'bolsas':{icon:'fas fa-bag-shopping',color:'#D4839B',label:'Bolsas'},
+    'kits':{icon:'fas fa-box-open',color:'#F0D58C',label:'Kits'},
+    'mochilas':{icon:'fas fa-suitcase',color:'#8FBFE3',label:'Mochilas'},
+    'pochetes':{icon:'fas fa-bag-shopping',color:'#B89FD4',label:'Pochetes'},
+    'outro':{icon:'fas fa-shapes',color:'#9A8E95',label:'Outro'}
   };
 
-  var PRODUTOS = [
-    {id:1,nome:'Bolsa Trico Sertao',cat:'textil',desc:'Bolsa feita em trico manual com fio de algodao organico. Acabamento em couro legítimo. Dimensoes: 30x25cm.',preco:289,precoOld:0,estoque:3,img:'https://picsum.photos/seed/bolsa-trico/600/400',badge:'Novo'},
-    {id:2,nome:'Conjunto de Cericas Minimalistas',cat:'ceramica',desc:'Jogo de 4 cerâmicas artesanais com esmalte food-safe. Cores terrosas naturais.',preco:195,precoOld:250,estoque:5,img:'https://picsum.photos/seed/ceramicas-min/600/400',badge:'-22%'},
-    {id:3,nome:'Colar Sementes da Amazonia',cat:'joias',desc:'Colar feito com sementes naturais da Amazonia e contas de acai. Fio ajustavel.',preco:89,precoOld:0,estoque:8,img:'https://picsum.photos/seed/colar-sementes/600/400',badge:'Exclusivo'},
-    {id:4,nome:'Quadro Aquarela Floral',cat:'pintura',desc:'Aquarela original em papel canson 300g. Moldura de madeira natural. 40x50cm.',preco:450,precoOld:0,estoque:1,img:'https://picsum.photos/seed/quadro-floral/600/400',badge:'Unica'},
-    {id:5,nome:'Porta-Retrato Madeira Reciclada',cat:'madeira',desc:'Porta-retrato feito com madeira de demolicao tratada. Acabamento com oleo natural. Tamanho 15x20cm.',preco:75,precoOld:0,estoque:6,img:'https://picsum.photos/seed/porta-retrato/600/400',badge:''},
-    {id:6,nome:'Vela Aromatica Lavanda',cat:'velas',desc:'Vela de soja 100% natural com essencia de lavanda. Pote de ceramica reutilizavel. 200g — 40h de queima.',preco:65,precoOld:0,estoque:12,img:'https://picsum.photos/seed/vela-lavanda/600/400',badge:'Popular'},
-    {id:7,nome:'Jogo Americano Croche',cat:'textil',desc:'Jogo americano em croche com fio de barbante. 6 pecas: toalha mesa + 5 individuais.',preco:320,precoOld:400,estoque:2,img:'https://picsum.photos/seed/jogo-croche/600/400',badge:'-20%'},
-    {id:8,nome:'Escultura Ceramica Abstrata',cat:'ceramica',desc:'Peca decorativa em ceramica de alta temperatura. Acabamento com engobe natural. Altura 35cm.',preco:580,precoOld:0,estoque:1,img:'https://picsum.photos/seed/escultura-cer/600/400',badge:'Unica'},
-    {id:9,nome:'Brinco Argola Palha',cat:'joias',desc:'Brincos artesanais com argola de palha de mare. Leves e elegantes para o dia a dia.',preco:45,precoOld:0,estoque:10,img:'https://picsum.photos/seed/brinco-palha/600/400',badge:''},
-    {id:10,nome:'Suporte para Plantas Madeira',cat:'madeira',desc:'Suporte vertical para 3 vasos. Madeira de eucalipto tratada. Design minimalista. 60cm altura.',preco:165,precoOld:200,estoque:4,img:'https://picsum.photos/seed/suporte-plantas/600/400',badge:'-18%'},
-    {id:11,nome:'Painel Macrame Geometrico',cat:'decoracao',desc:'Painel de macrame com padrao geometrico moderno. Fio de algodao 3mm. 50x70cm.',preco:210,precoOld:0,estoque:3,img:'https://picsum.photos/seed/macrame-geo/600/400',badge:'Novo'},
-    {id:12,nome:'Kit Velas Especiarias',cat:'velas',desc:'Kit com 3 velas pequenas: canela, cravo e gengibre. Cera de soja. Potes de vidro amber. 80g cada.',preco:95,precoOld:0,estoque:7,img:'https://picsum.photos/seed/kit-velas/600/400',badge:'Presente'},
-    {id:13,nome:'Mandala Pintada em Tecido',cat:'pintura',desc:'Mandala pintada a mao em tecido de linho. Tinta textil permanente. Ideal para parede. 60x60cm.',preco:280,precoOld:0,estoque:2,img:'https://picsum.photos/seed/mandala-tela/600/400',badge:''},
-    {id:14,nome:'Luminaria Ceramica Furada',cat:'ceramica',desc:'Luminaria com padroes furados que projetam sombras decorativas. Inclui lampada LED. 18cm diametro.',preco:145,precoOld:0,estoque:4,img:'https://picsum.photos/seed/luminaria-cer/600/400',badge:'Destaque'},
-    {id:15,nome:'Tapete Redondo Tricô',cat:'textil',desc:'Tapete circular em trico com fio grosso de la. Diametro 80cm. Cores disponiveis: terracota, areia, oliva.',preco:380,precoOld:450,estoque:3,img:'https://picsum.photos/seed/tapete-trico/600/400',badge:'-16%'},
-    {id:16,nome:'Anel Resina Botanica',cat:'joias',desc:'Anel artesanal com flor real preservada em resina epoxi. Base em aço inoxidavel. Ajustavel.',preco:120,precoOld:0,estoque:5,img:'https://picsum.photos/seed/anel-resina/600/400',badge:'Exclusivo'}
+  var PRODUTOS=[
+    {id:1,nome:'Bolsa Beach',cat:'bolsas',desc:'Bolsa beach artesanal em croche com alca ajustavel. Perfeita para o dia a dia no verao.',preco:189,precoOld:0,estoque:5,img:'/imagens_app/bolsa_beach.png',badge:'Novo'},
+    {id:2,nome:'Bolsa Beach Branca',cat:'bolsas',desc:'Versao classica da bolsa beach em croche branco. Acabamento impecavel, tamanho medio.',preco:199,precoOld:0,estoque:4,img:'/imagens_app/bolsa_beach_branca.png',badge:''},
+    {id:3,nome:'Bolsa Bege com Alca',cat:'bolsas',desc:'Bolsa bege com alca de couro legítimo. Design clean e versatil para qualquer ocasião.',preco:220,precoOld:0,estoque:3,img:'/imagens_app/bolsa_bege_alca.png',badge:''},
+    {id:4,nome:'Bolsa Cru com Alca',cor:'#C4A882',cat:'bolsas',desc:'Bolsa em tom cru com alca de couro. Estilo rústico e artesanal único.',preco:235,precoOld:0,estoque:2,img:'/imagens_app/bolsa_cru_alca.png',badge:'Exclusivo'},
+    {id:5,nome:'Bolsa Indiana',cat:'bolsas',desc:'Bolsa estilo indiano feita em croche com padrões geométricos coloridos. Peça statement.',preco:275,precoOld:0,estoque:4,img:'/imagens_app/bolsa_indiana.png',badge:'Destaque'},
+    {id:6,nome:'Bolsa Indiana Azul',cat:'bolsas',desc:'Variante da bolsa indiana em tons de azul pastel. Fio de algodão premium.',preco:275,precoOld:0,estoque:3,img:'/imagens_app/bolsa_indiana_azul.png',badge:''},
+    {id:7,nome:'Bolsa Praia Tela',cat:'bolsas',desc:'Bolsa de praia em tela artesanal com detalhes em tricô. Leve e resistente.',preco:165,precoOld:200,estoque:6,img:'/imagens_app/bolsa_praia_tela.png',badge:'-17%'},
+    {id:8,nome:'Bolsa Preta com Alca',cat:'bolsas',desc:'Bolsa preta elegante com alca de couro. Ideal para noite e eventos.',preco:250,precoOld:0,estoque:3,img:'/imagens_app/bolsa_preta_alca.png',badge:''},
+    {id:9,nome:'Bolsa Tigresa com Alca',cat:'bolsas',desc:'Bolsa com estampa tigresa e alca dourada. Edição limitada do atelier.',preco:295,precoOld:0,estoque:2,img:'/imagens_app/bolsa_tigresa_alca.png',badge:'Limitada'},
+    {id:10,nome:'Bolsa Tira Colo',cat:'bolsas',desc:'Bolsa tiracolo artesanal em croche. Prática e charmosa para o dia a dia.',preco:175,precoOld:0,estoque:7,img:'/imagens_app/bolsa_tiracolo.png',badge:'Popular'},
+    {id:11,nome:'Bolsa Vinho',cat:'bolsas',desc:'Bolsa em tom vinho profundo feita em croche. Alça de couro artesanal.',preco:245,precoOld:0,estoque:3,img:'/imagens_app/bolsa_vinho.png',badge:''},
+    {id:12,nome:'Kit Azul',cat:'kits',desc:'Kit completo com bolsa e acessórios em tons de azul pastel. Presente perfeito.',preco:389,precoOld:0,estoque:4,img:'/imagens_app/kit_azul.png',badge:'Novo'},
+    {id:13,nome:'Kit Bolsas',cat:'kits',desc:'Conjunto de mini bolsas artesanais variadas. Ideal para presentes e kits.',preco:450,precoOld:520,estoque:3,img:'/imagens_app/kit_bolsas.png',badge:'-13%'},
+    {id:14,nome:'Kit Namorados',cat:'kits',desc:'Kit para casais com bolsas combinando. Presente especial feito à mão.',preco:520,precoOld:0,estoque:2,img:'/imagem_app/kit_namorados.png',badge:'Especial'},
+    {id:15,nome:'Kit Rosa',cat:'kits',desc:'Kit em tons de rosa pastel com bolsa e pochete combinando. Delicado e feminino.',preco:399,precoOld:0,estoque:5,img:'/imagens_app/kit_rosa.png',badge:''},
+    {id:16,nome:'Kit Verde',cat:'kits',desc:'Kit em tons de verde com bolsas e acessórios. Frescor e natural.',preco:399,precoOld:0,estoque:5,img:'/imagens_app/kit_verde.png',badge:''},
+    {id:17,nome:'Mochila Bege',cat:'mochilas',desc:'Mochila bege artesanal em croche com forro interno. Resistente e espaçosa.',preco:320,precoOld:0,estoque:4,img:'/imagens_app/mochila_bege.png',badge:''},
+    {id:18,nome:'Mochila Channel',cat:'mochilas',desc:'Mochila estilo channel em croche com alça dupla. Elegante e funcional.',preco:380,precoOld:0,estoque:3,img:'/imagens_app/mochila_channel.png',badge:'Premium'},
+    {id:19,nome:'Mochila Kids',cat:'mochilas',desc:'Mochila infantil colorida em croche. Tamanho reduzido perfeita para crianças.',preco:195,precoOld:0,estoque:6,img:'/imagens_app/mochila_kids.png',badge:'Kids'},
+    {id:20,nome:'Mochila Xadrez',cat:'mochilas',desc:'Mochila com padrão xadrez em croche. Estilo único e moderno.',preco:350,precoOld:0,estoque:3,img:'/imagens_app/mochila_xadrez.png',badge:''},
+    {id:21,nome:'Pochete Rosa',cat:'pochetes',desc:'Pochete rosa pastel em croche com alça regulável. Compacta e prática.',preco:145,precoOld:0,estoque:8,img:'/imagens_app/pochete_rosa.png',badge:'Popular'},
+    {id:22,nome:'Pochete Tira Colo',cat:'pochetes',desc:'Pochete tiracolo em croche artesanal. Versátil e confortável.',preco:155,precoOld:0,estoque:7,img:'/imagens_app/pochete_tiracolo.png',badge:''}
   ];
 
-  var GALERIA_FOTOS = [
-    {img:'https://picsum.photos/seed/atelier-01/800/800',caption:'Processo criativo: trico a mao',span:false},
-    {img:'https://picsum.photos/seed/atelier-02/800/500',caption:'Mesa de trabalho com materiais naturais',span:true},
-    {img:'https://picsum.photos/seed/atelier-03/800/800',caption:'Ceramicas recem-saidas do forno',span:false},
-    {img:'https://picsum.photos/seed/atelier-04/800/800',caption:'Detalhe do acabamento em croche',span:false},
-    {img:'https://picsum.photos/seed/atelier-05/800/500',caption:'Exposicao na Feira de Artesanato',span:true},
-    {img:'https://picsum.photos/seed/atelier-06/800/800',caption:'Velas artesanais prontas para embalar',span:false},
-    {img:'https://picsum.photos/seed/atelier-07/800/800',caption:'Colares com sementes da Amazonia',span:false},
-    {img:'https://picsum.photos/seed/atelier-08/800/500',caption:'Macrame detalhe dos nos',span:true},
-    {img:'https://picsum.photos/seed/atelier-09/800/800',caption:'Pintura aquarela em processo',span:false},
-    {img:'https://picsum.photos/seed/atelier-10/800/800',caption:'Porta-retratos de madeira reciclada',span:false},
-    {img:'https://picsum.photos/seed/atelier-11/800/500',caption:'Ambiente da feira com nossas pecas',span:true},
-    {img:'https://picsum.photos/seed/atelier-12/800/800',caption:'Luminaria ceramica com luz acesa',span:false}
+  var GALERIA_FOTOS=[
+    {img:'/imagens_app/bolsa_beach.png',caption:'Bolsa Beach — Vista frontal',span:false},
+    {img:'/imagens_app/bolsa_indiana.png',caption:'Bolsa Indiana — Detalhe dos padrões',span:true},
+    {img:'/imagens_app/bolsa_tigresa_alca.png',caption:'Bolsa Tigresa — Edição Limitada',span:false},
+    {img:'/imagens_app/bolsa_vinho.png',caption:'Bolsa Vinho — Tom profundo elegante',span:false},
+    {img:'/imagens_app/kit_azul.png',caption:'Kit Azul — Conjunto completo',span:false},
+    {img:'/imagens_app/kit_namorados.png',caption:'Kit Namorados — Presente especial',span:true},
+    {img:'/imagens_app/kit_rosa.png',caption:'Kit Rosa — Tons pastel feminino',span:false},
+    {img:'/imagens_app/mochila_bege.png',caption:'Mochila Bege — Versátil e espaçosa',span:false},
+    {img:'/imagens_app/mochila_channel.png',caption:'Mochila Channel — Elegante e funcional',span:true},
+    {img:'/imagens_app/mochila_kids.png',caption:'Mochila Kids — Para os pequenos',span:false},
+    {img:'/imagens_app/mochila_xadrez.png',caption:'Mochila Xadrez — Estilo único',span:false},
+    {img:'/imagens_app/pochete_rosa.png',caption:'Pochete Rosa — Compacta e prática',span:false},
+    {img:'/imagens_app/pochete_tiracolo.png',caption:'Pochete Tira Colo — Confortável',span:true},
+    {img:'/imagens_app/bolsa_bege_alca.png',caption:'Bolsa Bege — Design clean',span:false},
+    {img:'/imagens_app/bolsa_praia_tela.png',caption:'Bolsa Praia — Leve e resistente',span:false},
+    {img:'/imagens_app/kit_bolsas.png',caption:'Kit Bolsas — Mini bolsas variadas',span:true},
+    {img:'/imagens_app/kit_verde.png',caption:'Kit Verde — Frescor natural',span:false},
+    {img:'/imagens_app/bolsa_preta_alca.png',caption:'Bolsa Preta — Para noite e eventos',span:false},
+    {img:'/imagens_app/bolsa_tiracolo.png',caption:'Bolsa Tira Colo — Prática e charmosa',span:false},
+    {img:'/imagens_app/bolsa_indiana_azul.png',caption:'Bolsa Indiana Azul — Variante azul',span:true},
+    {img:'/imagens_app/bolsa_beach_branca.png',caption:'Bolsa Beach Branca — Versão clássica',span:false}
   ];
 
-  // ===================================================================
-  // ESTADO
-  // ===================================================================
   var tabAtiva='catalog',filtroAtivo=null,searchActive=false,favoritos=[],userStores=[],lightboxIdx=0;
   try{var st=localStorage.getItem('atelier_stores');if(st)userStores=JSON.parse(st)}catch(e){}
   try{var fv=localStorage.getItem('atelier_favoritos');if(fv)favoritos=JSON.parse(fv)}catch(e){}
 
-  // ===================================================================
-  // UTILS
-  // ===================================================================
   var toastTimer=null;
   function showToast(m){var t=document.getElementById('toast-msg');t.textContent=m;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(function(){t.classList.remove('show')},2800)}
   function openModal(id){document.getElementById(id).classList.add('active');fecharMenu()}
   function closeModal(id){document.getElementById(id).classList.remove('active')}
 
-  // ===================================================================
-  // MENU
-  // ===================================================================
   var menuAberto=false;
   function toggleMenu(){menuAberto=!menuAberto;var d=document.getElementById('menu-dropdown');var t=document.getElementById('btn-menu-toggle');if(menuAberto){d.classList.add('open');t.classList.add('active')}else{d.classList.remove('open');t.classList.remove('active')}}
   function fecharMenu(){if(!menuAberto)return;menuAberto=false;document.getElementById('menu-dropdown').classList.remove('open');document.getElementById('btn-menu-toggle').classList.remove('active')}
   document.addEventListener('click',function(e){if(!e.target.closest('#btn-menu-toggle')&&!e.target.closest('#menu-dropdown'))fecharMenu()});
 
-  // ===================================================================
-  // RENDER CATALOGO
-  // ===================================================================
   function renderCatalogo(){
     var ct=document.getElementById('content-area');ct.innerHTML='';
     var lista=PRODUTOS.slice();
@@ -516,10 +416,10 @@
       var cat=CATEGORIAS[p.cat]||CATEGORIAS['outro'];
       var isFav=favoritos.indexOf(p.id)!==-1;
       var card=document.createElement('div');card.className='product-card';card.style.animationDelay=(i*0.06)+'s';
-      var badgeHTML=p.badge?'<div class="product-badge" style="background:'+(p.badge.indexOf('-')!==-1?'rgba(139,154,107,0.9)':'rgba(193,127,89,0.9)')+';">'+p.badge+'</div>':'';
+      var badgeHTML=p.badge?'<div class="product-badge" style="background:'+(p.badge.indexOf('-')!==-1?'rgba(125,191,142,0.9)':'rgba(212,131,155,0.9)')+';">'+p.badge+'</div>':'';
       var estoqueClass=p.estoque<=2?' low':'';
       var estoqueText=p.estoque<=0?'Esgotado':p.estoque<=2?'Ultimas '+p.estoque+' pecas':p.estoque+' disponiveis';
-      card.innerHTML='<div class="product-img-wrap"><img src="'+p.img+'" alt="'+p.nome+'" loading="lazy" onerror="this.src=\'https://picsum.photos/seed/fallback-'+p.id+'/600/400\'">'+badgeHTML+'<button class="product-fav'+(isFav?' favorited':'')+'" data-id="'+p.id+'" title="Favoritar"><i class="fas fa-heart"></i></button></div><div class="product-body"><div class="product-category" style="background:rgba('+hexToRgb(cat.color)+',0.1);color:'+cat.color+';">'+cat.label+'</div><div class="product-name">'+p.nome+'</div><div class="product-desc">'+p.desc+'</div><div class="product-footer"><div><div class="product-stock'+estoqueClass+'"><i class="fas fa-circle" style="font-size:0.4rem;"></i> '+estoqueText+'</div><div style="margin-top:4px;">'+(p.precoOld>0?'<span class="product-price-old">R$ '+p.precoOld+'</span>':'')+'<span class="product-price">R$ '+p.preco.toLocaleString('pt-BR')+'</span></div></div><button class="btn-buy" data-id="'+p.id+'">Comprar</button></div></div>';
+      card.innerHTML='<div class="product-img-wrap"><img src="'+p.img+'" alt="'+p.nome+'" loading="lazy" onerror="this.src=\'/imagens_app/bolsa_beach.png\'">'+badgeHTML+'<button class="product-fav'+(isFav?' favorited':'')+'" data-id="'+p.id+'" title="Favoritar"><i class="fas fa-heart"></i></button></div><div class="product-body"><div class="product-category" style="background:'+cat.color+'18;color:'+cat.color+';">'+cat.label+'</div><div class="product-name">'+p.nome+'</div><div class="product-desc">'+p.desc+'</div><div class="product-footer"><div><div class="product-stock'+estoqueClass+'"><i class="fas fa-circle" style="font-size:0.4rem;"></i> '+estoqueText+'</div><div style="margin-top:4px;">'+(p.precoOld>0?'<span class="product-price-old">R$ '+p.precoOld+'</span>':'')+'<span class="product-price">R$ '+p.preco.toLocaleString('pt-BR')+'</span></div></div><button class="btn-buy" data-id="'+p.id+'">Comprar</button></div></div>';
       ct.appendChild(card);
       card.querySelector('.product-fav').addEventListener('click',function(e){e.stopPropagation();toggleFavorito(parseInt(this.getAttribute('data-id')));this.classList.toggle('favorited')});
       card.querySelector('.btn-buy').addEventListener('click',function(e){e.stopPropagation();showToast('Interessado em: '+p.nome+' — Entraremos em contato!')});
@@ -527,12 +427,8 @@
     });
   }
 
-  function hexToRgb(hex){var r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);return r+','+g+','+b}
   function toggleFavorito(id){var idx=favoritos.indexOf(id);if(idx===-1){favoritos.push(id);showToast('Adicionado aos favoritos')}else{favoritos.splice(idx,1);showToast('Removido dos favoritos')}try{localStorage.setItem('atelier_favoritos',JSON.stringify(favoritos))}catch(e){}}
 
-  // ===================================================================
-  // RENDER GALERIA
-  // ===================================================================
   function renderGaleria(){
     var ct=document.getElementById('content-area');ct.innerHTML='<div class="gallery-grid" id="gallery-grid"></div>';
     var grid=document.getElementById('gallery-grid');
@@ -540,22 +436,19 @@
       var item=document.createElement('div');
       item.className='gallery-item'+(f.span?' span-2':'');
       item.style.animationDelay=(i*0.05)+'s';
-      item.innerHTML='<img src="'+f.img+'" alt="'+f.caption+'" loading="lazy" onerror="this.src=\'https://picsum.photos/seed/gal-fb-'+i+'/800/800\'">';
+      item.innerHTML='<img src="'+f.img+'" alt="'+f.caption+'" loading="lazy" onerror="this.src=\'/imagens_app/bolsa_beach.png\'">';
       item.addEventListener('click',function(){abrirLightboxGaleria(GALERIA_FOTOS,i)});
       grid.appendChild(item);
     });
   }
 
-  // ===================================================================
-  // RENDER SOBRE
-  // ===================================================================
   function renderSobre(){
     var ct=document.getElementById('content-area');ct.innerHTML='';
     var cards=[
-      {icon:'fas fa-heart',color:'var(--terracotta)',title:'Nossa Essencia',text:'Cada peca conta uma historia. Trabalhamos com tecnicas tradicionais como trico, croche, ceramica e marcenaria, sempre com um toque contemporaneo que respeita as raizes do artesanato brasileiro.'},
-      {icon:'fas fa-leaf',color:'var(--olive)',title:'Sustentabilidade',text:'Priorizamos materiais naturais, organicos e reciclados. Nossas embalagens sao de papel kraft e nossas fibras sao de fontes responsaveis. Arte que respeita a natureza.'},
-      {icon:'fas fa-hand-sparkles',color:'var(--accent)',title:'Feito a Mao',text:'Todas as pecas sao 100% artesanais. Nenhuma producao em massa. Quando voce adquire uma peca do Atelier Sorelle, leva para casa algo verdadeiramente unico, feito com tempo e dedicacao.'},
-      {icon:'fas fa-users',color:'var(--rose)',title:'Comunidade',text:'Participamos de feiras, eventos e workshops. Acreditamos que o artesanato conecta pessoas e preserva tradicoes. Venha nos conhecer pessoalmente!'}
+      {icon:'fas fa-heart',color:'var(--accent)',title:'Nossa Essencia',text:'Cada peca conta uma história. Trabalhamos com tecnicas tradicionais como trico e croche, sempre com um toque contemporâneo que respeita as raízes do artesanato brasileiro.'},
+      {icon:'fas fa-leaf',color:'var(--olive)',title:'Sustentabilidade',text:'Priorizamos materiais naturais e fibras sustentáveis. Nossas embalagens são de papel kraft e nossas fibras são de fontes responsáveis. Arte que respeita a natureza.'},
+      {icon:'fas fa-hand-sparkles',color:'var(--lilas)',title:'Feito à Mão',text:'Todas as peças são 100% artesanais. Nenhuma produção em massa. Quando você adquire uma peça, leva para casa algo verdadeiramente único, feito com tempo e dedicação.'},
+      {icon:'fas fa-users',color:'var(--azul)',title:'Comunidade',text:'Participamos de feiras, eventos e workshops. Acreditamos que o artesanato conecta pessoas e preserva tradições. Venha nos conhecer pessoalmente!'}
     ];
     cards.forEach(function(c,i){
       var el=document.createElement('div');el.className='about-card';el.style.animationDelay=(i*0.08)+'s';
@@ -564,65 +457,46 @@
     });
   }
 
-  // ===================================================================
-  // RENDER CONTATO
-  // ===================================================================
   function renderContato(){
     var ct=document.getElementById('content-area');ct.innerHTML='';
     var info=document.createElement('div');info.className='about-card';info.style.animationDelay='0s';
-    info.innerHTML='<h3><i class="fas fa-map-marker-alt"></i> Onde Nos Encontrar</h3><div class="contact-item"><i class="fas fa-location-dot"></i><span>Sabará, MG — Brasil</span></div><div class="contact-item"><i class="fab fa-whatsapp"></i><span>+55 (31) 93501-2047</span></div><div class="contact-item"><i class="fas fa-envelope"></i><span>luseabhra@gmail.com.art.br</span></div><div class="contact-item"><i class="fab fa-instagram"></i><span>@ateliersorellesantos</span></div><div class="social-links" style="margin-top:16px;"><a class="social-link" href="#" onclick="showToast(\'Abrindo Instagram...\')"><i class="fab fa-instagram"></i></a><a class="social-link" href="#" onclick="showToast(\'Abrindo WhatsApp...\')"><i class="fab fa-whatsapp"></i></a><a class="social-link" href="#" onclick="showToast(\'Abrindo Facebook...\')"><i class="fab fa-facebook-f"></i></a><a class="social-link" href="#" onclick="showToast(\'Abrindo Pinterest...\')"><i class="fab fa-pinterest-p"></i></a><a class="social-link" href="#" onclick="showToast(\'Abrindo TikTok...\')"><i class="fab fa-tiktok"></i></a></div>';
+    info.innerHTML='<h3><i class="fas fa-map-marker-alt" style="color:var(--accent);"></i> Onde Nos Encontrar</h3><div class="contact-item"><i class="fas fa-location-dot" style="color:var(--accent);"></i><span>Salvador, BA — Brasil</span></div><div class="contact-item"><i class="fab fa-whatsapp" style="color:#25D366;"></i><span>+55 (71) 99999-0000</span></div><div class="contact-item"><i class="fas fa-envelope" style="color:var(--accent);"></i><span>contato@sorellesantos.art.br</span></div><div class="contact-item"><i class="fab fa-instagram" style="color:var(--lilas);"></i><span>@atelier.sorelle.santos</span></div><div class="social-links" style="margin-top:16px;"><a class="social-link" href="#" onclick="showToast(\'Abrindo Instagram...\')"><i class="fab fa-instagram"></i></a><a class="social-link" href="#" onclick="showToast(\'Abrindo WhatsApp...\')"><i class="fab fa-whatsapp"></i></a><a class="social-link" href="#" onclick="showToast(\'Abrindo Facebook...\')"><i class="fab fa-facebook-f"></i></a><a class="social-link" href="#" onclick="showToast(\'Abrindo Pinterest...\')"><i class="fab fa-pinterest-p"></i></a><a class="social-link" href="#" onclick="showToast(\'Abrindo TikTok...\')"><i class="fab fa-tiktok"></i></a></div>';
     ct.appendChild(info);
-
-    // Lista de lojas/feiras
     var lojas=document.createElement('div');lojas.className='about-card';lojas.style.animationDelay='0.1s';
-    var lojasHTML='<h3><i class="fas fa-store"></i> Feiras e Lojas</h3>';
+    var lojasHTML='<h3><i class="fas fa-store" style="color:var(--amarelo);"></i> Feiras e Lojas</h3>';
     if(userStores.length===0){lojasHTML+='<p style="color:var(--text-muted);font-size:0.8rem;">Nenhuma feira cadastrada ainda. Use o menu para adicionar.</p>'}
-    else{userStores.forEach(function(s){lojasHTML+='<div class="contact-item"><i class="fas fa-map-pin" style="color:var(--terracotta);"></i><div><div style="font-size:0.82rem;font-weight:600;color:var(--text);">'+s.name+'</div><div style="font-size:0.68rem;color:var(--text-muted);">'+s.type+(s.url?' — '+s.url:'')+'</div></div></div>'})}
+    else{userStores.forEach(function(s){lojasHTML+='<div class="contact-item"><i class="fas fa-map-pin" style="color:var(--accent);"></i><div><div style="font-size:0.82rem;font-weight:600;color:var(--text);">'+s.name+'</div><div style="font-size:0.68rem;color:var(--text-muted);">'+s.type+(s.url?' — '+s.url:'')+'</div></div></div>'})}
     lojas.innerHTML=lojasHTML;ct.appendChild(lojas);
-
-    // Horários
     var horario=document.createElement('div');horario.className='about-card';horario.style.animationDelay='0.2s';
-    horario.innerHTML='<h3><i class="fas fa-clock"></i> Horario de Atendimento</h3><div class="contact-item"><i class="fas fa-sun" style="color:var(--accent);"></i><span>Seg a Sex: 9h as 18h</span></div><div class="contact-item"><i class="fas fa-cloud-sun" style="color:var(--accent);"></i><span>Sabado: 9h as 14h</span></div><div class="contact-item"><i class="fas fa-moon" style="color:var(--text-muted);"></i><span>Domingo: Feiras e eventos</span></div>';
+    horario.innerHTML='<h3><i class="fas fa-clock" style="color:var(--azul);"></i> Horario de Atendimento</h3><div class="contact-item"><i class="fas fa-sun" style="color:var(--amarelo);"></i><span>Seg a Sex: 9h as 18h</span></div><div class="contact-item"><i class="fas fa-cloud-sun" style="color:var(--lilas);"></i><span>Sabado: 9h as 14h</span></div><div class="contact-item"><i class="fas fa-moon" style="color:var(--text-muted);"></i><span>Domingo: Feiras e eventos</span></div>';
     ct.appendChild(horario);
   }
 
-  // ===================================================================
-  // FILTROS
-  // ===================================================================
   function renderFiltros(){
     var strip=document.getElementById('filter-strip');strip.innerHTML='';
     var ca=document.createElement('button');ca.className='filter-chip'+(!filtroAtivo?' active':'');ca.innerHTML='<i class="fas fa-th"></i> Todas';ca.addEventListener('click',function(){filtroAtivo=null;renderFiltros();renderCurrentTab()});strip.appendChild(ca);
     Object.keys(CATEGORIAS).forEach(function(k){var c=CATEGORIAS[k];var ch=document.createElement('button');ch.className='filter-chip'+(filtroAtivo===k?' active':'');ch.innerHTML='<span class="chip-dot" style="background:'+c.color+';"></span> '+c.label;ch.addEventListener('click',function(){filtroAtivo=filtroAtivo===k?null:k;renderFiltros();renderCurrentTab()});strip.appendChild(ch)});
   }
 
-  // ===================================================================
-  // LIGHTBOX
-  // ===================================================================
   var lightboxData=[];
   function abrirLightboxGaleria(fotos,idx){lightboxData=fotos;lightboxIdx=idx;atualizarLightbox();document.getElementById('lightbox').classList.add('active')}
   function fecharLightbox(){document.getElementById('lightbox').classList.remove('active')}
   function atualizarLightbox(){
     if(!lightboxData.length)return;
     var f=lightboxData[lightboxIdx];
-    document.getElementById('lb-img').src=f.img;
-    document.getElementById('lb-caption').textContent=f.caption||'';
+    document.getElementById('lb-img').src=f.img;document.getElementById('lb-caption').textContent=f.caption||'';
     document.getElementById('lb-counter').textContent=(lightboxIdx+1)+' / '+lightboxData.length;
     document.getElementById('lb-prev').style.display=lightboxData.length>1?'flex':'none';
     document.getElementById('lb-next').style.display=lightboxData.length>1?'flex':'none';
   }
   function lightboxNav(dir){lightboxIdx=(lightboxIdx+dir+lightboxData.length)%lightboxData.length;atualizarLightbox()}
 
-  // ===================================================================
-  // LOJAS
-  // ===================================================================
   function renderStoreList(){
     var l=document.getElementById('store-list');l.innerHTML='';
     if(!userStores.length){l.innerHTML='<div class="no-stores-msg"><i class="fas fa-map-marker-alt" style="display:block;margin-bottom:6px;opacity:0.3;font-size:1.2rem;"></i>Nenhuma feira cadastrada</div>';return}
-    userStores.forEach(function(s,i){var it=document.createElement('div');it.className='store-item';it.style.animationDelay=(i*0.05)+'s';it.innerHTML='<div class="store-item-info"><div class="store-item-dot"></div><div><div class="store-item-name">'+s.name+'</div><div class="store-item-cat">'+s.type+(s.url?' — '+s.url:'')+'</div></div></div><button class="store-item-remove" data-idx="'+i+'"><i class="fas fa-times"></i></button>';l.appendChild(it);it.querySelector('.store-item-remove').addEventListener('click',function(){userStores.splice(parseInt(this.getAttribute('data-idx')),1);try{localStorage.setItem('atelier_stores',JSON.stringify(userStores))}catch(e){}renderStoreList();showToast('Removido')})})}
+    userStores.forEach(function(s,i){var it=document.createElement('div');it.className='store-item';it.style.animationDelay=(i*0.05)+'s';it.innerHTML='<div class="store-item-info"><div class="store-item-dot"></div><div><div class="store-item-name">'+s.name+'</div><div class="store-item-cat">'+s.type+(s.url?' — '+s.url:'')+'</div></div></div><button class="store-item-remove" data-idx="'+i+'"><i class="fas fa-times"></i></button>';l.appendChild(it);it.querySelector('.store-item-remove').addEventListener('click',function(){userStores.splice(parseInt(this.getAttribute('data-idx')),1);try{localStorage.setItem('atelier_stores',JSON.stringify(userStores))}catch(e){}renderStoreList();showToast('Removido')})})})
+  }
 
-  // ===================================================================
-  // PAYPAL IFRAME DETECTION
-  // ===================================================================
   var paypalVerificado=false;
   function iniciarPaypal(){
     var iframe=document.getElementById('paypal-iframe');var wrapper=document.getElementById('paypal-wrapper');var fallback=document.getElementById('fallback-message');
@@ -636,9 +510,6 @@
     iframe.addEventListener('error',function(){clearTimeout(t);paypalVerificado=true;if(wrapper)wrapper.style.display='none';if(fallback)fallback.classList.add('visible')});
   }
 
-  // ===================================================================
-  // RENDER CURRENT TAB
-  // ===================================================================
   function renderCurrentTab(){
     if(tabAtiva==='catalog'){renderCatalogo();document.getElementById('filter-strip').style.display='flex'}
     else if(tabAtiva==='gallery'){renderGaleria();document.getElementById('filter-strip').style.display='none'}
@@ -646,39 +517,28 @@
     else if(tabAtiva==='contact'){renderContato();document.getElementById('filter-strip').style.display='none'}
   }
 
-  // ===================================================================
-  // INIT
-  // ===================================================================
   document.addEventListener('DOMContentLoaded',function(){
     setTimeout(function(){document.getElementById('loading-screen').classList.add('fade-out')},1000);
     setTimeout(function(){document.getElementById('loading-screen').style.display='none'},1600);
-
-    // Menu
     document.getElementById('btn-menu-toggle').addEventListener('click',function(e){e.stopPropagation();toggleMenu()});
     document.getElementById('menu-info').addEventListener('click',function(){openModal('modal-info')});
     document.getElementById('menu-gallery').addEventListener('click',function(){fecharMenu();document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});document.querySelector('[data-tab="gallery"]').classList.add('active');tabAtiva='gallery';renderCurrentTab()});
     document.getElementById('menu-donate').addEventListener('click',function(){iniciarPaypal();openModal('modal-donate')});
     document.getElementById('menu-add-product').addEventListener('click',function(){openModal('modal-add-product')});
     document.getElementById('menu-add-store').addEventListener('click',function(){renderStoreList();openModal('modal-add-store')});
-
-    // Fechar modais
     document.getElementById('btn-info-close').addEventListener('click',function(){closeModal('modal-info')});
     document.getElementById('btn-donate-close').addEventListener('click',function(){closeModal('modal-donate')});
     document.getElementById('btn-prod-cancel').addEventListener('click',function(){closeModal('modal-add-product')});
     document.getElementById('btn-store-cancel').addEventListener('click',function(){closeModal('modal-add-store')});
     document.querySelectorAll('.modal-overlay').forEach(function(o){o.addEventListener('click',function(e){if(e.target===o)o.classList.remove('active')})});
-
-    // Cadastrar peça
     document.getElementById('btn-prod-confirm').addEventListener('click',function(){
       var nm=document.getElementById('inp-prod-name').value.trim();if(!nm){showToast('Digite o nome da peca');return}
       var pr=parseFloat(document.getElementById('inp-prod-price').value);if(!pr||pr<=0){showToast('Digite um preco valido');return}
-      var img=document.getElementById('inp-prod-img').value.trim()||'https://picsum.photos/seed/'+nm.replace(/\s/g,'-').toLowerCase()+'/600/400';
+      var img=document.getElementById('inp-prod-img').value.trim()||'/imagens_app/bolsa_beach.png';
       PRODUTOS.unshift({id:Date.now(),nome:nm,cat:document.getElementById('inp-prod-cat').value,desc:document.getElementById('inp-prod-desc').value.trim()||'Peca artesanal do Atelier Sorelle Santos.',preco:pr,precoOld:0,estoque:1,img:img,badge:'Nova'});
       document.getElementById('inp-prod-name').value='';document.getElementById('inp-prod-desc').value='';document.getElementById('inp-prod-price').value='';document.getElementById('inp-prod-img').value='';
       closeModal('modal-add-product');showToast('Peca "'+nm+'" cadastrada!');if(tabAtiva==='catalog')renderCatalogo();
     });
-
-    // Inserir loja
     document.getElementById('btn-store-confirm').addEventListener('click',function(){
       var nm=document.getElementById('inp-store-name').value.trim();if(!nm){showToast('Digite o nome');return}
       var tp=document.getElementById('inp-store-type');userStores.push({name:nm,url:document.getElementById('inp-store-url').value.trim(),type:tp.options[tp.selectedIndex].text});
@@ -686,24 +546,16 @@
       document.getElementById('inp-store-name').value='';document.getElementById('inp-store-url').value='';
       renderStoreList();showToast('Feira "'+nm+'" adicionada!');
     });
-
-    // Tabs
     document.querySelectorAll('.tab-btn').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('.tab-btn').forEach(function(x){x.classList.remove('active')});this.classList.add('active');tabAtiva=this.getAttribute('data-tab');renderCurrentTab()})});
-
-    // Busca
     var sb=document.getElementById('search-bar');var sf=document.getElementById('btn-search-toggle');
     sf.addEventListener('click',function(){searchActive=!searchActive;sb.classList.toggle('active',searchActive);sf.classList.toggle('hidden-fab',searchActive);if(searchActive)document.getElementById('search-query').focus()});
     document.getElementById('btn-search').addEventListener('click',function(){if(tabAtiva==='catalog')renderCatalogo();showToast('Busca atualizada')});
     document.getElementById('search-query').addEventListener('keydown',function(e){if(e.key==='Enter'){if(tabAtiva==='catalog')renderCatalogo();showToast('Busca atualizada')}});
-
-    // Lightbox
     document.getElementById('lightbox-close').addEventListener('click',fecharLightbox);
     document.getElementById('lb-prev').addEventListener('click',function(){lightboxNav(-1)});
     document.getElementById('lb-next').addEventListener('click',function(){lightboxNav(1)});
     document.getElementById('lightbox').addEventListener('click',function(e){if(e.target===this)fecharLightbox()});
     document.addEventListener('keydown',function(e){if(document.getElementById('lightbox').classList.contains('active')){if(e.key==='Escape')fecharLightbox();else if(e.key==='ArrowLeft')lightboxNav(-1);else if(e.key==='ArrowRight')lightboxNav(1)}});
-
-    // Render inicial
     renderFiltros();renderCatalogo();
   });
 </script>
