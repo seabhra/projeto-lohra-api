@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Atelier Sorelle Santos — Bolsas e Acessórios Artesanais</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght=0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   <link rel="shortcut icon" href="./imagens_app/ic_icon_app.png">
   <link rel="icon" type="image/x-icon" href="/favicon_io/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon_io/favicon-32x32.png">
@@ -13,232 +13,132 @@
   <link rel="apple-touch-icon" href="/favicon_io/apple-touch-icon.png">
   <link rel="manifest" href="/favicon_io/site.webmanifest">
 <style>
-  :root{--bg:#FFFFFF;--panel:#F8F8FA;--card:#FFFFFF;--accent:#E91E63;--accent-light:#FCE4EC;--accent-dark:#C2185B;--azul:#5C9CE6;--verde:#66BB6A;--amarelo:#FBC02D;--lilas:#CE93D8;--text:#2D2D2D;--text-muted:#9E9E9E;--border:rgba(0,0,0,0.08);--shadow-xs:0 1px 4px rgba(0,0,0,0.04);--shadow-sm:0 2px 8px rgba(0,0,0,0.06);--shadow-md:0 4px 16px rgba(0,0,0,0.08);--shadow-lg:0 8px 30px rgba(0,0,0,0.12);--radius-xs:6px;--radius-sm:10px;--radius-md:14px;--radius-lg:20px;--radius-full:50px}
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-  html{scroll-behavior:smooth}
-  body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden}
+  :root {
+    --bg: #FFFFFF;
+    --panel: #F9F9F9;
+    --card: #FFFFFF;
+    --accent: #FF5A79; /* Rosa moderno inspirado na imagem de referência */
+    --accent-light: #FFF0F3;
+    --accent-dark: #E04362;
+    --text: #222222;
+    --text-muted: #777777;
+    --border: rgba(0,0,0,0.06);
+    --shadow-sm: 0 2px 10px rgba(0,0,0,0.04);
+    --shadow-md: 0 8px 24px rgba(0,0,0,0.06);
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 0px; /* Bordas mais retas seguindo a referência minimalista */
+    --radius-full: 50px;
+    --amarelo-hero: #FCE79F; /* Tom de amarelo pastel do banner principal */
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
 
   /* ===== HEADER TOP NAV ===== */
-  .top-nav{background:#fff;border-bottom:1px solid var(--border);padding:0 16px;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:1000;flex-shrink:0}
-  .nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--text)}
-  .nav-logo img{height:32px;width:32px;border-radius:6px;object-fit:contain}
-  .nav-logo-text{font-family:'Poppins',sans-serif;font-size:1.15rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--text)}
-  .nav-logo-text span{color:var(--accent)}
-  .nav-links{display:flex;align-items:center;gap:0;height:100%}
-  .nav-link{display:flex;align-items:center;justify-content:center;height:100%;padding:0 18px;font-family:'Poppins',sans-serif;font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-muted);cursor:pointer;transition:color 0.2s ease;border-bottom:2px solid transparent;position:relative}
-  .nav-link:hover,.nav-link.active{color:var(--accent);border-bottom-color:var(--accent)}
-  .nav-link i{margin-right:5px;font-size:0.85rem}
-  .nav-actions{display:flex;align-items:center;gap:14px}
-  .nav-search-btn{width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:none;color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.9rem;transition:all 0.2s}
-  .nav-search-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-light)}
-  .nav-cart{position:relative;width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:none;color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.9rem;transition:all 0.2s}
-  .nav-cart:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-light)}
-  .cart-count{position:absolute;top:-4px;right:-4px;min-width:18px;height:18px;border-radius:50%;background:var(--accent);color:#fff;font-size:0.6rem;font-weight:800;display:none;align-items:center;justify-content:center}
-  .cart-count.show{display:flex}
-  .hamburger{display:none;width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:none;color:var(--text);cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:4px}
-  .hamburger span{display:block;width:18px;height:2px;background:var(--text);border-radius:2px;transition:all 0.3s ease}
-  .hamburger.active span:nth-child(1){transform:translateY(6px) rotate(45deg)}
-  .hamburger.active span:nth-child(2){opacity:0}
-  .hamburger.active span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
-  @media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}}
+  .top-nav { background: #fff; border-bottom: 1px solid var(--border); padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 70px; position: sticky; top: 0; z-index: 1000; }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
+  .nav-logo img { height: 38px; width: 38px; object-fit: contain; }
+  .nav-logo-text { font-family: 'Poppins', sans-serif; font-size: 1.3rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text); }
+  .nav-logo-text span { color: var(--accent); }
+  .nav-links { display: flex; align-items: center; gap: 8px; height: 100%; }
+  .nav-link { display: flex; align-items: center; justify-content: center; height: 100%; padding: 0 20px; font-family: 'Poppins', sans-serif; font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); text-decoration: none; cursor: pointer; transition: all 0.2s ease; border-bottom: 3px solid transparent; }
+  .nav-link:hover, .nav-link.active { color: var(--text); border-bottom-color: var(--accent); }
+  .nav-link i { margin-right: 6px; font-size: 0.85rem; }
+  .nav-actions { display: flex; align-items: center; gap: 14px; }
+  .nav-search-btn, .nav-cart { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border); background: none; color: var(--text); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; transition: all 0.2s; position: relative; }
+  .nav-search-btn:hover, .nav-cart:hover { border-color: var(--text); background: var(--panel); }
+  .cart-count { position: absolute; top: -2px; right: -2px; min-width: 18px; height: 18px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 0.65rem; font-weight: 800; display: none; align-items: center; justify-content: center; }
+  .cart-count.show { display: flex; }
+  
+  .hamburger { display: none; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border); background: none; color: var(--text); cursor: pointer; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
+  .hamburger span { display: block; width: 18px; height: 2px; background: var(--text); border-radius: 2px; transition: all 0.3s ease; }
+  @media(max-width: 768px) { .nav-links { display: none; } .hamburger { display: flex; } }
 
   /* ===== MOBILE MENU ===== */
-  .mobile-menu{position:fixed;top:56px;left:0;width:100%;background:#fff;border-bottom:1px solid var(--border);z-index:1050;max-height:0;overflow:hidden;transition:max-height 0.35s ease,opacity 0.35s ease;opacity:0;pointer-events:none;padding:8px 0}
-  .mobile-menu.open{max-height:400px;opacity:1;pointer-events:auto;overflow-y:auto}
-  .mobile-menu a{display:flex;align-items:center;gap:12px;padding:14px 20px;color:var(--text-muted);text-decoration:none;font-family:'Poppins',sans-serif;font-size:0.85rem;font-weight:500;text-transform:uppercase;letter-spacing:0.8px;transition:all 0.2s}
-  .mobile-menu a:hover{color:var(--accent);background:var(--accent-light)}
+  .mobile-menu { position: fixed; top: 70px; left: 0; width: 100%; background: #fff; border-bottom: 1px solid var(--border); z-index: 1050; max-height: 0; overflow: hidden; transition: max-height 0.35s ease, opacity 0.35s ease; opacity: 0; pointer-events: none; padding: 8px 0; }
+  .mobile-menu.open { max-height: 450px; opacity: 1; pointer-events: auto; overflow-y: auto; }
+  .mobile-menu a { display: flex; align-items: center; gap: 12px; padding: 14px 24px; color: var(--text-muted); text-decoration: none; font-size: 0.85rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.8px; transition: all 0.2s; }
+  .mobile-menu a:hover { color: var(--text); background: var(--panel); }
 
-  /* ===== HERO BANNER ===== */
-  .hero{position:relative;width:100%;min-height:180px;overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(135deg,#FCE4EC 0%,#F8BBD0 30%,#E1BEE7 60%,#FCE4EC 100%);padding:40px 20px;flex-shrink:0}
-  .hero-content{position:relative;z-index:2}
-  .hero-tag{display:inline-block;padding:6px 16px;border:1px solid rgba(233,30,99,0.3);border-radius:var(--radius-full);font-size:0.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
-  .hero-title{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,4vw,2.8rem);font-weight:700;line-height:1.15;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
-  .hero-title span{color:var(--accent);font-style:italic}
-  .hero-sub{font-size:clamp(0.85rem,2.2vw,1.1rem);font-weight:400;color:var(--text-muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:20px}
-  .hero-cta{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;border-radius:var(--radius-full);background:var(--accent);color:#fff;font-family:'Poppins',sans-serif;font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;text-decoration:none;transition:all 0.25s ease;box-shadow:0 4px 15px rgba(233,30,99,0.25)}
-  .hero-cta:hover{background:var(--accent-dark);box-shadow:0 6px 20px rgba(233,30,99,0.35);transform:translateY(-2px)}
-  .hero-decor-1{position:absolute;top:-20px;right:-20px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,0.15)}
-  .hero-decor-2{position:absolute;bottom:-30px;left:-20px;width:160px;height:160px;border-radius:50%;background:rgba(143,188,143,0.08)}
-  .hero-decor-3{position:absolute;top:20px;left:-10px;width:40px;height:40px;border-radius:50%;background:rgba(233,30,99,0.12)}
+  /* ===== HERO BANNER (Inspirado na Referência) ===== */
+  .hero { position: relative; width: 100%; min-height: 420px; overflow: hidden; display: flex; align-items: center; justify-content: flex-start; background: var(--amarelo-hero); padding: 40px 8%; }
+  .hero-content { position: relative; z-index: 2; text-align: left; max-width: 500px; }
+  .hero-tag { font-size: 0.75rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--text); opacity: 0.6; margin-bottom: 8px; }
+  .hero-title { font-family: 'Poppins', sans-serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; line-height: 1.1; text-transform: uppercase; color: var(--text); margin-bottom: 16px; letter-spacing: -1px; }
+  .hero-title span { color: var(--accent); }
+  .hero-sub { font-size: 0.95rem; font-weight: 400; color: var(--text); opacity: 0.8; margin-bottom: 28px; line-height: 1.5; font-family: 'Poppins', sans-serif; text-transform: none; letter-spacing: 0; }
+  .hero-cta { display: inline-flex; align-items: center; gap: 10px; padding: 12px 28px; border-radius: 0; background: var(--text); color: #fff; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; transition: all 0.25s ease; }
+  .hero-cta:hover { background: var(--accent); transform: translateY(-2px); }
 
   /* ===== SECTION TITLES ===== */
-  .section-title{display:flex;align-items:center;gap:10px;padding:20px 16px 12px}
-  .section-title h2{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--text);white-space:nowrap;position:relative}
-  .section-title h2::after{content:'';position:absolute;bottom:0;left:0;width:40px;height:2.5px;background:var(--accent);border-radius:2px}
-  .section-title .view-all{margin-left:auto;font-family:'Poppins',sans-serif;font-size:0.75rem;font-weight:600;color:var(--accent);text-decoration:none;cursor:pointer;transition:opacity 0.2s;letter-spacing:0.5px}
-  .section-title .view-all:hover{opacity:1}
-
-  /* ===== CATEGORY TABS ===== */
-  .cat-tabs{display:flex;background:#fff;border-bottom:2px solid var(--border);padding:0;flex-shrink:0}
-  .cat-tab{flex:1;padding:14px 8px;background:none;border:none;border-bottom:2px solid transparent;font-family:'Poppins',sans-serif;font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);cursor:pointer;transition:all 0.25s ease;position:relative}
-  .cat-tab i{margin-right:6px;font-size:0.85rem}
-  .cat-tab:hover{color:var(--text)}
-  .cat-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
-
-  /* ===== SEARCH BAR ===== */
-  .search-bar{display:none;align-items:center;gap:8px;padding:10px 16px;background:#fff;border-bottom:1px solid var(--border)}
-  .search-bar.active{display:flex}
-  .search-bar input{flex:1;padding:10px 14px;border-radius:var(--radius-full);border:1px solid var(--border);font-family:'Poppins',sans-serif;font-size:0.85rem;outline:none;color:var(--text)}
-  .search-bar input:focus{border-color:var(--accent);box-shadow:0 0 0 2px rgba(233,30,99,0.1)}
-  .btn-search{width:38px;height:38px;border-radius:50%;border:none;background:var(--accent);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0}
+  .section-title { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 40px 16px 20px; }
+  .section-title span { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); font-weight: 700; margin-bottom: 4px; }
+  .section-title h2 { font-family: 'Poppins', sans-serif; font-size: 1.8rem; font-weight: 700; color: var(--text); text-transform: capitalize; position: relative; }
+  .section-title h2::after { content: none; }
 
   /* ===== FILTER STRIP ===== */
-  .filter-strip{display:flex;gap:8px;padding:10px 16px;overflow-x:auto;background:#fff;border-bottom:1px solid var(--border);flex-shrink:0;scrollbar-width:none}
-  .filter-strip::-webkit-scrollbar{display:none}
-  .filter-chip{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:var(--radius-full);border:1px solid var(--border);background:var(--panel);font-family:'Poppins',sans-serif;font-size:0.72rem;font-weight:600;color:var(--text-muted);cursor:pointer;white-space:nowrap;transition:all 0.2s ease;flex-shrink:0}
-  .filter-chip:hover{border-color:var(--accent);color:var(--accent)}
-  .filter-chip.active{background:var(--accent);color:#fff;border-color:var(--accent)}
-  .chip-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+  .filter-strip { display: flex; gap: 24px; justify-content: center; padding: 10px 16px 30px; background: #fff; border-bottom: none; }
+  .filter-chip { background: none; border: none; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); cursor: pointer; transition: all 0.2s ease; position: relative; padding-bottom: 4px; }
+  .filter-chip:hover, .filter-chip.active { color: var(--text); }
+  .filter-chip.active::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background: var(--accent); }
+  .chip-dot { display: none; }
 
   /* ===== PRODUCT GRID ===== */
-  .product-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:16px}
-  .product-card{background:var(--card);border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border);transition:all 0.3s ease;animation:cardIn 0.4s ease-out both;cursor:pointer}
-  .product-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
-  @keyframes cardIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-  .p-img{position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;background:#f0f0f0}
-  .p-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease}
-  .product-card:hover .p-img img{transform:scale(1.05)}
-  .p-badge{position:absolute;top:10px;left:10px;padding:4px 10px;border-radius:20px;font-size:0.58rem;font-weight:800;letter-spacing:0.8px;text-transform:uppercase;color:#fff;z-index:2}
-  .p-fav{position:absolute;top:10px;right:10px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.9);border:1px solid rgba(0,0,0,0.06);color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.8rem;transition:all 0.25s ease;z-index:2}
-  .p-fav:hover{color:var(--accent);border-color:var(--accent);background:var(--accent-light)}
-  .p-fav.favorited{color:var(--accent);background:var(--accent-light);border-color:var(--accent)}
-  .p-body{padding:12px 14px}
-  .p-cat{display:inline-block;font-size:0.58rem;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;padding:3px 8px;border-radius:20px;margin-bottom:6px}
-  .p-name{font-size:0.9rem;font-weight:700;line-height:1.3;margin-bottom:4px;color:var(--text);max-height:2.34rem;overflow:hidden;text-overflow:ellipsis;white-space:normal}
-  .p-desc{font-size:0.75rem;color:var(--text-muted);line-height:1.4;margin-bottom:10px;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;-webkit-line-clamp:2;line-clamp:2}
-  .p-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px}
-  .p-price{font-family:'Poppins',sans-serif;font-size:1.15rem;font-weight:800;color:var(--accent-dark)}
-  .p-price-old{font-size:0.78rem;color:var(--text-muted);text-decoration:line-through;font-weight:400}
-  .p-stock{font-size:0.6rem;color:var(--verde);font-weight:600;display:flex;align-items:center;gap:3px}
-  .p-stock.low{color:var(--accent)}
-  .btn-comprar{padding:9px 22px;border-radius:var(--radius-full);border:none;font-family:'Poppins',sans-serif;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;cursor:pointer;color:#fff;transition:all 0.2s ease;background:var(--accent);display:flex;align-items:center;gap:6px}
-  .btn-comprar:hover{background:var(--accent-dark);box-shadow:0 4px 15px rgba(233,30,99,0.25)}
-  .btn-comprar:active{transform:scale(0.95)}
-
-  /* ===== GALLERY ===== */
-  .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:16px}
-  .gallery-item{position:relative;border-radius:var(--radius-md);overflow:hidden;aspect-ratio:1;cursor:pointer;animation:cardIn 0.4s ease-out both;background:#f0f0f0;box-shadow:var(--shadow-xs)}
-  .gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s ease}
-  .gallery-item:hover img{transform:scale(1.08)}
-  .gallery-item::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.08));pointer-events:none}
-  .gallery-item.span-2{grid-column:span 2;aspect-ratio:2/1}
-
-  /* ===== LIGHTBOX ===== */
-  .lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:5000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px);flex-direction:column;gap:16px;padding:20px}
-  .lightbox.active{display:flex}
-  .lightbox img{max-width:92%;max-height:75vh;border-radius:var(--radius-md);object-fit:contain;animation:modalIn 0.3s ease-out;box-shadow:var(--shadow-lg)}
-  .lightbox-caption{color:#fff;font-family:'Playfair Display',serif;font-size:1rem;font-weight:600;text-align:center;max-width:80%}
-  .lightbox-close{position:absolute;top:16px;right:16px;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.1);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:all 0.2s ease;z-index:10}
-  .lightbox-close:hover{background:rgba(255,255,255,0.2)}
-  .lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:all 0.2s ease}
-  .lightbox-nav:hover{background:rgba(233,30,99,0.15);border-color:var(--accent);color:var(--accent)}
-  .lightbox-prev{left:12px}
-  .lightbox-next{right:12px}
-  .lightbox-counter{color:rgba(255,255,255,0.5);font-size:0.75rem;font-weight:600;letter-spacing:1px}
+  .product-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; padding: 0 8% 40px; }
+  @media(max-width: 1024px) { .product-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media(max-width: 768px) { .product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0 16px 40px; } }
+  
+  .product-card { background: var(--card); border-radius: var(--radius-lg); overflow: hidden; border: none; transition: all 0.3s ease; }
+  .product-card:hover { transform: translateY(-4px); }
+  .p-img { position: relative; width: 100%; aspect-ratio: 3/4; overflow: hidden; background: #f7f7f7; }
+  .p-img img { width: 100%; height: 100%; object-fit: cover; }
+  .p-badge { position: absolute; top: 12px; left: 12px; padding: 4px 8px; font-size: 0.6rem; font-weight: 700; text-transform: uppercase; color: #fff; background: var(--accent); }
+  .p-fav { position: absolute; top: 12px; right: 12px; width: 34px; height: 34px; border-radius: 50%; background: #fff; color: var(--text-muted); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; border: none; box-shadow: var(--shadow-sm); }
+  
+  .p-body { padding: 14px 4px; text-align: center; }
+  .p-cat { display: none; }
+  .p-name { font-size: 0.88rem; font-weight: 500; color: var(--text-muted); margin-bottom: 6px; }
+  .p-desc { display: none; }
+  .p-bottom { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .p-price { font-size: 1rem; font-weight: 700; color: var(--text); }
+  .p-price-old { font-size: 0.8rem; color: var(--text-muted); text-decoration: line-through; margin-right: 6px; }
+  .p-stock { font-size: 0.65rem; margin-top: 4px; }
+  .btn-comprar { margin-top: 8px; width: 100%; padding: 10px; background: var(--text); color: #fff; font-size: 0.75rem; text-transform: uppercase; font-weight: 600; border: none; cursor: pointer; transition: background 0.2s; }
+  .btn-comprar:hover { background: var(--accent); }
 
   /* ===== ABOUT CARDS ===== */
-  .about-card{background:var(--card);border-radius:var(--radius-lg);padding:20px;margin-bottom:14px;border:1px solid var(--border);animation:cardIn 0.4s ease-out both;box-shadow:var(--shadow-sm)}
-  .about-card h3{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:10px;color:var(--text)}
-  .about-card h3 i{font-size:0.9rem}
-  .about-card p{font-size:0.8rem;color:var(--text-muted);line-height:1.7}
-  .social-links{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
-  .social-link{width:42px;height:42px;border-radius:50%;border:1px solid var(--border);background:var(--panel);color:var(--text-muted);display:flex;align-items:center;justify-content:center;font-size:1rem;cursor:pointer;transition:all 0.25s ease;text-decoration:none}
-  .social-link:hover{background:var(--accent);color:#fff;transform:translateY(-2px);box-shadow:0 4px 15px rgba(233,30,99,0.25)}
-  .contact-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
-  .contact-item:last-child{border-bottom:none}
-  .contact-item i{font-size:0.9rem;width:20px;text-align:center}
-  .contact-item span{font-size:0.82rem;color:var(--text-muted)}
-  .info-version{text-align:center;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);font-size:0.68rem;color:var(--text-muted);font-style:italic;font-family:'Playfair Display',serif}
+  .about-container { padding: 40px 8%; background: var(--panel); display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
+  @media(max-width: 768px) { .about-container { grid-template-columns: 1fr; gap: 20px; padding: 40px 16px; } }
+  .about-card { background: transparent; border: none; box-shadow: none; padding: 0; }
+  .about-card h3 { font-family: 'Poppins', sans-serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 16px; text-transform: uppercase; }
+  .about-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.8; }
 
-  /* ===== TOAST ===== */
-  .toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--card);color:var(--text);padding:12px 24px;border-radius:var(--radius-full);border:1px solid var(--border);box-shadow:var(--shadow-lg);z-index:2000;opacity:0;font-size:0.82rem;font-weight:600;text-align:center;pointer-events:none;transition:opacity 0.3s ease,transform 0.3s ease;white-space:nowrap;backdrop-filter:blur(8px)}
-  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  /* ===== TOAST & MODALS ===== */
+  .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: var(--text); color: #fff; padding: 12px 24px; font-size: 0.85rem; z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+  .toast.show { opacity: 1; }
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 3000; display: none; align-items: center; justify-content: center; }
+  .modal-overlay.active { display: flex; }
+  .modal-box { background: #fff; padding: 32px; width: 90%; max-width: 450px; border-radius: var(--radius-lg); position: relative; }
+  .modal-box h2 { font-size: 1.4rem; margin-bottom: 12px; font-weight: 700; }
+  .modal-box p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px; }
 
-  /* ===== MODALS ===== */
-  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:3000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
-  .modal-overlay.active{display:flex}
-  .modal-box{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;width:90%;max-width:420px;max-height:85vh;overflow-y:auto;animation:modalIn 0.3s ease-out;box-shadow:var(--shadow-lg)}
-  .modal-box::-webkit-scrollbar{width:4px}
-  .modal-box::-webkit-scrollbar-thumb{background:rgba(233,30,99,0.2);border-radius:4px}
-  @keyframes modalIn{from{opacity:0;transform:scale(0.9) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
-  .modal-box h2{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;margin-bottom:6px;color:var(--text)}
-  .modal-box p{font-size:0.8rem;color:var(--text-muted);margin-bottom:18px;line-height:1.5}
-  .modal-box label{display:block;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);margin-bottom:6px}
-  .modal-box input,.modal-box select,.modal-box textarea{width:100%;padding:12px 16px;border-radius:var(--radius-sm);border:1px solid #e0e0e0;background:var(--bg);color:var(--text);font-size:0.88rem;font-family:'Poppins',sans-serif;outline:none;margin-bottom:14px}
-  .modal-box input:focus,.modal-box select:focus,.modal-box textarea:focus{border-color:var(--accent);box-shadow:0 0 0 2px rgba(233,30,99,0.1)}
-  .modal-box textarea{resize:vertical;min-height:60px}
-  .modal-actions{display:flex;gap:10px;margin-top:6px}
-  .modal-actions button{flex:1;padding:12px;border-radius:var(--radius-sm);border:none;font-family:'Poppins',sans-serif;font-size:0.82rem;font-weight:700;cursor:pointer;transition:all 0.2s ease}
-  .modal-actions button:active{transform:scale(0.96)}
-  .btn-cancel{background:var(--panel);color:var(--text-muted);border:1px solid var(--border)!important}
-  .btn-confirm{background:var(--accent);color:#fff}
-
-  /* ===== PAYPAL ===== */
-  .paypal-section{margin-top:16px;border-top:1px solid var(--border);padding-top:16px}
-  .paypal-section-label{display:flex;align-items:center;gap:8px;margin-bottom:12px;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-muted)}
-  .paypal-section-label i{color:#0070D2;font-size:0.85rem}
-  .iframe-fallback{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22px 16px;gap:10px;min-height:140px;border-radius:var(--radius-md);border:1px solid rgba(0,112,210,0.1);background:rgba(0,112,210,0.02)}
-  .iframe-fallback i{font-size:1.6rem;color:#0070D2;opacity:0.6}
-  .iframe-fallback h3{font-size:0.88rem;font-weight:800;color:var(--text)}
-  .iframe-fallback p{font-size:0.7rem;color:var(--text-muted);line-height:1.5;max-width:280px;margin-bottom:0}
-  .btn-external{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:var(--radius-full);background:linear-gradient(135deg,#0070D2,#003087);color:#fff;text-decoration:none;font-family:'Poppins',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.3px;transition:all 0.25s ease;box-shadow:0 4px 15px rgba(0,112,210,0.2);margin-top:4px}
-  .btn-external:hover{transform:translateY(-2px);box-shadow:0 6px 25px rgba(0,112,210,0.35)}
-  .btn-external:active{transform:scale(0.96)}
-  .donate-option-link{display:flex;align-items:center;gap:14px;padding:13px 16px;border-radius:var(--radius-md);background:rgba(0,0,0,0.02);border:1px solid var(--border);text-decoration:none;color:var(--text);transition:all 0.25s ease;cursor:pointer;margin-bottom:8px}
-  .donate-option-link:hover{background:rgba(233,30,99,0.04);border-color:rgba(233,30,99,0.12);transform:translateX(4px)}
-  .donate-option-icon-wrap{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
-  .donate-option-text{flex:1;min-width:0}
-  .donate-option-text .do-title{font-size:0.82rem;font-weight:700;color:var(--text)}
-  .donate-option-text .do-desc{font-size:0.65rem;color:var(--text-muted);margin-top:2px}
-
-  /* ===== STORE LIST ===== */
-  .store-list{max-height:160px;overflow-y:auto;margin-bottom:14px}
-  .store-list::-webkit-scrollbar{width:4px}
-  .store-list::-webkit-scrollbar-thumb{background:rgba(233,30,99,0.2);border-radius:4px}
-  .store-item{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;border-radius:var(--radius-sm);background:var(--panel);border:1px solid var(--border);margin-bottom:5px;animation:cardIn 0.3s ease-out both}
-  .store-item-info{display:flex;align-items:center;gap:10px;min-width:0;flex:1}
-  .store-item-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex-shrink:0}
-  .store-item-name{font-size:0.8rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)}
-  .store-item-cat{font-size:0.62rem;color:var(--text-muted)}
-  .store-item-remove{width:26px;height:26px;border-radius:50%;border:1px solid var(--border);background:none;color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.65rem;transition:all 0.2s ease;flex-shrink:0;margin-left:6px}
-  .store-item-remove:hover{border-color:var(--accent);color:var(--accent);background:rgba(233,30,99,0.06)}
-  .no-stores-msg{text-align:center;padding:14px;color:var(--text-muted);font-size:0.78rem}
-
-  /* ===== BOTTOM NAV (abas) ===== */
-  .bottom-nav{position:fixed;bottom:0;left:0;width:100%;background:#fff;border-top:1px solid var(--border);display:flex;z-index:900;height:58px;flex-shrink:0}
-  .bottom-nav .tab-btn{flex:1;border:none;background:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:'Poppins',sans-serif;font-size:0.58rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);cursor:pointer;transition:color 0.2s ease;padding:8px 4px}
-  .bottom-nav .tab-btn i{font-size:1.1rem;transition:color 0.2s ease}
-  .bottom-nav .tab-btn.active{color:var(--accent)}
-  .bottom-nav .tab-btn.active i{color:var(--accent)}
-  .main-content{padding-bottom:70px}
-
-  /* ===== LOADING ===== */
-  .loading-fullscreen{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity 0.6s ease,visibility 0.6s ease}
-  .loading-fullscreen.fade-out{opacity:0;visibility:hidden}
-  .loader-artisan{width:50px;height:50px;position:relative;margin-bottom:24px}
-  .loader-artisan::before{content:'';position:absolute;inset:0;border-radius:50%;border:3px solid transparent;border-top-color:var(--accent);border-right-color:var(--lilas);animation:spin 1s cubic-bezier(0.68,-0.15,0.27,1.15) infinite}
-  .loader-artisan::after{content:'✦';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--accent);animation:pulseText 1.5s ease-in-out infinite}
-  @keyframes spin{to{transform:rotate(360deg)}}
-  @keyframes pulseText{0%,100%{opacity:0.4}50%{opacity:1}}
-  .loading-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;text-align:center;color:var(--text)}
-  .loading-title span{color:var(--accent);font-style:italic}
-  .loading-sub{margin-top:8px;font-size:0.78rem;color:var(--text-muted);animation:pulseText 1.8s ease-in-out infinite;letter-spacing:1px}
-  .empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:50px 20px;text-align:center;opacity:0.4}
-  .empty-state i{font-size:3rem;margin-bottom:16px;color:var(--accent);opacity:0.2}
-  .empty-state p{font-size:0.88rem;color:var(--text-muted);line-height:1.6}
-
-  /* ===== FEED CONTAINER ===== */
-  .feed-container{padding:0 16px}
-  #feed-container .product-card{margin-bottom:0}
-
-  @media(max-width:768px){
-    .hero{min-height:140px;padding:30px 16px}
-    .hero-title{font-size:clamp(1.3rem,4vw,2.2rem)}
-    .gallery-grid{grid-template-columns:repeat(2,1fr);gap:6px;padding:12px}
-    .section-title{padding:16px 12px 10px}
-    .section-title h2{font-size:1.05rem}
+  /* ===== BOTTOM NAV / FOOTER ===== */
+  .bottom-nav { display: none; } /* Ocultado em prol de uma experiência Desktop limpa como a referência */
+  @media(max-width: 768px) { 
+    .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #fff; border-top: 1px solid var(--border); display: flex; height: 60px; z-index: 900; } 
+    .bottom-nav .tab-btn { flex: 1; border: none; background: none; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.6rem; color: var(--text-muted); }
+    .bottom-nav .tab-btn.active { color: var(--accent); }
   }
-  @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important}}
+  .main-content { padding-bottom: 40px; }
+  @media(max-width: 768px) { .main-content { padding-bottom: 80px; } }
+
+  /* ===== LOADING SCREEN ===== */
+  .loading-fullscreen { position: fixed; inset: 0; background: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999; transition: opacity 0.4s ease, visibility 0.4s ease; }
+  .loading-fullscreen.fade-out { opacity: 0; visibility: hidden; }
+  .loader-artisan { width: 40px; height: 40px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 16px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
 </style>
 </head>
 <body>
@@ -246,21 +146,19 @@
 <!-- LOADING SCREEN -->
 <div class="loading-fullscreen" id="loading-screen">
   <div class="loader-artisan"></div>
-  <div class="loading-title">Atelier <span>Sorelle</span> Santos</div>
-  <div class="loading-sub">Carregando peças artesanais...</div>
+  <div class="loading-title" style="font-family:'Poppins',sans-serif; font-weight: 700; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px;">Atelier <span style="color:var(--accent);">Sorelle</span> Santos</div>
 </div>
 
 <!-- ===== TOP NAV ===== -->
 <nav class="top-nav">
   <a class="nav-logo" href="#">
-    <img src="./imagens_app/ic_icon_app.png" alt="SS">
     <span class="nav-logo-text">Sorelle<span>Santos</span></span>
   </a>
   <div class="nav-links" id="nav-links">
     <a class="nav-link active" href="#"><i class="fas fa-home"></i> Home</a>
-    <a class="nav-link" href="#"><i class="fas fa-images"></i> Galeria</a>
-    <a class="nav-link" href="#"><i class="fas fa-heart"></i> Favoritos</a>
     <a class="nav-link" href="#"><i class="fas fa-gem"></i> Catálogo</a>
+    <a class="nav-link" href="#"><i class="fas fa-leaf"></i> Sobre</a>
+    <a class="nav-link" href="#"><i class="fas fa-envelope"></i> Contato</a>
   </div>
   <div class="nav-actions">
     <button class="nav-search-btn" id="btn-search-toggle" title="Buscar"><i class="fas fa-search"></i></button>
@@ -274,671 +172,94 @@
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobile-menu">
   <a href="#" id="menu-home"><i class="fas fa-home"></i> Home</a>
-  <a href="#" id="menu-gallery"><i class="fas fa-images"></i> Galeria</a>
+  <a href="#"><i class="fas fa-gem"></i> Catálogo</a>
   <a href="#" id="menu-sobre"><i class="fas fa-leaf"></i> Sobre</a>
-  <a href="#" id="menu-contato"><i class="fas fa-map-marker-alt"></i> Contato</a>
-  <a href="#" id="menu-add-product"><i class="fas fa-plus-circle"></i> Cadastrar Peça</a>
-  <a href="#" id="menu-add-store"><i class="fas fa-store"></i> Inserir Loja/Feira</a>
-  <a href="#" id="menu-donate"><i class="fas fa-heart"></i> Apoie o Atelier</a>
-  <a href="#" id="menu-info"><i class="fas fa-info-circle"></i> Sobre o Atelier</a>
+  <a href="#" id="menu-contato"><i class="fas fa-envelope"></i> Contato</a>
 </div>
 
 <!-- HERO BANNER -->
 <div class="hero" id="hero">
-  <div class="hero-decor-1"></div>
-  <div class="hero-decor-2"></div>
-  <div class="hero-decor-3"></div>
   <div class="hero-content">
-    <div class="hero-tag">Endless Summer Collection</div>
+    <div class="hero-tag">Endless Summer Savings</div>
     <h1 class="hero-title">Style Your <span>Confidence</span></h1>
-    <p class="hero-sub">Bolsas e acessórios artesanais feitos à mão com carinho e dedicação</p>
-    <a class="hero-cta" href="#"><i class="fas fa-gem"></i> Explorar Coleção</a>
+    <p class="hero-sub">Bolsas e acessórios artesanais feitos à mão com carinho, elegância e dedicação exclusiva.</p>
+    <a class="hero-cta" href="#">Shop Now <i class="fas fa-arrow-right" style="font-size:0.7rem; margin-left:4px;"></i></a>
   </div>
 </div>
 
 <!-- MAIN CONTENT -->
 <div class="main-content">
-  <div class="search-bar" id="search-bar">
-    <input type="text" id="search-query" placeholder="Buscar peça, categoria..." aria-label="Buscar">
-    <button class="btn-search" id="btn-search"><i class="fas fa-search"></i></button>
+  <div class="section-title">
+    <span>Novas Coleções</span>
+    <h2>Fresh Offers</h2>
   </div>
-  <div class="filter-strip" id="filter-strip"></div>
-  <div id="feed-container" style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:16px;"></div>
-  <div class="toast" id="toast-msg"></div>
+
+  <div class="filter-strip" id="filter-strip">
+    <button class="filter-chip active">Ver Tudo</button>
+    <button class="filter-chip">Bolsas</button>
+    <button class="filter-chip">Mochilas</button>
+    <button class="filter-chip">Kits</button>
+  </div>
+
+  <!-- CONTAINER DE PRODUTOS -->
+  <div class="product-grid" id="feed-container">
+    <!-- Exemplo de Produto Alinhado ao Layout da Referência -->
+    <div class="product-card">
+      <div class="p-img">
+        <span class="p-badge">Novo</span>
+        <button class="p-fav"><i class="far fa-heart"></i></button>
+        <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80" alt="Bolsa de Palha">
+      </div>
+      <div class="p-body">
+        <div class="p-name">Bolsa Artesanal Summer Straw</div>
+        <div class="p-bottom">
+          <div class="p-price">R$ 189,00</div>
+        </div>
+        <button class="btn-comprar">Adicionar ao Carrinho</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEÇÃO SOBRE HARMONIZADA -->
+  <div class="about-container">
+    <div class="about-card">
+      <h3>O Atelier</h3>
+      <p>O Atelier Sorelle Santos nasceu da paixão por criar com as mãos. Cada peça é única, feita com dedicação e materiais selecionados, traduzindo a essência do artesanato contemporâneo de alta qualidade.</p>
+    </div>
+    <div class="about-card">
+      <h3>Produção Sustentável</h3>
+      <p>Trabalhamos com tecidos selecionados, fibras naturais e processos de baixo impacto ecológico. Cada criação carrega um pedaço de cuidado e carinho em forma de arte utilizável.</p>
+    </div>
+  </div>
+
+  <div class="toast" id="toast-msg">Item adicionado com sucesso!</div>
 </div>
 
-<!-- BOTTOM NAV -->
+<!-- BOTTOM NAV MOBILE -->
 <nav class="bottom-nav">
-  <button class="tab-btn active" data-tab="feed"><i class="fas fa-home"></i>Home</button>
-  <button class="tab-btn" data-tab="galeria"><i class="fas fa-images"></i>Galeria</button>
-  <button class="tab-btn" data-tab="sobre"><i class="fas fa-leaf"></i>Sobre</button>
-  <button class="tab-btn" data-tab="contato"><i class="fas fa-map-marker-alt"></i>Contato</button>
+  <button class="tab-btn active"><i class="fas fa-home"></i>Home</button>
+  <button class="tab-btn"><i class="fas fa-search"></i>Buscar</button>
+  <button class="tab-btn"><i class="fas fa-shopping-bag"></i>Sacola</button>
 </nav>
 
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox">
-  <button class="lightbox-close" id="lightbox-close"><i class="fas fa-times"></i></button>
-  <button class="lightbox-nav lightbox-prev" id="lb-prev"><i class="fas fa-chevron-left"></i></button>
-  <button class="lightbox-nav lightbox-next" id="lb-next"><i class="fas fa-chevron-right"></i></button>
-  <img id="lb-img" src="" alt="">
-  <div class="lightbox-caption" id="lb-caption"></div>
-  <div class="lightbox-counter" id="lb-counter"></div>
-</div>
-
-<!-- MODAL: Informação -->
-<div class="modal-overlay" id="modal-info">
-  <div class="modal-box">
-    <h2><i class="fas fa-info-circle" style="color:var(--accent);margin-right:8px;"></i>Sobre o Atelier</h2>
-    <p>Conheça a história por trás de cada peça artesanal.</p>
-    <div style="font-size:0.8rem;color:var(--text-muted);line-height:1.8;">
-      <p style="margin-bottom:14px;">O <strong style="color:var(--accent);">Atelier Sorelle Santos</strong> nasceu da paixão por criar com as mãos. Cada peça é única, feita com dedicação e materiais selecionados, traduzindo a essência do artesanato brasileiro contemporâneo.</p>
-      <p style="margin-bottom:14px;">Trabalhamos com tecidos naturais, fibras, palha, crochê e materiais sustentáveis. Cada criação carrega um pedaço da nossa história e identidade cultural.</p>
-      <p>Nossas peças são perfeitas para o dia a dia, presentear ou simplesmente apreciar a beleza do feito à mão.</p>
-    </div>
-    <div class="info-version">Atelier Sorelle Santos — Feito com amor e arte</div>
-    <div class="modal-actions" style="margin-top:16px;">
-      <button class="btn-confirm" id="btn-info-close" style="flex:1;">Entendi</button>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL: Cadastrar Peça -->
-<div class="modal-overlay" id="modal-add-product">
-  <div class="modal-box">
-    <h2>Cadastrar Peça</h2>
-    <p>Adicione uma nova peça ao catálogo do atelier.</p>
-    <label>Nome da Peça</label>
-    <input type="text" id="inp-prod-name" placeholder="Ex: Bolsa Beach Rosa">
-    <label>Categoria</label>
-    <select id="inp-prod-cat">
-      <option value="bolsas">Bolsas</option>
-      <option value="kits">Kits</option>
-      <option value="mochilas">Mochilas</option>
-      <option value="pochetes">Pochetes</option>
-      <option value="outro">Outro</option>
-    </select>
-    <label>Descrição</label>
-    <textarea id="inp-prod-desc" placeholder="Descreva materiais, técnicas..."></textarea>
-    <label>Preço (R$)</label>
-    <input type="number" id="inp-prod-price" placeholder="Ex: 189" min="0" step="0.01">
-    <label>URL da Imagem (opcional)</label>
-    <input type="url" id="inp-prod-img" placeholder="https://...">
-    <div class="modal-actions">
-      <button class="btn-cancel" id="btn-prod-cancel">Cancelar</button>
-      <button class="btn-confirm" id="btn-prod-confirm">Cadastrar</button>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL: Inserir Loja/Feira -->
-<div class="modal-overlay" id="modal-add-store">
-  <div class="modal-box">
-    <h2>Inserir Loja / Feira</h2>
-    <p>Onde o Atelier Sorelle Santos pode ser encontrado.</p>
-    <label>Nome</label>
-    <input type="text" id="inp-store-name" placeholder="Ex: Feira de Artesanato">
-    <label>Endereço / URL</label>
-    <input type="text" id="inp-store-url" placeholder="Ex: Rua das Flores, 123 ou @instagram">
-    <label>Tipo</label>
-    <select id="inp-store-type">
-      <option value="Feira">Feira de Artesanato</option>
-      <option value="Loja Fisica">Loja Física</option>
-      <option value="Online">Loja Online</option>
-      <option value="Evento">Evento / Exposição</option>
-      <option value="Outro">Outro</option>
-    </select>
-    <div id="store-list" class="store-list"></div>
-    <div class="modal-actions">
-      <button class="btn-cancel" id="btn-store-cancel">Cancelar</button>
-      <button class="btn-confirm" id="btn-store-confirm">Adicionar</button>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL: Apoie o Atelier -->
-<div class="modal-overlay" id="modal-donate">
-  <div class="modal-box">
-    <h2><i class="fas fa-heart" style="color:var(--accent);margin-right:8px;"></i>Apoie o Atelier</h2>
-    <p>Cada contribuição ajuda a comprar materiais, participar de feiras e continuar criando arte com as mãos.</p>
-    <div id="donate-options-list">
-      <div class="donate-option-link" id="pix-copy-btn">
-        <div class="donate-option-icon-wrap" style="background:rgba(76,175,80,0.08);color:#4CAF50;">
-          <i class="fas fa-qrcode"></i>
-        </div>
-        <div class="donate-option-text">
-          <div class="do-title">PIX</div>
-          <div class="do-desc">sorelle.santos@pix.com — Toque para copiar</div>
-        </div>
-      </div>
-    </div>
-    <div class="paypal-section">
-      <div class="paypal-section-label"><i class="fab fa-paypal"></i><span>Doação via PayPal</span></div>
-      <div class="iframe-fallback">
-        <i class="fas fa-shield-halved"></i>
-        <h3>Rede Segura do PayPal</h3>
-        <p>Por segurança, o PayPal abre em nova aba.</p>
-        <a href="https://www.paypal.com/donate/?hosted_button_id=VVRPXE4C2JYUE" target="_blank" rel="noopener noreferrer" class="btn-external">
-          <i class="fas fa-external-link-alt"></i> Ir para o PayPal
-        </a>
-      </div>
-    </div>
-    <p style="text-align:center;font-size:0.68rem;color:var(--text-muted);margin-bottom:0;margin-top:14px;">Cada apoio faz diferença. Obrigada!</p>
-    <div class="modal-actions" style="margin-top:16px;">
-      <button class="btn-cancel" id="btn-donate-close" style="flex:1;">Fechar</button>
-    </div>
-  </div>
-</div>
-
+<!-- SCRIPTS INTERNOS BASE -->
 <script>
-// ===== DADOS =====
-var CATEGORIAS = {
-  'bolsas':  { icon:'fas fa-bag-shopping', color:'#D4839B', label:'Bolsas' },
-  'kits':    { icon:'fas fa-box-open',      color:'#FBC02D', label:'Kits' },
-  'mochilas':{ icon:'fas fa-suitcase',      color:'#5C9CE6', label:'Mochilas' },
-  'pochetes':{ icon:'fas fa-bag-shopping',  color:'#9B7EBD', label:'Pochetes' },
-  'outro':   { icon:'fas fa-shapes',        color:'#9A8E95', label:'Outro' }
-};
-
-var PRODUTOS = [
-  {id:1, nome:'Bolsa Beach',          cat:'bolsas',   desc:'Bolsa beach artesanal em crochê com alça ajustável. Perfeita para o dia a dia no verão.',       preco:189, precoOld:0,   estoque:5, img:'/imagens_app/bolsa_beach.png',        badge:'Novo'},
-  {id:2, nome:'Bolsa Beach Branca',   cat:'bolsas',   desc:'Versão clássica da bolsa beach em crochê branco. Acabamento impecável, tamanho médio.',          preco:199, precoOld:0,   estoque:4, img:'/imagens_app/bolsa_beach_branca.png',  badge:''},
-  {id:3, nome:'Bolsa Bege com Alça',  cat:'bolsas',   desc:'Bolsa bege com alça de couro legítimo. Design clean e versátil para qualquer ocasião.',          preco:220, precoOld:0,   estoque:3, img:'/imagens_app/bolsa_bege_alca.png',     badge:''},
-  {id:4, nome:'Bolsa Cru com Alça',   cat:'bolsas',   desc:'Bolsa em tom cru com alça de couro. Estilo rústico e artesanal único.',                          preco:235, precoOld:0,   estoque:2, img:'/imagens_app/bolsa_cru_alca.png',      badge:'Exclusivo'},
-  {id:5, nome:'Bolsa Indiana',        cat:'bolsas',   desc:'Bolsa estilo indiano feita em crochê com padrões geométricos coloridos. Peça statement.',        preco:275, precoOld:0,   estoque:4, img:'/imagens_app/bolsa_indiana.png',       badge:'Destaque'},
-  {id:6, nome:'Bolsa Indiana Azul',   cat:'bolsas',   desc:'Variante da bolsa indiana em tons de azul pastel. Fio de algodão premium.',                      preco:275, precoOld:0,   estoque:3, img:'/imagens_app/bolsa_indiana_azul.png',  badge:''},
-  {id:7, nome:'Bolsa Praia Tela',     cat:'bolsas',   desc:'Bolsa de praia em tela artesanal com detalhes em tricô. Leve e resistente.',                      preco:165, precoOld:200, estoque:6, img:'/imagens_app/bolsa_praia_tela.png',    badge:'-17%'},
-  {id:8, nome:'Bolsa Preta com Alça', cat:'bolsas',   desc:'Bolsa preta elegante com alça de couro. Ideal para noite e eventos.',                            preco:250, precoOld:0,   estoque:3, img:'/imagens_app/bolsa_preta_alca.png',    badge:''},
-  {id:9, nome:'Bolsa Tigresa com Alça',cat:'bolsas',  desc:'Bolsa com estampa tigresa e alça dourada. Edição limitada do atelier.',                          preco:295, precoOld:0,   estoque:2, img:'/imagens_app/bolsa_tigresa_alca.png',  badge:'Limitada'},
-  {id:10,nome:'Bolsa Tira Colo',      cat:'bolsas',   desc:'Bolsa tiracolo artesanal em crochê. Prática e charmosa.',                                        preco:175, precoOld:0,   estoque:7, img:'/imagens_app/bolsa_tiracolo.png',      badge:'Popular'},
-  {id:11,nome:'Bolsa Vinho',          cat:'bolsas',   desc:'Bolsa em tom vinho profundo feita em crochê. Alça de couro artesanal.',                          preco:245, precoOld:0,   estoque:3, img:'/imagens_app/bolsa_vinho.png',         badge:''},
-  {id:12,nome:'Kit Azul',             cat:'kits',     desc:'Kit completo com bolsa e acessórios em tons de azul pastel. Presente perfeito.',                 preco:389, precoOld:0,   estoque:4, img:'/imagens_app/kit_azul.png',            badge:'Novo'},
-  {id:13,nome:'Kit Bolsas',           cat:'kits',     desc:'Conjunto de mini bolsas artesanais variadas. Ideal para presentes e kits.',                      preco:450, precoOld:520, estoque:3, img:'/imagens_app/kit_bolsas.png',          badge:'-13%'},
-  {id:14,nome:'Kit Namorados',        cat:'kits',     desc:'Kit para casais com bolsas combinando. Presente especial feito à mão.',                          preco:520, precoOld:0,   estoque:2, img:'/imagens_app/kit_namorados.png',       badge:'Especial'},
-  {id:15,nome:'Kit Rosa',             cat:'kits',     desc:'Kit em tons de rosa pastel com bolsa e pochete combinando. Delicado e feminino.',                preco:399, precoOld:0,   estoque:5, img:'/imagens_app/kit_rosa.png',            badge:''},
-  {id:16,nome:'Kit Verde',            cat:'kits',     desc:'Kit em tons de verde com bolsas e acessórios. Frescor e natural.',                               preco:399, precoOld:0,   estoque:5, img:'/imagens_app/kit_verde.png',           badge:''},
-  {id:17,nome:'Mochila Bege',         cat:'mochilas', desc:'Mochila bege artesanal em crochê com forro interno. Resistente e espaçosa.',                     preco:320, precoOld:0,   estoque:4, img:'/imagens_app/mochila_bege.png',        badge:''},
-  {id:18,nome:'Mochila Channel',      cat:'mochilas', desc:'Mochila estilo channel em crochê com alça dupla. Elegante e funcional.',                         preco:380, precoOld:0,   estoque:3, img:'/imagens_app/mochila_channel.png',     badge:'Premium'},
-  {id:19,nome:'Mochila Kids',         cat:'mochilas', desc:'Mochila infantil colorida em crochê. Tamanho reduzido perfeita para crianças.',                  preco:195, precoOld:0,   estoque:6, img:'/imagens_app/mochila_kids.png',        badge:'Kids'},
-  {id:20,nome:'Mochila Xadrez',       cat:'mochilas', desc:'Mochila com padrão xadrez em crochê. Estilo único e moderno.',                                   preco:350, precoOld:0,   estoque:3, img:'/imagens_app/mochila_xadrez.png',      badge:''},
-  {id:21,nome:'Pochete Rosa',         cat:'pochetes', desc:'Pochete rosa pastel em crochê com alça regulável. Compacta e prática.',                          preco:145, precoOld:0,   estoque:8, img:'/imagens_app/pochete_rosa.png',        badge:'Popular'},
-  {id:22,nome:'Pochete Tira Colo',    cat:'pochetes', desc:'Pochete tiracolo em crochê artesanal. Versátil e confortável.',                                  preco:155, precoOld:0,   estoque:7, img:'/imagens_app/pochete_tiracolo.png',    badge:''}
-];
-
-var GALERIA_FOTOS = [
-  {img:'/imagens_app/bolsa_beach.png',         caption:'Bolsa Beach — Vista frontal',          span:false},
-  {img:'/imagens_app/bolsa_indiana.png',        caption:'Bolsa Indiana — Padrões geométricos',  span:true},
-  {img:'/imagens_app/bolsa_tigresa_alca.png',   caption:'Bolsa Tigresa — Edição Limitada',      span:false},
-  {img:'/imagens_app/bolsa_vinho.png',          caption:'Bolsa Vinho — Tom profundo',           span:false},
-  {img:'/imagens_app/kit_azul.png',             caption:'Kit Azul — Conjunto completo',         span:false},
-  {img:'/imagens_app/kit_namorados.png',        caption:'Kit Namorados — Presente especial',    span:true},
-  {img:'/imagens_app/kit_rosa.png',             caption:'Kit Rosa — Tons pastel feminino',      span:false},
-  {img:'/imagens_app/mochila_bege.png',         caption:'Mochila Bege — Versátil',             span:false},
-  {img:'/imagens_app/mochila_channel.png',      caption:'Mochila Channel — Elegante',          span:true},
-  {img:'/imagens_app/mochila_kids.png',         caption:'Mochila Kids — Para os pequenos',     span:false},
-  {img:'/imagens_app/mochila_xadrez.png',       caption:'Mochila Xadrez — Estilo único',       span:false},
-  {img:'/imagens_app/pochete_rosa.png',         caption:'Pochete Rosa — Compacta',             span:false},
-  {img:'/imagens_app/pochete_tiracolo.png',     caption:'Pochete Tira Colo — Confortável',     span:true},
-  {img:'/imagens_app/bolsa_bege_alca.png',      caption:'Bolsa Bege — Design clean',           span:false},
-  {img:'/imagens_app/bolsa_praia_tela.png',     caption:'Bolsa Praia — Leve e resistente',     span:false},
-  {img:'/imagens_app/kit_bolsas.png',           caption:'Kit Bolsas — Mini bolsas variadas',   span:true},
-  {img:'/imagens_app/kit_verde.png',            caption:'Kit Verde — Frescor natural',         span:false},
-  {img:'/imagens_app/bolsa_preta_alca.png',     caption:'Bolsa Preta — Noite e eventos',       span:false},
-  {img:'/imagens_app/bolsa_tiracolo.png',       caption:'Bolsa Tira Colo — Prática',           span:false},
-  {img:'/imagens_app/bolsa_indiana_azul.png',   caption:'Bolsa Indiana Azul — Variante azul',  span:true},
-  {img:'/imagens_app/bolsa_beach_branca.png',   caption:'Bolsa Beach Branca — Versão clássica',span:false}
-];
-
-// ===== ESTADO =====
-var tabAtiva = 'feed';
-var filtroAtivo = null;
-var searchActive = false;
-var favoritos = [];
-var userStores = [];
-var lightboxIdx = 0;
-var lightboxData = [];
-
-try { var st = localStorage.getItem('atelier_stores'); if (st) userStores = JSON.parse(st); } catch(e) {}
-try { var fv = localStorage.getItem('atelier_favoritos'); if (fv) favoritos = JSON.parse(fv); } catch(e) {}
-
-// ===== UTILITÁRIOS =====
-var toastTimer = null;
-function showToast(m) {
-  var t = document.getElementById('toast-msg');
-  t.textContent = m;
-  t.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(function() { t.classList.remove('show'); }, 2800);
-}
-
-function openModal(id) { document.getElementById(id).classList.add('active'); fecharMenu(); }
-function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-
-// ===== HAMBURGER =====
-var menuAberto = false;
-function toggleMenu() {
-  menuAberto = !menuAberto;
-  var d = document.getElementById('mobile-menu');
-  var h = document.getElementById('hamburger');
-  if (menuAberto) { d.classList.add('open'); h.classList.add('active'); }
-  else { d.classList.remove('open'); h.classList.remove('active'); }
-}
-function fecharMenu() {
-  if (!menuAberto) return;
-  menuAberto = false;
-  document.getElementById('mobile-menu').classList.remove('open');
-  document.getElementById('hamburger').classList.remove('active');
-}
-document.addEventListener('click', function(e) {
-  if (!e.target.closest('#hamburger') && !e.target.closest('#mobile-menu')) fecharMenu();
-});
-
-// ===== RENDER FEED (produtos) =====
-function renderFeed() {
-  var ct = document.getElementById('feed-container');
-  ct.innerHTML = '';
-  ct.style.display = 'grid';
-  ct.style.gridTemplateColumns = 'repeat(2,1fr)';
-  ct.style.gap = '12px';
-  ct.style.padding = '16px';
-
-  var lista = PRODUTOS.slice();
-  if (filtroAtivo) lista = lista.filter(function(p) { return p.cat === filtroAtivo; });
-  var q = document.getElementById('search-query').value.trim().toLowerCase();
-  if (q.length >= 2) lista = lista.filter(function(p) {
-    return p.nome.toLowerCase().indexOf(q) !== -1
-        || p.desc.toLowerCase().indexOf(q) !== -1
-        || (CATEGORIAS[p.cat] && CATEGORIAS[p.cat].label.toLowerCase().indexOf(q) !== -1);
+  // Controle básico da tela de loading
+  window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      document.getElementById('loading-screen').classList.add('fade-out');
+    }, 600);
   });
 
-  if (!lista.length) {
-    ct.innerHTML = '<div class="empty-state" style="grid-column:span 2;"><i class="fas fa-search"></i><p>Nenhuma peça encontrada.</p></div>';
-    return;
-  }
-
-  lista.forEach(function(p, i) {
-    var cat = CATEGORIAS[p.cat] || CATEGORIAS['outro'];
-    var isFav = favoritos.indexOf(p.id) !== -1;
-    var card = document.createElement('div');
-    card.className = 'product-card';
-    card.style.animationDelay = (i * 0.05) + 's';
-
-    var badgeHTML = p.badge
-      ? '<div class="p-badge" style="background:' + (p.badge.indexOf('-') !== -1 ? 'rgba(125,191,142,0.85)' : 'rgba(212,131,155,0.85)') + ';">' + p.badge + '</div>'
-      : '';
-    var estoqueClass = p.estoque <= 2 ? ' low' : '';
-    var estoqueText = p.estoque <= 0 ? 'Esgotado' : p.estoque <= 2 ? 'Últimas ' + p.estoque + ' peças' : p.estoque + ' disponíveis';
-
-    card.innerHTML =
-      '<div class="p-img">' +
-        '<img src="' + p.img + '" alt="' + p.nome + '" loading="lazy" onerror="this.src=\'/imagens_app/bolsa_beach.png\'">' +
-        badgeHTML +
-        '<button class="p-fav' + (isFav ? ' favorited' : '') + '" data-id="' + p.id + '" title="Favoritar"><i class="fas fa-heart"></i></button>' +
-      '</div>' +
-      '<div class="p-body">' +
-        '<div class="p-cat" style="background:' + cat.color + '14;color:' + cat.color + ';">' + cat.label + '</div>' +
-        '<div class="p-name">' + p.nome + '</div>' +
-        '<div class="p-desc">' + p.desc + '</div>' +
-        '<div class="p-bottom">' +
-          '<div>' +
-            '<div class="p-stock' + estoqueClass + '"><i class="fas fa-circle" style="font-size:0.4rem;"></i> ' + estoqueText + '</div>' +
-            '<div style="margin-top:4px;">' +
-              (p.precoOld > 0 ? '<span class="p-price-old">R$ ' + p.precoOld + '</span>' : '') +
-              '<span class="p-price">R$ ' + p.preco.toLocaleString('pt-BR') + '</span>' +
-            '</div>' +
-          '</div>' +
-          '<button class="btn-comprar" data-id="' + p.id + '"><i class="fas fa-shopping-bag"></i> Comprar</button>' +
-        '</div>' +
-      '</div>';
-
-    ct.appendChild(card);
-
-    card.querySelector('.p-fav').addEventListener('click', function(e) {
-      e.stopPropagation();
-      toggleFavorito(parseInt(this.getAttribute('data-id')));
-      this.classList.toggle('favorited');
-    });
-    card.querySelector('.btn-comprar').addEventListener('click', function(e) {
-      e.stopPropagation();
-      showToast('Interessado em: ' + p.nome + ' — Entraremos em contato!');
-    });
-    card.addEventListener('click', function() {
-      abrirLightboxGaleria([{img: p.img, caption: p.nome}], 0);
-    });
-  });
-}
-
-function toggleFavorito(id) {
-  var idx = favoritos.indexOf(id);
-  if (idx === -1) { favoritos.push(id); showToast('Adicionado aos favoritos'); }
-  else { favoritos.splice(idx, 1); showToast('Removido dos favoritos'); }
-  try { localStorage.setItem('atelier_favoritos', JSON.stringify(favoritos)); } catch(e) {}
-}
-
-// ===== RENDER GALERIA =====
-function renderGaleria() {
-  var ct = document.getElementById('feed-container');
-  ct.innerHTML = '';
-  ct.style.display = 'block';
-  ct.style.padding = '0';
-
-  var grid = document.createElement('div');
-  grid.className = 'gallery-grid';
-  grid.id = 'gallery-grid';
-
-  GALERIA_FOTOS.forEach(function(f, i) {
-    var item = document.createElement('div');
-    item.className = 'gallery-item' + (f.span ? ' span-2' : '');
-    item.style.animationDelay = (i * 0.04) + 's';
-    item.innerHTML = '<img src="' + f.img + '" alt="' + f.caption + '" loading="lazy" onerror="this.src=\'/imagens_app/bolsa_beach.png\'">';
-    item.addEventListener('click', function() { abrirLightboxGaleria(GALERIA_FOTOS, i); });
-    grid.appendChild(item);
-  });
-
-  ct.appendChild(grid);
-}
-
-// ===== RENDER SOBRE =====
-function renderSobre() {
-  var ct = document.getElementById('feed-container');
-  ct.innerHTML = '';
-  ct.style.display = 'block';
-  ct.style.padding = '16px';
-
-  var cards = [
-    {icon:'fas fa-heart',         color:'var(--accent)', title:'Nossa Essência',   text:'Cada peça conta uma história. Trabalhamos com técnicas tradicionais como tricô e crochê, sempre com um toque contemporâneo que respeita as raízes do artesanato brasileiro.'},
-    {icon:'fas fa-leaf',          color:'var(--verde)',  title:'Sustentabilidade', text:'Priorizamos materiais naturais e fibras sustentáveis. Nossas embalagens são de papel kraft e nossas fibras são de fontes responsáveis. Arte que respeita a natureza.'},
-    {icon:'fas fa-hand-sparkles', color:'var(--lilas)',  title:'Feito à Mão',      text:'Todas as peças são 100% artesanais. Nenhuma produção em massa. Quando você adquire uma peça, leva para casa algo verdadeiramente único, feito com tempo e dedicação.'},
-    {icon:'fas fa-users',         color:'var(--azul)',   title:'Comunidade',       text:'Participamos de feiras, eventos e workshops. Acreditamos que o artesanato conecta pessoas e preserva tradições. Venha nos conhecer pessoalmente!'}
-  ];
-
-  cards.forEach(function(c, i) {
-    var el = document.createElement('div');
-    el.className = 'about-card';
-    el.style.animationDelay = (i * 0.08) + 's';
-    el.innerHTML = '<h3><i class="' + c.icon + '" style="color:' + c.color + ';"></i> ' + c.title + '</h3><p>' + c.text + '</p>';
-    ct.appendChild(el);
-  });
-}
-
-// ===== RENDER CONTATO =====
-function renderContato() {
-  var ct = document.getElementById('feed-container');
-  ct.innerHTML = '';
-  ct.style.display = 'block';
-  ct.style.padding = '16px';
-
-  var info = document.createElement('div');
-  info.className = 'about-card';
-  info.style.animationDelay = '0s';
-  info.innerHTML =
-    '<h3><i class="fas fa-map-marker-alt" style="color:var(--accent);"></i> Onde Nos Encontrar</h3>' +
-    '<div class="contact-item"><i class="fas fa-location-dot" style="color:var(--accent);"></i><span>Salvador, BA — Brasil</span></div>' +
-    '<div class="contact-item"><i class="fab fa-whatsapp" style="color:#25D366;"></i><span>+55 (71) 99999-0000</span></div>' +
-    '<div class="contact-item"><i class="fas fa-envelope" style="color:var(--accent);"></i><span>contato@sorellesantos.art.br</span></div>' +
-    '<div class="contact-item"><i class="fab fa-instagram" style="color:var(--lilas);"></i><span>@atelier.sorelle.santos</span></div>' +
-    '<div class="social-links" style="margin-top:16px;">' +
-      '<a class="social-link" href="#"><i class="fab fa-instagram"></i></a>' +
-      '<a class="social-link" href="#"><i class="fab fa-whatsapp"></i></a>' +
-      '<a class="social-link" href="#"><i class="fab fa-facebook-f"></i></a>' +
-      '<a class="social-link" href="#"><i class="fab fa-pinterest-p"></i></a>' +
-      '<a class="social-link" href="#"><i class="fab fa-tiktok"></i></a>' +
-    '</div>';
-  ct.appendChild(info);
-
-  var lojas = document.createElement('div');
-  lojas.className = 'about-card';
-  lojas.style.animationDelay = '0.1s';
-  var lojasHTML = '<h3><i class="fas fa-store" style="color:var(--amarelo);"></i> Feiras e Lojas</h3>';
-  if (userStores.length === 0) {
-    lojasHTML += '<p style="color:var(--text-muted);font-size:0.8rem;">Nenhuma feira cadastrada ainda.</p>';
-  } else {
-    userStores.forEach(function(s) {
-      lojasHTML += '<div class="contact-item"><i class="fas fa-map-pin" style="color:var(--accent);"></i><div><div class="store-item-name">' + s.name + '</div><div class="store-item-cat">' + s.type + (s.url ? ' — ' + s.url : '') + '</div></div></div>';
+  // Menu Mobile Toggle
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  if(hamburger && mobileMenu) {
+    hamburger.addEventListener('click', () => {
+      mobileMenu.classList.toggle('open');
     });
   }
-  lojas.innerHTML = lojasHTML;
-  ct.appendChild(lojas);
-
-  var horario = document.createElement('div');
-  horario.className = 'about-card';
-  horario.style.animationDelay = '0.2s';
-  horario.innerHTML =
-    '<h3><i class="fas fa-clock" style="color:var(--azul);"></i> Horário</h3>' +
-    '<div class="contact-item"><i class="fas fa-sun" style="color:var(--amarelo);"></i><span>Seg a Sex: 9h às 18h</span></div>' +
-    '<div class="contact-item"><i class="fas fa-cloud-sun" style="color:var(--lilas);"></i><span>Sábado: 9h às 14h</span></div>' +
-    '<div class="contact-item"><i class="fas fa-moon" style="color:var(--text-muted);"></i><span>Domingo: Feiras e eventos</span></div>';
-  ct.appendChild(horario);
-}
-
-// ===== FILTROS =====
-function renderFiltros() {
-  var strip = document.getElementById('filter-strip');
-  strip.innerHTML = '';
-
-  var ca = document.createElement('button');
-  ca.className = 'filter-chip' + (!filtroAtivo ? ' active' : '');
-  ca.innerHTML = '<i class="fas fa-th"></i> Todas';
-  ca.addEventListener('click', function() { filtroAtivo = null; renderFiltros(); renderCurrentTab(); });
-  strip.appendChild(ca);
-
-  Object.keys(CATEGORIAS).forEach(function(k) {
-    var c = CATEGORIAS[k];
-    var ch = document.createElement('button');
-    ch.className = 'filter-chip' + (filtroAtivo === k ? ' active' : '');
-    ch.innerHTML = '<span class="chip-dot" style="background:' + c.color + ';"></span> ' + c.label;
-    ch.addEventListener('click', function() {
-      filtroAtivo = (filtroAtivo === k) ? null : k;
-      renderFiltros();
-      renderCurrentTab();
-    });
-    strip.appendChild(ch);
-  });
-}
-
-// ===== LIGHTBOX =====
-function abrirLightboxGaleria(fotos, idx) {
-  lightboxData = fotos;
-  lightboxIdx = idx;
-  atualizarLightbox();
-  document.getElementById('lightbox').classList.add('active');
-}
-function fecharLightbox() { document.getElementById('lightbox').classList.remove('active'); }
-function atualizarLightbox() {
-  if (!lightboxData.length) return;
-  var f = lightboxData[lightboxIdx];
-  document.getElementById('lb-img').src = f.img;
-  document.getElementById('lb-caption').textContent = f.caption || '';
-  document.getElementById('lb-counter').textContent = (lightboxIdx + 1) + ' / ' + lightboxData.length;
-  document.getElementById('lb-prev').style.display = lightboxData.length > 1 ? 'flex' : 'none';
-  document.getElementById('lb-next').style.display = lightboxData.length > 1 ? 'flex' : 'none';
-}
-function lightboxNav(dir) {
-  lightboxIdx = (lightboxIdx + dir + lightboxData.length) % lightboxData.length;
-  atualizarLightbox();
-}
-
-// ===== STORE LIST =====
-function renderStoreList() {
-  var l = document.getElementById('store-list');
-  l.innerHTML = '';
-  if (!userStores.length) {
-    l.innerHTML = '<div class="no-stores-msg"><i class="fas fa-map-marker-alt" style="display:block;margin-bottom:6px;opacity:0.3;font-size:1.2rem;"></i>Nenhuma feira cadastrada</div>';
-    return;
-  }
-  userStores.forEach(function(s, i) {
-    var it = document.createElement('div');
-    it.className = 'store-item';
-    it.style.animationDelay = (i * 0.05) + 's';
-    it.innerHTML =
-      '<div class="store-item-info">' +
-        '<div class="store-item-dot"></div>' +
-        '<div><div class="store-item-name">' + s.name + '</div><div class="store-item-cat">' + s.type + (s.url ? ' — ' + s.url : '') + '</div></div>' +
-      '</div>' +
-      '<button class="store-item-remove" data-idx="' + i + '"><i class="fas fa-times"></i></button>';
-    l.appendChild(it);
-    it.querySelector('.store-item-remove').addEventListener('click', function() {
-      userStores.splice(parseInt(this.getAttribute('data-idx')), 1);
-      try { localStorage.setItem('atelier_stores', JSON.stringify(userStores)); } catch(e) {}
-      renderStoreList();
-      showToast('Removido');
-    });
-  });
-}
-
-// ===== TAB ROUTER =====
-function renderCurrentTab() {
-  var strip = document.getElementById('filter-strip');
-  if (tabAtiva === 'feed') {
-    strip.style.display = 'flex';
-    renderFeed();
-  } else if (tabAtiva === 'galeria') {
-    strip.style.display = 'none';
-    renderGaleria();
-  } else if (tabAtiva === 'sobre') {
-    strip.style.display = 'none';
-    renderSobre();
-  } else if (tabAtiva === 'contato') {
-    strip.style.display = 'none';
-    renderContato();
-  }
-}
-
-// ===== DOM READY =====
-document.addEventListener('DOMContentLoaded', function() {
-
-  // Loading screen
-  setTimeout(function() { document.getElementById('loading-screen').classList.add('fade-out'); }, 1000);
-  setTimeout(function() { document.getElementById('loading-screen').style.display = 'none'; }, 1600);
-
-  // Hamburger
-  document.getElementById('hamburger').addEventListener('click', function() { toggleMenu(); });
-
-  // Mobile menu links
-  document.getElementById('menu-home').addEventListener('click', function(e) {
-    e.preventDefault(); fecharMenu(); tabAtiva = 'feed'; renderCurrentTab();
-    document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
-    document.querySelector('[data-tab="feed"]').classList.add('active');
-  });
-  document.getElementById('menu-gallery').addEventListener('click', function(e) {
-    e.preventDefault(); fecharMenu(); tabAtiva = 'galeria'; renderCurrentTab();
-    document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
-    document.querySelector('[data-tab="galeria"]').classList.add('active');
-  });
-  document.getElementById('menu-sobre').addEventListener('click', function(e) {
-    e.preventDefault(); fecharMenu(); tabAtiva = 'sobre'; renderCurrentTab();
-    document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
-    document.querySelector('[data-tab="sobre"]').classList.add('active');
-  });
-  document.getElementById('menu-contato').addEventListener('click', function(e) {
-    e.preventDefault(); fecharMenu(); tabAtiva = 'contato'; renderCurrentTab();
-    document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
-    document.querySelector('[data-tab="contato"]').classList.add('active');
-  });
-  document.getElementById('menu-info').addEventListener('click', function(e) {
-    e.preventDefault(); openModal('modal-info');
-  });
-  document.getElementById('menu-donate').addEventListener('click', function(e) {
-    e.preventDefault(); openModal('modal-donate');
-  });
-  document.getElementById('menu-add-product').addEventListener('click', function(e) {
-    e.preventDefault(); openModal('modal-add-product');
-  });
-  document.getElementById('menu-add-store').addEventListener('click', function(e) {
-    e.preventDefault(); renderStoreList(); openModal('modal-add-store');
-  });
-
-  // Modal fechamentos
-  document.getElementById('btn-info-close').addEventListener('click', function() { closeModal('modal-info'); });
-  document.getElementById('btn-donate-close').addEventListener('click', function() { closeModal('modal-donate'); });
-  document.getElementById('btn-prod-cancel').addEventListener('click', function() { closeModal('modal-add-product'); });
-  document.getElementById('btn-store-cancel').addEventListener('click', function() { closeModal('modal-add-store'); });
-  document.querySelectorAll('.modal-overlay').forEach(function(o) {
-    o.addEventListener('click', function(e) { if (e.target === o) o.classList.remove('active'); });
-  });
-
-  // PIX copy
-  document.getElementById('pix-copy-btn').addEventListener('click', function() {
-    try { navigator.clipboard.writeText('sorelle.santos@pix.com'); } catch(e) {}
-    showToast('Chave PIX copiada!');
-  });
-
-  // Cadastrar peça
-  document.getElementById('btn-prod-confirm').addEventListener('click', function() {
-    var nm = document.getElementById('inp-prod-name').value.trim();
-    if (!nm) { showToast('Digite o nome da peça'); return; }
-    var pr = parseFloat(document.getElementById('inp-prod-price').value);
-    if (!pr || pr <= 0) { showToast('Digite um preço válido'); return; }
-    var img = document.getElementById('inp-prod-img').value.trim() || '/imagens_app/bolsa_beach.png';
-    PRODUTOS.unshift({
-      id: Date.now(), nome: nm,
-      cat: document.getElementById('inp-prod-cat').value,
-      desc: document.getElementById('inp-prod-desc').value.trim() || 'Peça artesanal do Atelier.',
-      preco: pr, precoOld: 0, estoque: 1, img: img, badge: 'Nova'
-    });
-    document.getElementById('inp-prod-name').value = '';
-    document.getElementById('inp-prod-desc').value = '';
-    document.getElementById('inp-prod-price').value = '';
-    document.getElementById('inp-prod-img').value = '';
-    closeModal('modal-add-product');
-    showToast('Peça "' + nm + '" cadastrada!');
-    if (tabAtiva === 'feed') renderFeed();
-  });
-
-  // Inserir loja
-  document.getElementById('btn-store-confirm').addEventListener('click', function() {
-    var nm = document.getElementById('inp-store-name').value.trim();
-    if (!nm) { showToast('Digite o nome'); return; }
-    var tp = document.getElementById('inp-store-type');
-    userStores.push({ name: nm, url: document.getElementById('inp-store-url').value.trim(), type: tp.options[tp.selectedIndex].text });
-    try { localStorage.setItem('atelier_stores', JSON.stringify(userStores)); } catch(e) {}
-    document.getElementById('inp-store-name').value = '';
-    document.getElementById('inp-store-url').value = '';
-    renderStoreList();
-    showToast('Feira "' + nm + '" adicionada!');
-  });
-
-  // Bottom nav tabs
-  document.querySelectorAll('.tab-btn').forEach(function(b) {
-    b.addEventListener('click', function() {
-      document.querySelectorAll('.tab-btn').forEach(function(x) { x.classList.remove('active'); });
-      this.classList.add('active');
-      tabAtiva = this.getAttribute('data-tab');
-      renderCurrentTab();
-    });
-  });
-
-  // Search toggle
-  var sb = document.getElementById('search-bar');
-  document.getElementById('btn-search-toggle').addEventListener('click', function() {
-    searchActive = !searchActive;
-    sb.classList.toggle('active', searchActive);
-    if (searchActive) document.getElementById('search-query').focus();
-  });
-  document.getElementById('btn-search').addEventListener('click', function() {
-    if (tabAtiva === 'feed') renderFeed();
-    showToast('Busca atualizada');
-  });
-  document.getElementById('search-query').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') { if (tabAtiva === 'feed') renderFeed(); showToast('Busca atualizada'); }
-  });
-
-  // Lightbox
-  document.getElementById('lightbox-close').addEventListener('click', fecharLightbox);
-  document.getElementById('lb-prev').addEventListener('click', function() { lightboxNav(-1); });
-  document.getElementById('lb-next').addEventListener('click', function() { lightboxNav(1); });
-  document.getElementById('lightbox').addEventListener('click', function(e) { if (e.target === this) fecharLightbox(); });
-  document.addEventListener('keydown', function(e) {
-    if (document.getElementById('lightbox').classList.contains('active')) {
-      if (e.key === 'Escape') fecharLightbox();
-      else if (e.key === 'ArrowLeft') lightboxNav(-1);
-      else if (e.key === 'ArrowRight') lightboxNav(1);
-    }
-  });
-
-  // Init
-  renderFiltros();
-  renderFeed();
-});
 </script>
+
 </body>
 </html>
