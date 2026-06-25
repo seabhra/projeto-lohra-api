@@ -63,10 +63,29 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
 .mobile-menu a:hover{color:var(--accent);background:var(--accent-light)}
 
 /* ===== HERO BANNER (YELLOW) ===== */
-.hero{position:relative;width:100%;min-height:280px;overflow:hidden;display:flex;align-items:center;background:linear-gradient(135deg,#FFD43B 0%,#FFC107 50%,#FFA94D 100%);padding:40px 48px;flex-shrink:0}
+.hero{
+  position:relative;
+  width:100%;
+  min-height:280px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:space-between; /* Adicionado para separar texto e imagem */
+  background:linear-gradient(135deg,#FFD43B 0%,#FFC107 50%,#FFA94D 100%);
+  padding:40px 48px;
+  flex-shrink:0;
+  gap: 40px; /* Espaço seguro entre o texto e a imagem em telas menores */
+}
+
 .hero::before{content:'';position:absolute;top:-50px;right:-50px;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,0.12)}
 .hero::after{content:'';position:absolute;bottom:-80px;left:30%;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.08)}
-.hero-content{position:relative;z-index:2;max-width:600px}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+  flex: 1; /* Ocupa o espaço disponível à esquerda */
+}
+
 .hero-tag{display:inline-block;padding:8px 20px;border:2px solid #2D2D2D;border-radius:var(--radius-full);font-size:0.7rem;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:#2D2D2D;margin-bottom:20px;background:rgba(255,255,255,0.2)}
 .hero-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,6vw,4.2rem);font-weight:900;line-height:1;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;color:#2D2D2D}
 .hero-title span{display:block;font-style:italic;font-weight:700}
@@ -75,6 +94,49 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
 .hero-cta:hover{background:#000;box-shadow:0 6px 25px rgba(0,0,0,0.35);transform:translateY(-2px)}
 .hero-cta i{font-size:0.75rem}
 
+/* ===== MOLDURA ELEGANTE DA IMAGEM ===== */
+.hero-image-frame{
+  position:relative;
+  z-index:2;
+  flex-shrink:0;
+  max-width: 380px;
+  width: 35%;
+  padding: 12px; /* Espaço entre a foto e a borda preta */
+  background: #FFD43B; /* Cor interna da moldura combinando com o fundo */
+  border: 3px solid #2D2D2D; /* Borda principal */
+  outline: 2px solid #2D2D2D; /* Segunda borda externa para elegância */
+  outline-offset: 6px; /* Espaço entre a borda e o outline */
+  box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.hero-image-frame:hover {
+  transform: translateY(-5px) rotate(-1deg);
+  box-shadow: 0 20px 45px rgba(0,0,0,0.35);
+}
+
+.hero-image-frame img{
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 2px;
+}
+
+/* Responsividade: Em telas pequenas, a imagem desce para baixo do texto */
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+  }
+  .hero-content {
+    margin-bottom: 40px;
+  }
+  .hero-image-frame {
+    width: 70%;
+    max-width: 300px;
+  }
+}
 /* ===== CATEGORY TABS ===== */
 .cat-tabs{display:flex;background:#fff;border-bottom:1px solid var(--border);padding:0;flex-shrink:0;max-width:1200px;margin:0 auto;width:100%}
 .cat-tab{flex:1;padding:22px 8px;background:none;border:none;border-bottom:3px solid transparent;font-family:'Poppins',sans-serif;font-size:0.85rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--text-muted);cursor:pointer;transition:all 0.25s ease;position:relative;text-align:center}
@@ -279,10 +341,15 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
 <!-- HERO BANNER YELLOW -->
 <div class="hero" id="home">
   <div class="hero-content">
-    <div class="hero-tag">Endless Summer Savings</div>
+    <div class="hero-tag">Artesanato Mineiro em Estado Puro</div>
     <h1 class="hero-title">Style Your<span>Confidence</span></h1>
-    <p class="hero-sub">Bolsas e acessórios artesanais feitos à mão com carinho e dedicação</p>
-    <a class="hero-cta" href="#categorias">Shop Now <i class="fas fa-arrow-right"></i></a>
+    <p class="hero-sub">A essência mineira traduzida em bolsas e acessórios singulares, criados manualmente com dedicação e afeto.</p>
+    <a class="hero-cta" href="#categorias">Shop Now<i class="fas fa-arrow-right"></i></a>
+  </div>
+  
+  <!-- Imagem com Moldura Elegante -->
+  <div class="hero-image-frame">
+    <img src="/imagens_app/lohra_tres_bolsas" alt="Bolsas de couro artesanais Lohra">
   </div>
 </div>
 
