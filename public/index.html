@@ -63,28 +63,86 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
 .mobile-menu a:hover{color:var(--accent);background:var(--accent-light)}
 
 /* ===== HERO BANNER (YELLOW) ===== */
-.hero{
-  position:relative;
-  width:100%;
-  min-height:280px;
-  overflow:hidden;
-  display:flex;
-  align-items:center;
-  justify-content:space-between; /* Adicionado para separar texto e imagem */
-  background:linear-gradient(135deg,#FFD43B 0%,#FFC107 50%,#FFA94D 100%);
-  padding:40px 48px;
-  flex-shrink:0;
-  gap: 40px; /* Espaço seguro entre o texto e a imagem em telas menores */
+
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 280px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, #FFD43B 0%, #FFC107 50%, #FFA94D 100%);
+  padding: 40px 48px;
+  flex-shrink: 0;
+  gap: 40px;
 }
 
-.hero::before{content:'';position:absolute;top:-50px;right:-50px;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,0.12)}
-.hero::after{content:'';position:absolute;bottom:-80px;left:30%;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.08)}
-
-.hero-content{
-  position:relative;
-  z-index:2;
-  flex: 1; /* Ocupa o espaço disponível à esquerda */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
 }
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -80px;
+  left: 30%;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+}
+
+/* Imagem grande e sem moldura */
+  .hero-image-frame {
+position: relative;
+z-index: 2;
+flex-shrink: 0;
+background: none;
+border: none;
+box-shadow: none;
+padding: 0;
+}
+
+  .hero-image-frame img {
+width: 420px;
+max-width: 100%;
+height: auto;
+object-fit: contain;
+border: none;
+border-radius: 0;
+box-shadow: none;
+background: transparent;
+display: block;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 32px 24px;
+  }
+
+  .hero-image-frame img {
+    width: 85%;
+    max-height: 280px;
+  }
+}
+
 
 .hero-tag{display:inline-block;padding:8px 20px;border:2px solid #2D2D2D;border-radius:var(--radius-full);font-size:0.7rem;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:#2D2D2D;margin-bottom:20px;background:rgba(255,255,255,0.2)}
 .hero-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,6vw,4.2rem);font-weight:900;line-height:1;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;color:#2D2D2D}
