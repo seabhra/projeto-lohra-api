@@ -277,19 +277,21 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
 .p-add:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
 .p-add:active{transform:scale(0.96)}
 
-/* ===== PROMO BANNER 1 ===== */
+/* ===== PROMO BANNERS ===== */
 .promo-banner{max-width:1200px;margin:48px auto;padding:0 24px;width:100%}
 .promo-banner-inner{position:relative;border-radius:var(--radius-lg);overflow:visible;min-height:420px;display:flex;align-items:center;background:linear-gradient(135deg,#E1BEE7 0%,#F3E5F5 100%)}
 .promo-banner-inner.alt{background:linear-gradient(135deg,#E1BEE7 0%,#F3E5F5 100%)}
 
-.banner-1 .promo-banner-inner{background:linear-gradient(135deg,#E1BEE7,#F3E5F5);}
-.banner-1 .promo-banner-img{right:10px;bottom:15px;width:55%;height:560px;}
-.banner-1 .promo-banner-img img {width:110%;}
+.promo-banner-img{position:absolute;display:flex;align-items:flex-end;justify-content:center;overflow:visible;z-index:1}
+.promo-banner-img img{height:auto;max-height:90%;object-fit:contain;filter:drop-shadow(0 35px 35px rgba(0,0,0,.28));transition:.4s}
 
-.banner-2 .promo-banner-inner{background:linear-gradient(135deg,#FFE082,#FFF8E1);}
-.banner-2 .promo-banner-img{right:0;bottom:0;width:45%;height:420px;}
-.banner-2 .promo-banner-img img{width:90%;}
+.banner-1 .promo-banner-inner{background:linear-gradient(135deg,#E1BEE7,#F3E5F5)}
+.banner-1 .promo-banner-img{right:10px;bottom:15px;width:55%;height:560px}
+.banner-1 .promo-banner-img img{width:110%}
 
+.banner-2 .promo-banner-inner{background:linear-gradient(135deg,#FFE082,#FFF8E1)}
+.banner-2 .promo-banner-img{right:0;bottom:0;width:45%;height:420px}
+.banner-2 .promo-banner-img img{width:90%}
 
 .promo-banner-info{position:relative;z-index:2;padding:48px;max-width:42%}
 .promo-banner-inner:hover .promo-banner-img img{transform:translateY(-10px) scale(1.03)}
@@ -483,7 +485,6 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
 <!-- PROMO BANNER 1 -->
 <div class="promo-banner banner-1">
   <div class="promo-banner-inner">
-
     <div class="promo-banner-info">
       <div class="promo-banner-tag">Coleção Exclusiva</div>
       <h2 class="promo-banner-title">Bolsas <em>com Estilo</em></h2>
@@ -506,7 +507,6 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
 <!-- PROMO BANNER 2 -->
 <div class="promo-banner banner-2">
   <div class="promo-banner-inner">
-    
     <div class="promo-banner-info">
       <div class="promo-banner-tag">Novidade</div>
       <h2 class="promo-banner-title">Kits <em>Especiais</em></h2>
