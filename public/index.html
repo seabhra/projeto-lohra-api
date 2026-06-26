@@ -239,6 +239,146 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
 
 }
 
+/* ==========================================
+   PROMO BANNER 1 - BOLSA FLUTUANTE
+========================================== */
+
+.promo-banner{
+    max-width:1200px;
+    margin:60px auto;
+    padding:0 24px;
+}
+
+.promo-banner-inner{
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    min-height:420px;
+    background:linear-gradient(135deg,#d8b8ff 0%,#f1e5ff 100%);
+    border-radius:34px;
+    overflow:visible;
+    isolation:isolate;
+}
+
+.promo-banner-info{
+    width:48%;
+    padding:60px;
+    position:relative;
+    z-index:3;
+}
+
+.promo-banner-tag{
+    display:inline-block;
+    padding:8px 18px;
+    border-radius:999px;
+    background:#7f3cff;
+    color:#fff;
+    font-size:.7rem;
+    font-weight:700;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    margin-bottom:18px;
+}
+
+.promo-banner-title{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(2rem,4vw,3.2rem);
+    line-height:1.1;
+    margin-bottom:18px;
+    color:#2d2d2d;
+}
+
+.promo-banner-title em{
+    color:#7f3cff;
+    font-style:italic;
+}
+
+.promo-banner-desc{
+    max-width:420px;
+    color:#666;
+    line-height:1.8;
+    margin-bottom:30px;
+}
+
+.promo-banner-cta{
+    display:inline-flex;
+    align-items:center;
+    gap:12px;
+    padding:15px 34px;
+    border-radius:999px;
+    background:#2d2d2d;
+    color:#fff;
+    text-decoration:none;
+    font-weight:700;
+    transition:.3s;
+}
+
+.promo-banner-cta:hover{
+    background:#7f3cff;
+    transform:translateY(-3px);
+}
+
+/* IMAGEM FLUTUANTE */
+
+.promo-banner-img{
+    position:absolute;
+    right:20px;
+    bottom:-35px;
+    width:46%;
+    height:520px;
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+    z-index:2;
+    pointer-events:none;
+}
+
+.promo-banner-img img{
+    width:auto;
+    max-width:100%;
+    max-height:100%;
+    object-fit:contain;
+    filter:drop-shadow(0 35px 40px rgba(0,0,0,.28));
+    transition:.45s;
+}
+
+.promo-banner-inner:hover .promo-banner-img img{
+    transform:
+        translateY(-10px)
+        rotate(-2deg)
+        scale(1.04);
+}
+
+/* RESPONSIVO */
+
+@media(max-width:768px){
+
+    .promo-banner-inner{
+        flex-direction:column;
+        padding-top:40px;
+        min-height:auto;
+    }
+
+    .promo-banner-info{
+        width:100%;
+        padding:35px 28px;
+        text-align:center;
+    }
+
+    .promo-banner-desc{
+        margin:auto auto 25px;
+    }
+
+    .promo-banner-img{
+        position:relative;
+        right:auto;
+        bottom:-25px;
+        width:100%;
+        height:360px;
+    }
+}
+
 /* ===== CATEGORY TABS ===== */
 .cat-tabs{display:flex;background:#fff;border-bottom:1px solid var(--border);padding:0;flex-shrink:0;max-width:1200px;margin:0 auto;width:100%}
 .cat-tab{flex:1;padding:22px 8px;background:none;border:none;border-bottom:3px solid transparent;font-family:'Poppins',sans-serif;font-size:0.85rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--text-muted);cursor:pointer;transition:all 0.25s ease;position:relative;text-align:center}
@@ -400,6 +540,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
   .top-nav{padding:0 16px;height:60px}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important}}
+
 </style>
 </head>
 <body>
