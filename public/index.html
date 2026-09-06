@@ -6,7 +6,7 @@
 <title>Atelier Sorelle Santos — Endless Summer Collection</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-<link rel="shortcut icon" href="./imagens_app/ic_icon_app.png">
+<link rel="shortcut icon" href="./imagens_app/marca_cobra.png">
 <style>
 :root{
   --bg:#FFFFFF;
@@ -62,12 +62,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
 .mobile-menu a{display:flex;align-items:center;gap:12px;padding:14px 24px;color:var(--text-muted);text-decoration:none;font-family:'Poppins',sans-serif;font-size:0.85rem;font-weight:500;text-transform:uppercase;letter-spacing:0.8px;transition:all 0.2s}
 .mobile-menu a:hover{color:var(--accent);background:var(--accent-light)}
 
-/* ===== HERO BANNER (YELLOW) ===== */
-
-/* ======================================================
-   HERO BANNER
-====================================================== */
-
+/* ===== HERO BANNER ===== */
 .hero{
   position:relative;
   width:100%;
@@ -81,164 +76,28 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
   padding:40px 60px;
   flex-shrink:0;
 }
+.hero::before, .hero::after{display:none;content:none;}
 
-/* Remove completamente os shapes */
-.hero::before,
-.hero::after{
-  display:none;
-  content:none;
-}
+.hero-content{flex:1;position:relative;z-index:2;max-width:520px;}
+.hero-tag{display:inline-block;padding:8px 20px;border:2px solid #2D2D2D;border-radius:999px;font-size:.7rem;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:#2D2D2D;margin-bottom:20px;background:rgba(255,255,255,.18);}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,6vw,4.8rem);font-weight:900;line-height:.95;text-transform:uppercase;color:#2D2D2D;margin-bottom:12px;}
+.hero-title span{display:block;font-style:italic;font-weight:700;}
+.hero-sub{font-family:'Playfair Display',serif;font-size:clamp(1rem,2vw,1.15rem);color:#2D2D2D;opacity:.85;line-height:1.6;margin-bottom:30px;}
+.hero-cta{display:inline-flex;align-items:center;gap:10px;padding:15px 38px;background:#2D2D2D;color:#fff;border-radius:999px;text-decoration:none;font-weight:700;letter-spacing:2px;text-transform:uppercase;transition:.3s;}
+.hero-cta:hover{background:#000;transform:translateY(-2px);}
+.hero-cta i{font-size:.75rem;}
 
-/* ======================================================
-   TEXTO
-====================================================== */
-
-.hero-content{
-  flex:1;
-  position:relative;
-  z-index:2;
-  max-width:520px;
-}
-
-.hero-tag{
-  display:inline-block;
-  padding:8px 20px;
-  border:2px solid #2D2D2D;
-  border-radius:999px;
-  font-size:.7rem;
-  font-weight:800;
-  letter-spacing:3px;
-  text-transform:uppercase;
-  color:#2D2D2D;
-  margin-bottom:20px;
-  background:rgba(255,255,255,.18);
-}
-
-.hero-title{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(2.4rem,6vw,4.8rem);
-  font-weight:900;
-  line-height:.95;
-  text-transform:uppercase;
-  color:#2D2D2D;
-  margin-bottom:12px;
-}
-
-.hero-title span{
-  display:block;
-  font-style:italic;
-  font-weight:700;
-}
-
-.hero-sub{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(1rem,2vw,1.15rem);
-  color:#2D2D2D;
-  opacity:.85;
-  line-height:1.6;
-  margin-bottom:30px;
-}
-
-.hero-cta{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  padding:15px 38px;
-  background:#2D2D2D;
-  color:#fff;
-  border-radius:999px;
-  text-decoration:none;
-  font-weight:700;
-  letter-spacing:2px;
-  text-transform:uppercase;
-  transition:.3s;
-}
-
-.hero-cta:hover{
-  background:#000;
-  transform:translateY(-2px);
-}
-
-.hero-cta i{
-  font-size:.75rem;
-}
-
-/* ======================================================
-   IMAGEM
-====================================================== */
-
-.hero-image-frame{
-  flex:1.2;
-  display:flex;
-  justify-content:flex-end;
-  align-items:flex-end;
-
-  padding:0;
-  margin:0;
-
-  background:none;
-  border:none;
-  outline:none;
-  box-shadow:none;
-}
-
-.hero-image-frame img{
-
-  width:100%;
-  max-width:900px;
-
-  height:auto;
-
-  display:block;
-
-  object-fit:contain;
-
-  border:none;
-  outline:none;
-  border-radius:0;
-  box-shadow:none;
-
-  background:transparent;
-}
-
-/* ======================================================
-   RESPONSIVO
-====================================================== */
+.hero-image-frame{flex:1.2;display:flex;justify-content:flex-end;align-items:flex-end;padding:0;margin:0;background:none;border:none;outline:none;box-shadow:none;}
+.hero-image-frame img{width:100%;max-width:900px;height:auto;display:block;object-fit:contain;border:none;outline:none;border-radius:0;box-shadow:none;background:transparent;}
 
 @media (max-width:768px){
-
-.hero{
-  flex-direction:column;
-  justify-content:center;
-  text-align:center;
-  min-height:auto;
-  padding:35px 24px;
+  .hero{flex-direction:column;justify-content:center;text-align:center;min-height:auto;padding:35px 24px;}
+  .hero-content{max-width:100%;}
+  .hero-image-frame{width:100%;justify-content:center;}
+  .hero-image-frame img{width:95%;max-width:460px;}
+  .hero-title{font-size:2.7rem;}
+  .hero-sub{font-size:1rem;}
 }
-
-.hero-content{
-  max-width:100%;
-}
-
-.hero-image-frame{
-  width:100%;
-  justify-content:center;
-}
-
-.hero-image-frame img{
-  width:95%;
-  max-width:460px;
-}
-
-.hero-title{
-  font-size:2.7rem;
-}
-
-.hero-sub{
-  font-size:1rem;
-}
-
-}
-
 
 /* ===== CATEGORY TABS ===== */
 .cat-tabs{display:flex;background:#fff;border-bottom:1px solid var(--border);padding:0;flex-shrink:0;max-width:1200px;margin:0 auto;width:100%}
@@ -277,14 +136,12 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
 .p-add:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
 .p-add:active{transform:scale(0.96)}
 
-/* ===== PROMO BANNER 1 ===== */
+/* ===== PROMO BANNER ===== */
 .promo-banner{max-width:1200px;margin:48px auto;padding:0 24px;width:100%}
 .promo-banner-inner{position:relative;border-radius:var(--radius-lg);overflow:visible;min-height:420px;display:flex;align-items:center;background:linear-gradient(135deg,#E1BEE7 0%,#F3E5F5 100%)}
 .promo-banner-inner.alt{background:linear-gradient(135deg,#E1BEE7 0%,#F3E5F5 100%)}
 .promo-banner-img{position:absolute;right:10px;bottom:20px;width:55%;height:560px;display:flex;align-items:flex-end;justify-content:center;overflow:visible;z-index:1;}
 .promo-banner-img img{width:110%;height:auto;max-height:90%;object-fit:contain;filter:drop-shadow(0 35px 35px rgba(0,0,0,.28));transition:.4s;}
-
-
 .promo-banner-info{position:relative;z-index:2;padding:48px;max-width:42%}
 .promo-banner-inner:hover .promo-banner-img img{transform:translateY(-10px) scale(1.03)}
 .promo-banner-tag{display:inline-block;padding:6px 16px;border-radius:var(--radius-full);font-size:.65rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#fff;background:var(--accent);margin-bottom:16px}
@@ -295,15 +152,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
 .promo-banner-cta:hover{background:var(--accent);transform:translateY(-2px);box-shadow:0 6px 20px rgba(233,30,99,.3)}
 
 /* ===== BLOG SECTION ===== */
-.blog-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
-  padding: 0 24px 32px; /* Corrigido: espaçamento superior/inferior e laterais combinados */
-  margin: 0 auto 60px;  /* Corrigido: centraliza nas laterais e aplica os 60px abaixo */
-  max-width: 1200px;
-  width: 100%;
-}
+.blog-grid {display: grid;grid-template-columns: repeat(3, 1fr);gap: 28px;padding: 0 24px 32px;margin: 0 auto 60px;max-width: 1200px;width: 100%;}
 .blog-card{cursor:pointer;transition:all 0.3s ease;animation:cardIn 0.4s ease-out both}
 .blog-card:hover{transform:translateY(-4px)}
 .blog-img{position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;border-radius:var(--radius-md);margin-bottom:16px;background:#f0f0f0}
@@ -326,10 +175,44 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
 .newsletter h3 span{color:var(--yellow);font-style:italic}
 .newsletter p{color:rgba(255,255,255,0.7);font-size:0.9rem;margin-bottom:24px;line-height:1.6}
 .newsletter-form{display:flex;gap:10px;max-width:480px;margin:0 auto}
-.newsletter-form input{flex:1;padding:14px 20px;border-radius:var(--radius-full);border:none;background:rgba(255,255,255,0.1);color:#fff;font-size:0.85rem;font-family:'Poppins',sans-serif;outline:none}
+.newsletter-form input{flex:1;padding:14px 20px;border-radius:var(--radius-full);border:none;background:rgba(255,255,255,0.1);color:#fff;font-size:0.85rem;font-family:'Poppins',sans-serif;outline:none;transition:all 0.3s ease}
+.newsletter-form input:focus{background:rgba(255,255,255,0.15);box-shadow:0 0 0 2px var(--accent)}
 .newsletter-form input::placeholder{color:rgba(255,255,255,0.5)}
-.newsletter-form button{padding:14px 28px;border-radius:var(--radius-full);border:none;background:var(--accent);color:#fff;font-family:'Poppins',sans-serif;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;cursor:pointer;transition:all 0.2s ease;white-space:nowrap}
+.newsletter-form input.error{background:rgba(233,30,99,0.2);border:2px solid var(--accent)}
+.newsletter-form button{padding:14px 28px;border-radius:var(--radius-full);border:none;background:var(--accent);color:#fff;font-family:'Poppins',sans-serif;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;cursor:pointer;transition:all 0.2s ease;white-space:nowrap;position:relative}
 .newsletter-form button:hover{background:var(--accent-dark);transform:translateY(-2px)}
+.newsletter-form button:disabled{opacity:0.6;cursor:not-allowed;transform:none}
+.newsletter-form button .spinner{display:none;width:16px;height:16px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.8s linear infinite;margin-left:8px}
+.newsletter-form button.loading .spinner{display:inline-block}
+.newsletter-form button.loading .btn-text{opacity:0.7}
+
+/* ===== REDES SOCIAIS (CONTATO) ===== */
+.redes-sociais {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 32px;
+}
+.rede {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.rede:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(233,30,99,0.3);
+}
 
 /* ===== FOOTER ===== */
 .footer{background:#1a1a1a;color:#fff;padding:50px 24px 24px}
@@ -364,6 +247,8 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
 /* ===== TOAST ===== */
 .toast{position:fixed;top:80px;left:50%;transform:translateX(-50%) translateY(-20px);background:#2D2D2D;color:#fff;padding:12px 24px;border-radius:var(--radius-full);box-shadow:var(--shadow-lg);z-index:2000;opacity:0;font-size:0.82rem;font-weight:600;text-align:center;pointer-events:none;transition:opacity 0.3s ease,transform 0.3s ease;white-space:nowrap}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.success{background:var(--verde)}
+.toast.error{background:var(--accent)}
 
 /* ===== LOADING ===== */
 .loading-fullscreen{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity 0.6s ease,visibility 0.6s ease}
@@ -402,9 +287,10 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
   .newsletter-form{flex-direction:column}
   .newsletter-form button{width:100%}
   .top-nav{padding:0 16px;height:60px}
+  .redes-sociais {gap: 12px;}
+  .rede {width: 44px; height: 44px; font-size: 1.1rem;}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important}}
-
 </style>
 </head>
 <body>
@@ -418,7 +304,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
 <!-- ===== TOP NAV ===== -->
 <nav class="top-nav">
   <a class="nav-logo" href="#">
-    <img src="./imagens_app/ic_icon_app.png" alt="SS" onerror="this.src='https://via.placeholder.com/40/E91E63/FFFFFF?text=SS'">
+    <img src="./imagens_app/marca_cobra.png" alt="SS" onerror="this.src='https://via.placeholder.com/40/E91E63/FFFFFF?text=SS'">
     <span class="nav-logo-text">Sorelle<span>Santos</span></span>
   </a>
   <div class="nav-links" id="nav-links">
@@ -445,7 +331,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
   <a href="#contato">Contato</a>
 </div>
 
-<!-- HERO BANNER YELLOW -->
+<!-- HERO BANNER -->
 <div class="hero" id="home">
   <div class="hero-content">
     <div class="hero-tag">Artesanato Mineiro em Estado Puro</div>
@@ -454,10 +340,9 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
     <a class="hero-cta" href="#categorias">Shop Now<i class="fas fa-arrow-right"></i></a>
   </div>
   
-  <!-- Imagem com Moldura Elegante -->
   <div class="hero-image-frame">
     <img src="/imagens_app/bolsa_lohra_vinho.png" alt="Bolsa com estilo da marca Lohra" onerror="this.src='https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600&q=80'">
-     </div>
+  </div>
 </div>
 
 <!-- CATEGORY TABS -->
@@ -506,7 +391,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
       <a class="promo-banner-cta" href="#">Ver Detalhes <i class="fas fa-arrow-right"></i></a>
     </div>
     <div class="promo-banner-img">
-      <img src="/imagens_app/kit_todos.png" alt="Kits Especiais"  style="width:430px;height:320px; " onerror="this.src='https://images.unsplash.com/photo-1590739225297-6c3c3a3a3a3a?w=600&q=80'">
+      <img src="/imagens_app/kit_todos.png" alt="Kits Especiais" style="width:430px;height:320px;" onerror="this.src='https://images.unsplash.com/photo-1590739225297-6c3c3a3a3a3a?w=600&q=80'">
     </div>
   </div>
 </div>
@@ -525,15 +410,57 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
 </div>
 <div class="blog-grid" id="blog-grid"></div>
 
-<!-- NEWSLETTER -->
+<!-- NEWSLETTER / CONTATO -->
 <div class="newsletter" id="contato">
   <div class="newsletter-inner">
     <h3>Fique por dentro das <span>Novidades</span></h3>
     <p>Rebaixas exclusivas, lançamentos e dicas de moda artesanal direto no seu e-mail.</p>
-    <form class="newsletter-form" onsubmit="event.preventDefault();showToast('Inscrição realizada com sucesso!');this.reset()">
-      <input type="email" placeholder="Seu melhor e-mail" required>
-      <button type="submit">Inscrever</button>
+    <form class="newsletter-form" id="newsletter-form">
+      <input type="email" id="newsletter-email" placeholder="Seu melhor e-mail" required>
+      <button type="submit" id="newsletter-btn">
+        <span class="btn-text">Inscrever</span>
+        <span class="spinner"></span>
+      </button>
     </form>
+
+    <!-- Redes Sociais Inseridas -->
+    <div class="redes-sociais">
+      <!-- Facebook -->
+      <a href="https://facebook.com/ateliersorellesantos"
+         target="_blank"
+         rel="noopener noreferrer"
+         aria-label="Facebook"
+         class="rede facebook">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+
+      <!-- Instagram -->
+      <a href="https://instagram.com/ateliersorellesantos"
+         target="_blank"
+         rel="noopener noreferrer"
+         aria-label="Instagram"
+         class="rede instagram">
+        <i class="fab fa-instagram"></i>
+      </a>
+
+      <!-- Pinterest -->
+      <a href="https://pinterest.com/luseabhra"
+         target="_blank"
+         rel="noopener noreferrer"
+         aria-label="Pinterest"
+         class="rede pinterest">
+        <i class="fab fa-pinterest-p"></i>
+      </a>
+
+      <!-- WhatsApp -->
+      <a href="https://wa.me/5531991724766"
+         target="_blank"
+         rel="noopener noreferrer"
+         aria-label="WhatsApp"
+         class="rede whatsapp">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+    </div>
   </div>
 </div>
 
@@ -542,15 +469,15 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
   <div class="footer-inner">
     <div class="footer-col">
       <div class="footer-brand">
-        <img src="./imagens_app/ic_icon_app.png" alt="SS" onerror="this.src='https://via.placeholder.com/40/E91E63/FFFFFF?text=SS'">
+        <img src="./imagens_app/marca_cobra.png" alt="SS" onerror="this.src='https://via.placeholder.com/40/E91E63/FFFFFF?text=SS'">
         <span>Sorelle<span>Santos</span></span>
       </div>
       <p class="footer-desc">Atelier dedicado à criação de bolsas e acessórios artesanais feitos à mão com materiais selecionados e muito amor pela arte.</p>
       <div class="footer-social">
-        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-        <a href="#" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-        <a href="#" title="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+        <a href="https://facebook.com/ateliersorellesantos" target="_blank" rel="noopener noreferrer" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://instagram.com/ateliersorellesantos" target="_blank" rel="noopener noreferrer" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://pinterest.com/luseabhra" target="_blank" rel="noopener noreferrer" title="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+        <a href="https://wa.me/5531991724766" target="_blank" rel="noopener noreferrer" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
       </div>
     </div>
     <div class="footer-col">
@@ -583,7 +510,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
     </div>
   </div>
   <div class="footer-bottom">
-    © 2024 Atelier Sorelle Santos — Feito com amor e arte · Todos os direitos reservados
+    © 2026 Atelier Sorelle Santos — Feito com amor e arte · Todos os direitos reservados
   </div>
 </footer>
 
@@ -599,36 +526,64 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
+<!-- EmailJS SDK -->
+<script src="https://cdn.emailjs.com/sdk/3.2/email.min.js"></script>
+
 <script>
+// ===== CONFIGURAÇÃO EMAILJS =====
+// ⚠️ VOCÊ PRECISA CONFIGURAR ISTO:
+// 1. Crie conta em: https://www.emailjs.com/
+// 2. Crie um serviço de email (Gmail, Outlook, etc)
+// 3. Crie um template com variáveis: {{email}}, {{data}}
+// 4. Pegue suas credenciais no painel do EmailJS
+
+const EMAILJS_CONFIG = {
+  // Se usar Vite: import.meta.env.VITE_NOME_DA_VARIAVEL
+  // Se usar outro bundler, a sintaxe pode variar (ex: process.env)
+  publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'PUBLIC_KEY',
+  serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID || 'SERVICE_ID',
+  templateId: import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'TEMPLATE_ID'
+};
+
+// Inicializa o EmailJS
+emailjs.init(EMAILJS_CONFIG.publicKey);
+
 // ===== DATA =====
 var PRODUTOS=[
-  {id:1,nome:'Bolsa Beach',cat:'bolsas',desc:'Bolsa beach artesanal em crochê com alça ajustável.',preco:189,precoOld:229,estoque:5,img:'/imagens_app/bolsa_beach.png',badge:'Novo'},
-  {id:2,nome:'Bolsa Beach Branca',cat:'bolsas',desc:'Versão clássica da bolsa beach em crochê branco.',preco:199,precoOld:0,estoque:4,img:'/imagens_app/bolsa_beach_branca.png',badge:''},
-  {id:3,nome:'Bolsa Bege com Alça',cat:'bolsas',desc:'Bolsa bege com alça de couro legítimo. Design clean.',preco:220,precoOld:260,estoque:3,img:'/imagens_app/bolsa_bege_alca.png',badge:'-15%'},
-  {id:4,nome:'Bolsa Cru com Alça',cat:'bolsas',desc:'Bolsa em tom cru com alça de couro. Estilo rústico.',preco:235,precoOld:0,estoque:2,img:'/imagens_app/bolsa_cru_alca.png',badge:'Exclusivo'},
-  {id:5,nome:'Bolsa Indiana',cat:'bolsas',desc:'Bolsa estilo indiano em crochê com padrões geométricos.',preco:275,precoOld:320,estoque:4,img:'/imagens_app/bolsa_indiana.png',badge:'Destaque'},
-  {id:6,nome:'Bolsa Indiana Azul',cat:'bolsas',desc:'Variante da bolsa indiana em tons de azul pastel.',preco:275,precoOld:0,estoque:3,img:'/imagens_app/bolsa_indiana_azul.png',badge:''},
-  {id:7,nome:'Bolsa Praia Tela',cat:'bolsas',desc:'Bolsa de praia em tela artesanal com detalhes em tricô.',preco:165,precoOld:200,estoque:6,img:'/imagens_app/bolsa_praia_tela.png',badge:'-17%'},
-  {id:8,nome:'Bolsa Preta com Alça',cat:'bolsas',desc:'Bolsa preta elegante com alça de couro.',preco:250,precoOld:0,estoque:3,img:'/imagens_app/bolsa_preta_alca.png',badge:''},
-  {id:9,nome:'Bolsa Tigresa com Alça',cat:'bolsas',desc:'Estampa tigresa e alça dourada. Edição limitada.',preco:295,precoOld:0,estoque:2,img:'/imagens_app/bolsa_tigresa_alca.png',badge:'Limitada'},
-  {id:10,nome:'Bolsa Tira Colo',cat:'bolsas',desc:'Bolsa tiracolo artesanal em crochê. Prática e charmosa.',preco:175,precoOld:210,estoque:7,img:'/imagens_app/bolsa_tiracolo.png',badge:'-16%'},
-  {id:11,nome:'Bolsa Vinho',cat:'bolsas',desc:'Bolsa em tom vinho profundo feita em crochê.',preco:245,precoOld:0,estoque:3,img:'/imagens_app/bolsa_vinho.png',badge:''},
-  {id:12,nome:'Kit Azul',cat:'kits',desc:'Kit completo com bolsa e acessórios em tons de azul.',preco:389,precoOld:0,estoque:4,img:'/imagens_app/kit_azul.png',badge:'Novo'},
-  {id:13,nome:'Kit Bolsas',cat:'kits',desc:'Conjunto de mini bolsas artesanais variadas.',preco:450,precoOld:520,estoque:3,img:'/imagens_app/kit_bolsas.png',badge:'-13%'},
-  {id:14,nome:'Kit Namorados',cat:'kits',desc:'Kit para casais com bolsas combinando.',preco:520,precoOld:0,estoque:2,img:'/imagens_app/kit_namorados.png',badge:'Especial'},
-  {id:15,nome:'Kit Rosa',cat:'kits',desc:'Kit em tons de rosa pastel com bolsa e pochete.',preco:399,precoOld:0,estoque:5,img:'/imagens_app/kit_rosa.png',badge:''},
-  {id:16,nome:'Kit Verde',cat:'kits',desc:'Kit em tons de verde com bolsas e acessórios.',preco:399,precoOld:440,estoque:5,img:'/imagens_app/kit_verde.png',badge:'-9%'},
-  {id:17,nome:'Mochila Bege',cat:'mochilas',desc:'Mochila bege artesanal em crochê com forro interno.',preco:320,precoOld:0,estoque:4,img:'/imagens_app/mochila_bege.png',badge:''},
-  {id:18,nome:'Mochila Channel',cat:'mochilas',desc:'Mochila estilo channel em crochê com alça dupla.',preco:380,precoOld:420,estoque:3,img:'/imagens_app/mochila_channel.png',badge:'Premium'},
-  {id:19,nome:'Mochila Kids',cat:'mochilas',desc:'Mochila infantil colorida em crochê.',preco:195,precoOld:0,estoque:6,img:'/imagens_app/mochila_kids.png',badge:'Kids'},
-  {id:20,nome:'Mochila Xadrez',cat:'mochilas',desc:'Mochila com padrão xadrez em crochê.',preco:350,precoOld:0,estoque:3,img:'/imagens_app/mochila_xadrez.png',badge:''},
-  {id:21,nome:'Pochete Rosa',cat:'kits',desc:'Pochete rosa pastel em crochê com alça regulável.',preco:145,precoOld:0,estoque:8,img:'/imagens_app/pochete_rosa.png',badge:'Popular'},
-  {id:22,nome:'Pochete Tira Colo',cat:'kits',desc:'Pochete tiracolo em crochê artesanal.',preco:155,precoOld:180,estoque:7,img:'/imagens_app/pochete_tiracolo.png',badge:'-14%'}
+  {id:1,nome:'Bolsa Beach',cat:'bolsas',desc:'Bolsa beach artesanal – acompanhada uma bolsa de mão.',preco:153,precoOld:170,estoque:2,img:'/imagens_app/bolsa_beach.png',badge:'Novo'},
+  {id:2,nome:'Bolsa Beach Branca',cat:'bolsas',desc:'Versão clássica da bolsa beach – acompanhada uma bolsa de mão.',preco:154,precoOld:170,estoque:2,img:'/imagens_app/bolsa_beach_branca.png',badge:''},
+  {id:3,nome:'Bolsa Carteiro',cat:'bolsas',desc:'Bolsa Carteiro bege. Design clean.',preco:144,precoOld:160,estoque:2,img:'/imagens_app/bolsa_bege_alca.png',badge:'-10%'},
+  {id:4,nome:'Bolsa Hobo',cat:'bolsas',desc:'Bolsa Tecido Hobo. Estilo rústico.',preco:144,precoOld:160,estoque:2,img:'/imagens_app/bolsa_cru_alca.png',badge:'Exclusivo'},
+  {id:5,nome:'Bolsa Indiana Bege',cat:'bolsas',desc:'Bolsa em tecido listrado impermeável.',preco:157.50,precoOld:175,estoque:1,img:'/imagens_app/bolsa_indiana.png',badge:'Destaque'},
+  {id:6,nome:'Bolsa Indiana Azul',cat:'bolsas',desc:'Bolsa em tecido listrado impermeável .',preco:157.50,precoOld:170,estoque:2,img:'/imagens_app/bolsa_indiana_azul.png',badge:''},
+  {id:7,nome:'Bolsa Praia Tela',cat:'bolsas',desc:'Bolsa de praia em tela artesanal – acompanhada de uma bolsa de mão.',preco:153,precoOld:170,estoque:2,img:'/imagens_app/bolsa_praia_tela.png',badge:'-10%'},
+  {id:8,nome:'Bolsa Hobo',cat:'bolsas',desc:'Bolsa Hobo preta em tecido. Estilo Casual',preco:144,precoOld:160,estoque:2,img:'/imagens_app/bolsa_preta_alca.png',badge:''},
+  {id:9,nome:'Bolsa Hobo',cat:'bolsas',desc:'Bolsa Hobo Estampa tigresa. Edição limitada.',preco:144,precoOld:160,estoque:2,img:'/imagens_app/bolsa_tigresa_alca.png',badge:'Limitada'},
+  {id:10,nome:'Bolsa Tira Colo',cat:'bolsas',desc:'Bolsa tiracolo em jeans com estampa floral . Prática e charmosa.',preco:88,precoOld: 97.90,estoque:2,img:'/imagens_app/bolsa_tiracolo.png',badge:'-10%'},
+  {id:11,nome:'Bolsa Hobo',cat:'bolsas',desc:'Bolsa Hobo camurça vinho.',preco:144,precoOld:160,estoque:2,img:'/imagens_app/bolsa_vinho.png',badge:''},
+  {id:12,nome:'Kit Azul',cat:'kits',desc:'Kit completo com porta-óculos e mini necessaire.',preco:54.40,precoOld:66,estoque:2,img:'/imagens_app/kit_azul.png',badge:'Novo'},
+  {id:13,nome:'Kit Necessaires',cat:'kits',desc:'Kit com uma nécessaire grande, uma necessaire multiuso, uma mini necessaire, um porta-óculos.',preco:135,precoOld:150,estoque:2,img:'/imagens_app/kit_bolsas.png',badge:'-10%'},
+  {id:14,nome:'Kit Charmoso',cat:'kits',desc:'Kit para presentear: Contém uma mini necessaire, um bucha de banho, uma base de unha e um copo com itens de maquiagem, tudo acompanhado por uma nécessaire cristal',preco:80,precoOld:89,estoque:2,img:'/imagens_app/kit_namorados.png',badge:'Especial'},
+  {id:15,nome:'Kit Rosa',cat:'kits',desc:'Kit Rosa com porta-óculos e uma mini necessaire.',preco:66,precoOld:72.60,estoque:2,img:'/imagens_app/kit_rosa.png',badge:''},
+  {id:16,nome:'Kit Verde',cat:'kits',desc:'Kit  verde com porta-óculos e uma nini necessaire.',preco:66,precoOld:72.60,estoque:2,img:'/imagens_app/kit_verde.png',badge:'-10%'},
+  {id:17,nome:'Mochila Antifurto',cat:'mochilas',desc:'Mochila Antifurto caramelo.',preco:189,precoOld:210,estoque:1,img:'/imagens_app/mochila_bege.png',badge:'Especial'},
+  {id:18,nome:'Mochila Antifurto',cat:'mochilas',desc:'Mochila Antifurto preta dupla.',preco:189,precoOld:210,estoque:1,img:'/imagens_app/mochila_channel.png',badge:'Premium'},
+  {id:19,nome:'Mochila Kids',cat:'mochilas',desc:'Mochila Kids em tecido matelassê.',preco:81,precoOld:90,estoque:2,img:'/imagens_app/mochila_kids.png',badge:'Kids'},
+  {id:20,nome:'Mochila Antifurto',cat:'mochilas',desc:'Mochila Antifurto xadrez.',preco:189,precoOld:210,estoque:1,img:'/imagens_app/mochila_xadrez.png',badge:'Especial'},
+  {id:21,nome:'Necessaire Kids',cat:'kits',desc:'Necessaire infantil impermeável.',preco:79,precoOld:189,estoque:2,img:'/imagens_app/pochete_rosa.png',badge:'Popular'},
+  {id:22,nome:'Bolsa Tiracolo',cat:'kits',desc:'Bolsa tiracolo com alça regulável.',preco:76,precoOld:85,estoque:2,img:'/imagens_app/pochete_tiracolo.png',badge:'-10%'},
+  {id:23,nome:'Bolsa Classica',cat:'bolsas',desc:'Bolsa Clássica com 2 bolsos frontais e 2 bolsos internos, mesclando tecido e sintético.',preco:179.90,precoOld:199.90,estoque:2,img:'/imagens_app/bolsa_classica.png',badge:'-10%'},
+  {id:24,nome:'Bolsa Verão',cat:'bolsas',desc:'Bolsa Verão Preta com alça transversal regulável e bolso frontal estampado.',preco:89.90,precoOld:99.90,estoque:2,img:'/imagens_app/bolsa_preta.png',badge:'-10%'},
+  {id:25,nome:'Bolsa Verão',cat:'bolsas',desc:'Bolsa Verão Azul com alça transversal regulável e bolso frontal estampado.',preco:89.90,precoOld:99.90,estoque:2,img:'/imagens_app/bolsa_azul.png',badge:'-10%'},
+  {id:26,nome:'Bolsa Verão',cat:'bolsas',desc: 'Bolsa Verão Terracota com alça transversal regulável e bolso frontal estampado.',preco:89.90,precoOld:99.90,estoque:2,img:'/imagens_app/bolsa_terracota.png',badge:'-10%'},
+  {id:27,nome:'Bolsa Verão',cat:'bolsas',desc:'Bolsa Verão Caramelo com alça transversal regulável e bolso frontal estampado.',preco:89.90,precoOld:99.90,estoque:2,img:'/imagens_app/bolsa_caramelo.png',badge:'-10%'},
+  {id:28,nome:'Bolsa Maleta',cat:'bolsas',desc:'Bolsa Maleta de mão com possibilidade de extensão e alça transversal regulável.',preco:179.90,precoOld:199.90,estoque:2,img:'/imagens_app/bolsa_maleta.png',badge:'-10%'},
+  {id:29,nome:'Bolsa Tiracolo',cat:'bolsas',desc:'Bolsa tiracolo com aba caramelo com alça regulável.',preco:80,precoOld:89,estoque:2,img:'/imagens_app/bolsa_transversal.png',badge:'-10%'}
 ];
 
 var BLOG_POSTS=[
-  {img:'/imagens_app/bolsa_indiana.png',cat:'Tendências',title:'Como usar bolsas de crochê no verão 2024',excerpt:'Descubra as melhores formas de combinar suas peças artesanais com looks de verão.',dia:'15',mes:'Mai'},
-  {img:'/imagens_app/mochila_channel.png',cat:'DIY',title:'Os segredos do crochê artesanal',excerpt:'Aprenda técnicas utilizadas no atelier para criar peças únicas e duráveis.',dia:'08',mes:'Mai'},
+  {img:'/imagens_app/bolsa_indiana.png',cat:'Tendências',title:'Como usar bolsas em tecido no verão 2024',excerpt:'Descubra as melhores formas de combinar suas peças artesanais com looks de verão.',dia:'15',mes:'Mai'},
+  {img:'/imagens_app/mochila_channel.png',cat:'DIY — Do It Yourself',title:'Mochila Antifurto',excerpt:'Aprenda técnicas utilizadas no atelier para criar peças únicas e duráveis.',dia:'08',mes:'Mai'},
   {img:'/imagens_app/kit_rosa.png',cat:'Estilo',title:'5 looks para usar com kit rosa pastel',excerpt:'Inspirações de looks completos usando nossas peças em tons de rosa.',dia:'02',mes:'Mai'}
 ];
 
@@ -639,11 +594,15 @@ var lightboxIdx=0;
 
 // ===== TOAST =====
 var toastTimer=null;
-function showToast(m){
+function showToast(m, type = ''){
   var t=document.getElementById('toast');
-  t.textContent=m;t.classList.add('show');
+  t.textContent=m;
+  t.className = 'toast show ' + type;
   clearTimeout(toastTimer);
-  toastTimer=setTimeout(function(){t.classList.remove('show')},2800);
+  toastTimer=setTimeout(function(){
+    t.classList.remove('show');
+    t.className = 'toast';
+  }, 2800);
 }
 
 // ===== MOBILE MENU =====
@@ -812,22 +771,71 @@ document.addEventListener('keydown',function(e){
   if(e.key==='ArrowRight')document.getElementById('lb-next').click();
 });
 
+// ===== NEWSLETTER FUNCIONAL =====
+document.getElementById('newsletter-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  
+  const emailInput = document.getElementById('newsletter-email');
+  const btn = document.getElementById('newsletter-btn');
+  const email = emailInput.value.trim();
+  
+  // Validação de email
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    emailInput.classList.add('error');
+    showToast('Por favor, insira um e-mail válido.', 'error');
+    setTimeout(() => emailInput.classList.remove('error'), 3000);
+    return;
+  }
+  
+  // Estado de loading
+  btn.classList.add('loading');
+  btn.disabled = true;
+  
+  try {
+    // Verifica se EmailJS está configurado
+    if (EMAILJS_CONFIG.publicKey === 'SUA_PUBLIC_KEY_AQUI') {
+      // Simulação de envio (modo demonstração)
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      console.log('📧 E-mail cadastrado:', email);
+      console.log('⚠️ Para ativar o envio real, configure as credenciais do EmailJS no código.');
+      showToast('✓ Inscrição realizada com sucesso! (Modo demonstração)', 'success');
+    } else {
+      // Envio real via EmailJS
+      await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, {
+        email: email,
+        data: new Date().toLocaleString('pt-BR'),
+        mensagem: 'Nova inscrição na newsletter'
+      });
+      showToast('✓ Inscrição realizada com sucesso!', 'success');
+    }
+    
+    // Limpa o formulário
+    emailInput.value = '';
+    emailInput.classList.remove('error');
+    
+  } catch (error) {
+    console.error('Erro ao enviar newsletter:', error);
+    showToast('Erro ao enviar. Tente novamente.', 'error');
+  } finally {
+    // Remove estado de loading
+    btn.classList.remove('loading');
+    btn.disabled = false;
+  }
+});
+
 // ===== INIT =====
 function init(){
-  // Fresh Offers - primeira categoria ativa (bolsas)
   var fresh=PRODUTOS.filter(function(p){return p.cat===catAtiva}).slice(0,8);
   renderGrid('product-grid',fresh);
   
-  // Best Sellers - mistura de categorias
   var best=PRODUTOS.filter(function(p){return p.badge&&p.badge.length>0}).slice(0,8);
   if(best.length<4)best=PRODUTOS.slice(4,12);
   renderGrid('best-sellers',best);
   
-  // New Arrivals
   var news=PRODUTOS.slice(8,16);
   renderGrid('new-arrivals',news);
   
-  // Blog
   renderBlog();
 }
 
