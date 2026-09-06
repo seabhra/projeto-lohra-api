@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lohra · Reels Limpo</title>
+<style>
+  body { margin:0; background:#000; display:flex; justify-content:center; align-items:center; height:100vh; font-family: sans-serif; }
+  #stage { width:360px; height:640px; position:relative; overflow:hidden; background:#111; cursor: pointer; }
+  canvas { position:absolute; width:100%; height:100%; }
+  .play-msg { color: white; position: absolute; z-index: 10; text-align: center; width: 100%; top: 50%; pointer-events: none; }
+</style>
+</head>
+<body>
+
+<div id="stage" id="player">
+  <div class="play-msg" id="msg">Clique para iniciar</div>
+  <canvas id="canvas"></canvas>
+</div>
+
+<script>
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+const msg = document.getElementById("msg");
+
+canvas.width = 1080;
+canvas.height = 1920;
+
+const DURATION = 12; 
+let globalT = 0;
+let last = null;
+let started = false;
+
+// --- ÁUDIOS ---
+const bg = new Audio("https://projeto-lohra-api.vercel.app/api/media?type=audio&file=heart.mp3");
+const voice = new Audio("https://projeto-lohra-api.vercel.app/api/media?type=audio&file=audio_narracao.ogg");
+
+// --- IMAGENS (Adicionado anti-cache) ---
+const tS = new Date().getTime(); // Força atualização
+const img1 = new Image();
+const img2 = new Image();
+const img3 = new Image();
+
+img1.src = `https://projeto-lohra-api.vercel.app/api/media?type=image&file=kit_azul.jpeg&v=${tS}`;
+img2.src = `https://projeto-lohra-api.vercel.app/api/media?type=image&file=kit_rosa.jpeg&v=${tS}`;
+img3.src = `https://projeto-lohra-api.vercel.app/api/media?type=image&file=kit_verde.jpeg&v=${tS}`;
+
+function ease(t) { return t * t * (3 - 2 * t); }
+
+function draw(t) {
+  ctx.clearRect(0, 0, 1080, 1920);
+  
+  if (t < 0.5) {
+    let m = ease(t / 0.5);
+    ctx.globalAlpha = 1;
+    ctx.drawImage(img1, 0, 0, 1080, 1920);
+    ctx.globalAlpha = m;
+    ctx.drawImage(img2, 0, 0, 1080, 1920);
+  } else {
+    let m = ease((t - 0.5) / 0.5);
+    ctx.globalAlpha = 1;
+    ctx.drawImage(img2, 0, 0, 1080, 1920);
+    ctx.globalAlpha = m;
+    ctx.drawImage(img3, 0, 0, 1080, 1920);
+  }
+}
+
+function loop(ts) {
+  if (!last) last = ts;
+  const delta = ts - last;
+  globalT += delta / (DURATION * 1000);
+
+  if (globalT > 1) globalT = 1;
+
+  draw(globalT);
+
+  // Fade out do áudio no fim
+  if (globalT > 0.9) {
+    bg.volume = Math.max(0, bg.volume - 0.05);
+    voice.volume = Math.max(0, voice.volume - 0.05);
+  }
+
+  if (globalT < 1) {
+    last = ts;
+    requestAnimationFrame(loop);
+  }
+}
+
+// Iniciar ao clique
+document.getElementById("stage").onclick = () => {
+  if (started) return;
+  started = true;
+  msg.style.display = "none";
+  
+  bg.volume = 0.3;
+  voice.volume = 1.0;
+  bg.play();
+  voice.play();
+  
+  requestAnimationFrame(loop);
+};
+</script>
+</body>
+</html>
