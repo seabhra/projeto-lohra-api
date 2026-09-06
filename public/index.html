@@ -531,19 +531,14 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
 
 <script>
 // ===== CONFIGURAÇÃO EMAILJS =====
-// ⚠️ VOCÊ PRECISA CONFIGURAR ISTO:
-// 1. Crie conta em: https://www.emailjs.com/
-// 2. Crie um serviço de email (Gmail, Outlook, etc)
-// 3. Crie um template com variáveis: {{email}}, {{data}}
-// 4. Pegue suas credenciais no painel do EmailJS
 
 const EMAILJS_CONFIG = {
-  // Se usar Vite: import.meta.env.VITE_NOME_DA_VARIAVEL
-  // Se usar outro bundler, a sintaxe pode variar (ex: process.env)
-  publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'PUBLIC_KEY',
-  serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID || 'SERVICE_ID',
-  templateId: import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'TEMPLATE_ID'
+
+  publicKey: 'PUBLIC_KEY',         // Ex: 'user_abc123xyz'
+  serviceId: 'SERVICE_ID',          // Ex: 'service_abc123'
+  templateId: 'TEMPLATE_ID'         // Ex: 'template_xyz789'
 };
+
 
 // Inicializa o EmailJS
 emailjs.init(EMAILJS_CONFIG.publicKey);
