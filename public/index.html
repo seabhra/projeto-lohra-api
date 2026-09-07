@@ -304,7 +304,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
 <!-- ===== TOP NAV ===== -->
 <nav class="top-nav">
   <a class="nav-logo" href="#">
-    <img src="./imagens_app/marca_cobra.png" alt="SS" onerror="this.src='https://via.placeholder.com/40/E91E63/FFFFFF?text=SS'">
+    <img src="./imagens_app/marca_lilas.png" alt="SS" onerror="this.src='https://via.placeholder.com/40/E91E63/FFFFFF?text=SS'">
     <span class="nav-logo-text">Sorelle<span>Santos</span></span>
   </a>
   <div class="nav-links" id="nav-links">
@@ -469,7 +469,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
   <div class="footer-inner">
     <div class="footer-col">
       <div class="footer-brand">
-        <img src="./imagens_app/marca_cobra.png" alt="SS" onerror="this.src='https://via.placeholder.com/40/E91E63/FFFFFF?text=SS'">
+        <img src="./imagens_app/marca_lilas.png" alt="SS" onerror="this.src='https://via.placeholder.com/40/E91E63/FFFFFF?text=SS'">
         <span>Sorelle<span>Santos</span></span>
       </div>
       <p class="footer-desc">Atelier dedicado à criação de bolsas e acessórios artesanais feitos à mão com materiais selecionados e muito amor pela arte.</p>
@@ -528,20 +528,23 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
 
 <!-- EmailJS SDK -->
 <script src="https://cdn.emailjs.com/sdk/3.2/email.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
 
 <script>
 // ===== CONFIGURAÇÃO EMAILJS =====
 
 const EMAILJS_CONFIG = {
 
-  publicKey: 'PUBLIC_KEY',         // Ex: 'user_abc123xyz'
-  serviceId: 'SERVICE_ID',          // Ex: 'service_abc123'
-  templateId: 'TEMPLATE_ID'         // Ex: 'template_xyz789'
+  publicKey: 'g7JNHYPlCYjoZw9rC',         // Ex: 'user_abc123xyz'
+  serviceId: 'service_yhxpzql',          // Ex: 'service_abc123'
+  templateId: 'template_d157i4d'        // Ex: 'template_xyz789'
 };
 
 
 // Inicializa o EmailJS
-emailjs.init(EMAILJS_CONFIG.publicKey);
+ emailjs.init(EMAILJS_CONFIG.publicKey);
+
 
 // ===== DATA =====
 var PRODUTOS=[
