@@ -782,7 +782,8 @@ document.addEventListener('keydown',function(e){
   if(e.key==='ArrowRight')document.getElementById('lb-next').click();
 });
 
-// ===== NEWSLETTER FUNCIONAL =====
+
+// ===== NEWSLETTER FUNCIONAL (INTEGRADA COM API PYTHON) =====
 document.getElementById('newsletter-form').addEventListener('submit', async function(e) {
   e.preventDefault();
   
@@ -804,32 +805,30 @@ document.getElementById('newsletter-form').addEventListener('submit', async func
   btn.disabled = true;
   
   try {
-    // Verifica se EmailJS está configurado
-    if (EMAILJS_CONFIG.publicKey === 'SUA_PUBLIC_KEY_AQUI') {
-      // Simulação de envio (modo demonstração)
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      console.log('📧 E-mail cadastrado:', email);
-      console.log('⚠️ Para ativar o envio real, configure as credenciais do EmailJS no código.');
-      showToast('✓ Inscrição realizada com sucesso! (Modo demonstração)', 'success');
+    // URL da sua API Python (ajuste quando estiver em produção)
+    const API_URL = 'http://127.0.0.1:8000/newsletter'; 
+    
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email: email })
+    });
+    
+    if (response.ok) {
+      const data = await response.json();
+      showToast('✓ Inscrição realizada com sucesso! Bem-vinda à Sorelle Santos.', 'success');
+      emailInput.value = ''; // Limpa o campo
     } else {
-      // Envio real via EmailJS
-      await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, {
-        email: email,
-        data: new Date().toLocaleString('pt-BR'),
-        mensagem: 'Nova inscrição na newsletter'
-      });
-      showToast('✓ Inscrição realizada com sucesso!', 'success');
+      const errData = await response.json();
+      showToast(errData.detail || 'Erro ao inscrever. Tente novamente.', 'error');
     }
     
-    // Limpa o formulário
-    emailInput.value = '';
-    emailInput.classList.remove('error');
-    
   } catch (error) {
-    console.error('Erro ao enviar newsletter:', error);
-    showToast('Erro ao enviar. Tente novamente.', 'error');
+    console.error('Erro de conexão com a API:', error);
+    showToast('Erro de conexão. Verifique se a API está rodando.', 'error');
   } finally {
-    // Remove estado de loading
     btn.classList.remove('loading');
     btn.disabled = false;
   }
